@@ -154,6 +154,34 @@
 .lesson-theme .deep-dive-card{background:linear-gradient(150deg,#fffdf5,#f0efff)}.lesson-theme .deep-dive-stage{background:linear-gradient(145deg,#fff,#eef8ff);border:3px solid #dde3ff}.lesson-theme .word-grid button{border:3px solid #fff;background:linear-gradient(145deg,#fff7c7,#ffe99d);box-shadow:inset 0 -5px 0 #f1c768,0 9px 18px #6a633127}.lesson-theme .focus-card{background:radial-gradient(circle at 50% 0,#d8f7ff,#fff 48%,#eeeaff)}.lesson-theme .focus-icon{background:linear-gradient(145deg,#64dced,#2ba6d3);color:#fff;border:3px solid #c8f8ff;box-shadow:inset 0 -5px 0 #2185bd,0 9px 20px #287eac35}.lesson-theme .listen-orb button{background:linear-gradient(145deg,#8d72f2,#5b53d5);border:4px solid #dfd9ff;box-shadow:inset 0 -6px 0 #423ca7,0 0 0 10px #5a55e712,0 12px 28px #5550d654}.lesson-theme .voice-shell{background:linear-gradient(145deg,#fff,#f4f0ff)}
 @media(max-width:760px){.app-shell.lesson-theme:before{background:linear-gradient(180deg,#77dcff9e,#e6faffee 31%,#f3f1ffff),url("/map-magic-school.png") center top/cover}.lesson-theme .topbar{background:linear-gradient(100deg,#5548c9,#6557df)}.lesson-theme .sidebar{background:linear-gradient(90deg,#f6f0ff,#e5f8ff);border-bottom:3px solid #fff}.lesson-theme .unit-title-row{padding:18px;border-radius:22px}.lesson-theme .lesson-mission{transform:none}.lesson-theme .lesson-tabs{gap:7px}.lesson-theme .lesson-tab{min-height:92px;border-width:2px;border-radius:15px}.lesson-theme .lesson-tab.active{padding:7px 2px;border-width:3px;box-shadow:inset 0 -5px 0 #26316b42,0 0 0 2px #4d59c9,0 10px 20px #3e4f953d}}
 
+/* Grade selection is a separate step before the learning map */
+.journey-select-screen{background:radial-gradient(circle at 50% 0,#5b63eb 0,#242b91 38%,#10164f 100%)}
+.journey-select-wrap{width:min(980px,calc(100% - 36px));margin:38px auto 60px;text-align:center}
+.journey-select-wrap>.road-kicker{justify-content:center;color:#8be9ff}
+.journey-select-wrap h1{font-size:42px;letter-spacing:-1.2px;margin:9px 0 5px}
+.journey-select-wrap>p{margin:0;color:#cdd4ff;font-size:15px}
+.journey-select-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+.journey-select-card{position:relative;min-height:270px;overflow:hidden;border:4px solid #fff;border-radius:28px;padding:28px 22px 22px;color:#fff;text-align:left;display:flex;flex-direction:column;align-items:flex-start;box-shadow:inset 0 -9px 0 #20276c42,0 20px 45px #070b3975;transition:.2s}
+.journey-select-card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-65px;top:-55px;background:#ffffff18}
+.journey-select-card:hover{transform:translateY(-7px) rotate(-1deg);filter:saturate(1.08)}
+.journey-select-card.school{background:linear-gradient(145deg,#ff8a79,#e95575)}
+.journey-select-card.forest{background:linear-gradient(145deg,#54d9a0,#229a78)}
+.journey-select-card.city{background:linear-gradient(145deg,#55cdea,#397ad7)}
+.journey-card-number{position:absolute;right:18px;top:17px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#ffffff26;border:2px solid #ffffff70;font-size:13px;font-weight:1000}
+.journey-card-emoji{position:relative;width:78px;height:78px;border-radius:24px;display:grid;place-items:center;background:#fff;font-size:40px;box-shadow:inset 0 -6px 0 #dfe5f1,0 10px 22px #17255336}
+.journey-card-copy{position:relative;display:flex;flex-direction:column;margin-top:22px}
+.journey-card-copy small{width:max-content;padding:5px 9px;border-radius:20px;background:#ffffff25;font-size:10px;font-weight:1000;letter-spacing:1px}
+.journey-card-copy b{font-size:25px;margin-top:7px;letter-spacing:-.4px}
+.journey-card-copy em{font-style:normal;font-size:11px;line-height:1.45;color:#ffffffdd;margin-top:6px;max-width:210px}
+.journey-card-go{position:absolute;right:18px;bottom:17px;width:40px;height:40px;border-radius:14px;background:#fff;color:#5555c8;display:grid;place-items:center;box-shadow:inset 0 -4px 0 #dce0ee}
+.journey-select-note{display:flex;align-items:center;justify-content:center;gap:7px;color:#aeb8ef;margin-top:25px;font-size:11px}
+.map-only-layout.road-layout-focused{grid-template-columns:minmax(0,1fr);max-width:1280px}
+.map-only-layout .island-map{min-height:720px}
+.change-journey{margin-top:12px;border:1px solid #86e7ff;background:#242d7b;color:#fff;border-radius:11px;padding:8px 12px;font-size:11px;font-weight:900;box-shadow:inset 0 -3px 0 #151b56}
+.cat-home-top{background:linear-gradient(135deg,#fff1aa,#ffc754)!important;color:#5a4268!important;border-color:#fff1bd!important;box-shadow:inset 0 -3px 0 #e7a034}
+.cat-home-top img{width:27px;height:27px;border-radius:9px;object-fit:cover;border:2px solid #fff}
+@media(max-width:760px){.journey-select-wrap{margin:25px auto 40px}.journey-select-wrap h1{font-size:31px}.journey-select-wrap>p{font-size:12px}.journey-select-grid{grid-template-columns:1fr;gap:13px;margin-top:22px}.journey-select-card{min-height:142px;padding:18px;display:grid;grid-template-columns:68px 1fr 36px;gap:14px;align-items:center}.journey-card-emoji{width:68px;height:68px;border-radius:20px;font-size:34px}.journey-card-copy{margin:0}.journey-card-copy b{font-size:21px}.journey-card-copy em{font-size:10px}.journey-card-number{display:none}.journey-card-go{position:static;width:36px;height:36px}.map-only-layout .island-map{min-height:610px}.road-heading{align-items:flex-start}.change-journey{margin-top:9px}.road-profile .cat-home-top{display:flex!important;width:39px;height:39px;padding:4px;border-radius:12px}.road-profile .cat-home-top span{display:none}.cat-home-top img{width:29px;height:29px}}
+
 /* Balanced game-style lesson selector */
 .lesson-theme .lesson-tab{grid-template-columns:50px minmax(0,1fr);grid-template-rows:auto auto;padding:13px 15px;column-gap:12px;row-gap:3px;min-height:94px}
 .lesson-theme .lesson-tab.active{padding:12px 14px}

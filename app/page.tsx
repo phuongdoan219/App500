@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, BookOpen, Camera, Check, ChevronLeft, ChevronRight, Fish, Flame, Headphones, House, LockKeyhole, Mic, NotebookTabs, Pause, Play, RotateCcw, Settings, Sparkles, Square, Trophy, Video, Volume2, Waves, X, Zap } from "lucide-react";
 import VoiceLabCamera from "@/components/voice-lab-camera";
 import LessonOneVideo from "@/components/lesson-one-video";
-import LearningRoadmap from "@/components/learning-roadmap";
+import LearningRoadmap, { JourneySelection, journeys } from "@/components/learning-roadmap";
 import LessonResult from "@/components/lesson-result";
 import CatHome from "@/components/cat-home";
 import StreakHub from "@/components/streak-hub";
@@ -31,7 +31,8 @@ function say(text: string, rate = 0.82) { if (!("speechSynthesis" in window)) re
 function Pill({ children, tone = "blue" }: { children: React.ReactNode; tone?: string }) { return <span className={"pill pill-" + tone}>{children}</span>; }
 
 export default function Home() {
-  const [screen, setScreen] = useState<"roadmap" | "lesson" | "result" | "cat" | "streak">("roadmap");
+  const [screen, setScreen] = useState<"journey-select" | "roadmap" | "lesson" | "result" | "cat" | "streak">("journey-select");
+  const [activeJourneyId, setActiveJourneyId] = useState<(typeof journeys)[number]["id"]>("magic-school");
   const [lesson, setLesson] = useState(1), [storyStep, setStoryStep] = useState(1), [playing, setPlaying] = useState(false);
   const [answer, setAnswer] = useState(""), [checked, setChecked] = useState(false), [dictation, setDictation] = useState("");
   const [lineIndex, setLineIndex] = useState(0), [support, setSupport] = useState("captions"), [showMeaning, setShowMeaning] = useState(true);
@@ -124,7 +125,8 @@ export default function Home() {
   function toggleStory() { const video = document.getElementById("story-video") as HTMLVideoElement | null; if (!video) return; if (video.paused) { video.play(); setPlaying(true); } else { video.pause(); setPlaying(false); } }
   const level = Math.floor(streak / 7) + 1;
   if (accessFlow) return <AccessFlow key={accessFlow} initial={accessFlow} canExit={accessFlow === "pricing"} onExit={() => setAccessFlow(null)} onComplete={completeAccess} />;
-  if (screen === "roadmap") return <LearningRoadmap fish={fish} streak={streak} rewardMode={rewardMode} activePlan={activePlan} completedLessons={done} onCat={() => setScreen("cat")} onStreak={() => setScreen("streak")} onModeChange={changeRewardMode} onShowAccess={() => setAccessFlow("welcome")} onLockedMap={() => setAccessFlow("pricing")} onStart={(lessonId) => { setLesson(lessonId); setScreen("lesson"); }} />;
+  if (screen === "journey-select") return <JourneySelection fish={fish} streak={streak} rewardMode={rewardMode} activePlan={activePlan} onCat={() => setScreen("cat")} onStreak={() => setScreen("streak")} onModeChange={changeRewardMode} onShowAccess={() => setAccessFlow("welcome")} onSelect={(journeyId) => { setActiveJourneyId(journeyId); setScreen("roadmap"); }} />;
+  if (screen === "roadmap") return <LearningRoadmap activeJourneyId={activeJourneyId} onChangeJourney={() => setScreen("journey-select")} fish={fish} streak={streak} rewardMode={rewardMode} activePlan={activePlan} completedLessons={done} onCat={() => setScreen("cat")} onStreak={() => setScreen("streak")} onModeChange={changeRewardMode} onShowAccess={() => setAccessFlow("welcome")} onLockedMap={() => setAccessFlow("pricing")} onStart={(lessonId) => { setLesson(lessonId); setScreen("lesson"); }} />;
   if (screen === "cat") return <CatHome fish={fish} owned={owned} mood={catMood} onBack={() => setScreen("roadmap")} onBuy={buyForCat} />;
   if (screen === "streak") return <StreakHub streak={streak} level={level} onBack={() => setScreen("roadmap")} onLearn={() => { setLesson([1, 2, 3, 4].find(id => !done.includes(id)) ?? 1); setScreen("lesson"); }} />;
   if (screen === "result") return <LessonResult fish={fish} streak={streak} level={level} rewardMode={rewardMode} onCat={() => setScreen("cat")} onStreak={() => setScreen("streak")} onMap={() => setScreen("roadmap")} onReplay={() => { setLesson(4); setScreen("lesson"); }} />;
