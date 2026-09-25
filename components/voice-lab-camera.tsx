@@ -296,7 +296,7 @@ export default function VoiceLabCamera({ support, setSupport, showMeaning, setSh
     if (!takeUrl) return;
     const link = document.createElement("a");
     link.href = takeUrl;
-    link.download = "wondertrail-wrong-bag-dubbing-" + new Date().toISOString().replace(/[:.]/g, "-") + ".webm";
+    link.download = "english-in-wonderland-wrong-bag-dubbing-" + new Date().toISOString().replace(/[:.]/g, "-") + ".webm";
     document.body.appendChild(link);
     link.click();
     link.remove();

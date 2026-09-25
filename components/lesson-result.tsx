@@ -7,7 +7,7 @@ type Props = { onMap: () => void; onReplay: () => void; onCat: () => void; onStr
 export default function LessonResult({ onMap, onReplay, onCat, onStreak, fish, streak, level, rewardMode }: Props) {
   return <main className="result-screen">
     <div className="confetti confetti-a">◆</div><div className="confetti confetti-b">●</div><div className="confetti confetti-c">★</div><div className="confetti confetti-d">◆</div>
-    <header className="result-topbar"><div className="road-brand"><span>W</span><div><b>WONDERTRAIL</b><small>ENGLISH QUEST</small></div></div><button onClick={onMap}><Map size={18} /> Về lộ trình</button></header>
+    <header className="result-topbar"><div className="road-brand"><span>E</span><div><b>ENGLISH IN</b><small>WONDERLAND</small></div></div><button onClick={onMap}><Map size={18} /> Về lộ trình</button></header>
     <section className="result-wrap">
       <div className="result-hero"><div className="trophy-halo"><span className="halo-ring" /><span className="trophy-main"><Trophy size={58} fill="currentColor" /></span><span className="paw-float">{rewardMode === "cat" ? "🐟 +1" : `🔥 ${streak}`}</span></div><span className="result-kicker"><Sparkles size={15} /> LESSON HOÀN THÀNH</span><h1>Xuất sắc lắm, An!</h1><p>Em đã hoàn thành phần lồng tiếng cho câu chuyện <b>The Wrong Bag</b></p></div>
 

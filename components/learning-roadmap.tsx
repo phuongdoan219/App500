@@ -31,7 +31,7 @@ type SelectionProps = Pick<Props, "fish" | "streak" | "rewardMode" | "activePlan
 export function JourneySelection({ onSelect, onCat, onStreak, onModeChange, onShowAccess, fish, streak, rewardMode, activePlan }: SelectionProps) {
   return <main className="roadmap-screen journey-select-screen">
     <header className="road-topbar">
-      <div className="road-brand"><span>W</span><div><b>WONDERTRAIL</b><small>ENGLISH QUEST</small></div></div>
+      <div className="road-brand"><span>E</span><div><b>ENGLISH IN</b><small>WONDERLAND</small></div></div>
       <div className="road-profile"><button className="access-demo-button" onClick={onShowAccess}><UserRound size={16}/><span>Login &amp; thanh toán</span><small>{activePlan}</small></button>{rewardMode === "cat" ? <button className="fish-stat" onClick={onCat}><Fish size={19} fill="currentColor" /><b>{fish}</b><span>Cá</span></button> : <button className="streak-stat" onClick={onStreak}><Flame size={19} fill="currentColor" /><b>{streak}</b><span>ngày</span></button>}<span className="road-avatar">AN</span></div>
     </header>
     <section className="reward-demo-switch" aria-label="Chọn phương án giữ chân để xem demo">
@@ -63,7 +63,7 @@ export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onSt
 
   return <main className="roadmap-screen">
     <header className="road-topbar">
-      <div className="road-brand"><span>W</span><div><b>WONDERTRAIL</b><small>ENGLISH QUEST</small></div></div>
+      <div className="road-brand"><span>E</span><div><b>ENGLISH IN</b><small>WONDERLAND</small></div></div>
       <div className="road-profile"><button className="access-demo-button" onClick={onShowAccess}><UserRound size={16}/><span>Login &amp; thanh toán</span><small>{activePlan}</small></button>{rewardMode === "cat" ? <><button className="cat-home-top" onClick={onCat} aria-label="Vào Nhà của Miu"><img src="/cat-companion.png" alt=""/><span>Nhà của Miu</span></button><button className="fish-stat" onClick={onCat}><Fish size={19} fill="currentColor" /><b>{fish}</b><span>Cá</span></button></> : <button className="streak-stat" onClick={onStreak}><Flame size={19} fill="currentColor" /><b>{streak}</b><span>ngày</span></button>}<span className="road-avatar">AN</span></div>
     </header>
 
