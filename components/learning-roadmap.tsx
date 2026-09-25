@@ -3,9 +3,42 @@
 import { ArrowRight, Fish, Flame, Map, Sparkles, UserRound } from "lucide-react";
 
 export const journeys = [
-  { id: "magic-school", emoji: "🏫", theme: "Trường học kỳ diệu", level: "Pre-A1", grades: "Khối 3–4", description: "Nhận biết từ quen thuộc và sử dụng các mẫu câu ngắn.", image: "/map-magic-school.png", accent: "school", units: ["Greetings & Introductions", "Numbers & Colours", "Family & Friends", "School & Classroom", "Daily Activities", "Review & Practice"] },
-  { id: "animal-forest", emoji: "🌳", theme: "Rừng bạn bè", level: "Pre-A1", grades: "Khối 4–5", description: "Luyện nghe – nói với hướng dẫn và hỗ trợ trực quan.", image: "/map-animal-forest.png", accent: "forest", units: ["People Around Me", "Things Around Me", "Food & Drinks", "Places & Positions", "Actions & Abilities", "Review & Practice"] },
-  { id: "adventure-city", emoji: "🏙️", theme: "Thành phố phiêu lưu", level: "A1", grades: "Khối 5–7", description: "Giao tiếp trong tình huống quen thuộc và tạo câu đơn giản.", image: "/map-adventure-city.png", accent: "city", units: ["About Myself", "Home & School", "Daily Routines", "Shopping & Food", "Travel & Directions", "Review & Practice"] },
+  {
+    id: "magic-school", emoji: "✨", theme: "Học viện Ánh Sao", level: "Pre-A1", grades: "Khối 3–4",
+    description: "Đi qua sáu địa danh nhiệm màu và xây nền tiếng Anh đầu tiên.", image: "/map-star-academy.png", accent: "school",
+    units: [
+      { landmark: "Cổng Chào Kỳ Diệu", topic: "Chào hỏi & giới thiệu", position: [17, 78] },
+      { landmark: "Quảng trường Cầu Vồng", topic: "Số đếm & màu sắc", position: [30, 57] },
+      { landmark: "Làng Cây Sum Vầy", topic: "Gia đình & bạn bè", position: [51, 45] },
+      { landmark: "Lớp học Bay", topic: "Trường học & lớp học", position: [68, 28] },
+      { landmark: "Tháp Đồng hồ Ngày Mới", topic: "Hoạt động hằng ngày", position: [80, 55] },
+      { landmark: "Đài Quan sát Ánh Sao", topic: "Ôn tập & thực hành", position: [89, 23] },
+    ],
+  },
+  {
+    id: "animal-forest", emoji: "🌲", theme: "Rừng Thì Thầm", level: "Pre-A1", grades: "Khối 4–5",
+    description: "Khám phá khu rừng biết nói qua các tình huống nghe – nói trực quan.", image: "/map-whispering-forest.png", accent: "forest",
+    units: [
+      { landmark: "Làng Gương Mặt", topic: "Mọi người quanh em", position: [18, 78] },
+      { landmark: "Hang Kho Báu", topic: "Đồ vật quanh em", position: [30, 56] },
+      { landmark: "Chợ Nấm Ngọt", topic: "Đồ ăn & thức uống", position: [47, 34] },
+      { landmark: "Hồ La Bàn", topic: "Địa điểm & vị trí", position: [63, 68] },
+      { landmark: "Sân Rừng Vận Động", topic: "Hành động & khả năng", position: [76, 41] },
+      { landmark: "Cây Trí Nhớ", topic: "Ôn tập & thực hành", position: [89, 25] },
+    ],
+  },
+  {
+    id: "adventure-city", emoji: "🏔️", theme: "Vương quốc Núi Pha Lê", level: "A1", grades: "Khối 5–7",
+    description: "Chinh phục tiếng Anh từ thung lũng xanh tới đỉnh núi pha lê.", image: "/map-crystal-mountain.png", accent: "city",
+    units: [
+      { landmark: "Trạm Gương Khởi Hành", topic: "Giới thiệu bản thân", position: [15, 79] },
+      { landmark: "Làng Sườn Núi", topic: "Nhà ở & trường học", position: [33, 59] },
+      { landmark: "Tháp Thời Gian", topic: "Thói quen hằng ngày", position: [48, 39] },
+      { landmark: "Chợ Đèo Kỳ Ảo", topic: "Mua sắm & đồ ăn", position: [64, 34] },
+      { landmark: "Hẻm Núi La Bàn", topic: "Du lịch & chỉ đường", position: [85, 34] },
+      { landmark: "Đỉnh Pha Lê", topic: "Ôn tập & thực hành", position: [91, 15] },
+    ],
+  },
 ] as const;
 
 type Props = {
@@ -80,11 +113,11 @@ export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onSt
     <div className="road-layout road-layout-focused map-only-layout">
       <section key={activeJourney.id} className={`island-map map-theme-${activeJourney.accent}`} aria-label={`Bản đồ ${activeJourney.grades}, ${activeJourney.level}`}>
         <img src={activeJourney.image} alt={`Bản đồ chủ đề ${activeJourney.theme}`} />
-        <div className="map-title"><span>LỘ TRÌNH HỌC</span><b>{activeJourney.grades} · {activeJourney.level}</b><small>{activeJourney.description}</small></div>
-        {activeJourney.units.map((title, index) => {
+        <div className="map-title"><span>VÙNG ĐẤT {activeJourney.level}</span><b>{activeJourney.theme}</b><small>{activeJourney.description}</small></div>
+        {activeJourney.units.map((unit, index) => {
           const unitId = index + 1;
-          return <button key={title} onClick={() => onStart(nextLesson)} className={`journey-node node-${unitId} open${unitId === 1 ? " selected" : ""}`} aria-label={`Mở Unit ${unitId}: ${title}`}>
-            <span className="node-medal">{unitId}</span><b>{title}</b><small>{unitId === 1 ? (completedCount === 4 ? "Học lại Unit" : `Tiếp tục · Lesson ${nextLesson}`) : "Đã mở · Vào học ngay"}</small>{unitId === 1 && <em>✓ {completedCount}/4 Lesson</em>}
+          return <button key={unit.landmark} style={{ left: `${unit.position[0]}%`, top: `${unit.position[1]}%` }} onClick={() => onStart(nextLesson)} className={`journey-node node-${unitId} open${unitId === 1 ? " selected" : ""}`} aria-label={`Mở Unit ${unitId}: ${unit.landmark} — ${unit.topic}`}>
+            <span className="node-medal">{unitId}</span><b><small>UNIT {unitId}</small>{unit.landmark}</b><small>{unit.topic}</small>{unitId === 1 && <em>{completedCount === 4 ? "Học lại" : `Tiếp tục Lesson ${nextLesson}`}</em>}
           </button>;
         })}
         <div className="map-cloud cloud-a" /><div className="map-cloud cloud-b" />

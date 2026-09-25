@@ -258,3 +258,20 @@
 .access-screen:has(.access-welcome) .welcome-card{z-index:6;left:6%;right:6%;bottom:5%;padding:14px 18px;border:3px solid #fff;border-radius:17px;background:#171e62e8;color:#fff;box-shadow:0 12px 30px #080b3270;backdrop-filter:blur(10px)}.access-screen:has(.access-welcome) .welcome-card>span{color:#71e5ff;font-size:8px;font-weight:1000;letter-spacing:1.3px;margin:0}.access-screen:has(.access-welcome) .welcome-card>b{font-size:18px;margin:3px 0}.access-screen:has(.access-welcome) .welcome-card>small{color:#ccd4ff;font-size:10px}
 @media(max-width:900px){.access-screen:has(.access-welcome){overflow:auto}.access-screen:has(.access-welcome) .access-welcome{grid-template-columns:1fr;width:min(680px,calc(100% - 30px));gap:12px;text-align:center}.access-screen:has(.access-welcome) .welcome-copy{padding:12px 0}.access-screen:has(.access-welcome) .access-kicker,.welcome-features{margin-left:auto;margin-right:auto;justify-content:center}.access-screen:has(.access-welcome) .welcome-copy h1{font-size:45px}.access-screen:has(.access-welcome) .welcome-copy>p{margin-left:auto;margin-right:auto}.access-screen:has(.access-welcome) .welcome-copy>small{justify-content:center}.access-screen:has(.access-welcome) .welcome-art{height:500px;max-width:620px}}
 @media(max-width:760px){.access-screen:has(.access-welcome):before,.access-screen:has(.access-welcome):after{inset:64px 0 0}.access-screen:has(.access-welcome) .access-welcome{padding:24px 0 35px}.access-screen:has(.access-welcome) .welcome-copy h1{font-size:36px;letter-spacing:-.8px}.welcome-features{display:grid;grid-template-columns:1fr 1fr}.welcome-features span:last-child{grid-column:1/-1;justify-content:center}.access-screen:has(.access-welcome) .welcome-actions{gap:9px}.access-screen:has(.access-welcome) .welcome-art{height:390px;margin-top:12px;border-radius:27px}}
+
+/* Wonderland world maps: each Unit is a named landmark on the illustrated route */
+.map-only-layout .island-map{aspect-ratio:16/9;min-height:0}
+.map-only-layout .island-map>img{object-position:center}
+.map-only-layout .map-title{top:14px;min-width:330px;padding:8px 18px;background:#101650e8;border:2px solid #ffffffb3;box-shadow:0 9px 25px #070a3185}
+.map-only-layout .map-title span{color:#89edff}
+.map-only-layout .map-title b{font-size:20px}
+.map-only-layout .map-title small{font-size:9px}
+.map-only-layout .journey-node{right:auto;bottom:auto;width:166px;transform:translate(-50%,-50%);filter:drop-shadow(0 7px 10px #06092dba)}
+.map-only-layout .journey-node:hover:not(:disabled){transform:translate(-50%,calc(-50% - 5px)) scale(1.03)}
+.map-only-layout .node-medal{width:58px;height:58px;border-width:4px;font-size:25px;line-height:1}
+.map-only-layout .journey-node>b{border-width:2px;padding:6px 7px;font-size:10px;white-space:normal;line-height:1.15;text-wrap:balance;box-shadow:0 5px 12px #070a3266}
+.map-only-layout .journey-node>b small{display:block;color:#fff9b2;font-size:7px;letter-spacing:.8px;margin-bottom:2px}
+.map-only-layout .journey-node>small{max-width:150px;padding:4px 8px;font-size:8px;white-space:nowrap}
+.map-only-layout .journey-node>em{position:absolute;top:100%;font-size:8px;background:#fff9d7;color:#564799;border:2px solid #fff;padding:4px 8px;box-shadow:0 5px 12px #090c355c}
+.map-only-layout .map-cloud{display:none}
+@media(max-width:900px){.map-only-layout .island-map{aspect-ratio:auto;min-height:610px}.map-only-layout .journey-node{width:92px}.map-only-layout .node-medal{width:43px;height:43px;font-size:18px}.map-only-layout .journey-node>b{font-size:7px;padding:5px 3px}.map-only-layout .journey-node>b small{font-size:6px}.map-only-layout .journey-node>small{display:none}.map-only-layout .journey-node>em{font-size:7px;white-space:nowrap}.map-only-layout .map-title{min-width:250px;max-width:68%}.map-only-layout .map-title small{display:none}}
