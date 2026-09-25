@@ -4,9 +4,9 @@ import { useState } from "react";
 import { Check, Fish, Flame, Map, Sparkles, UserRound } from "lucide-react";
 
 const journeys = [
-  { id: "magic-school", emoji: "🏫", title: "Trường học kỳ diệu", level: "Pre-A1", grades: "Khối 3–4", description: "Từ quen thuộc và mẫu câu ngắn trong thế giới trường học.", image: "/map-magic-school.png", accent: "school", units: ["Hello, New Friends!", "My School Bag", "My Family", "Fun at School", "My Day", "School Festival"] },
-  { id: "animal-forest", emoji: "🌳", title: "Rừng bạn bè", level: "Pre-A1", grades: "Khối 4–5", description: "Nghe – nói có hỗ trợ với động vật và hoạt động gần gũi.", image: "/map-animal-forest.png", accent: "forest", units: ["Meet the Animals", "Big or Small?", "Food Picnic", "Where Is It?", "I Can Do It!", "Forest Show"] },
-  { id: "adventure-city", emoji: "🏙️", title: "Thành phố phiêu lưu", level: "A1", grades: "Khối 5–7", description: "Giao tiếp cơ bản trong tình huống quen thuộc và tạo câu đơn giản.", image: "/map-adventure-city.png", accent: "city", units: ["Around My Town", "At the Market", "A Rainy Day", "At the Café", "Let’s Take the Bus", "City Mystery"] },
+  { id: "magic-school", emoji: "🏫", theme: "Trường học kỳ diệu", level: "Pre-A1", grades: "Khối 3–4", description: "Nhận biết từ quen thuộc và sử dụng các mẫu câu ngắn.", image: "/map-magic-school.png", accent: "school", units: ["Greetings & Introductions", "Numbers & Colours", "Family & Friends", "School & Classroom", "Daily Activities", "Review & Practice"] },
+  { id: "animal-forest", emoji: "🌳", theme: "Rừng bạn bè", level: "Pre-A1", grades: "Khối 4–5", description: "Luyện nghe – nói với hướng dẫn và hỗ trợ trực quan.", image: "/map-animal-forest.png", accent: "forest", units: ["People Around Me", "Things Around Me", "Food & Drinks", "Places & Positions", "Actions & Abilities", "Review & Practice"] },
+  { id: "adventure-city", emoji: "🏙️", theme: "Thành phố phiêu lưu", level: "A1", grades: "Khối 5–7", description: "Giao tiếp trong tình huống quen thuộc và tạo câu đơn giản.", image: "/map-adventure-city.png", accent: "city", units: ["About Myself", "Home & School", "Daily Routines", "Shopping & Food", "Travel & Directions", "Review & Practice"] },
 ] as const;
 
 type Props = {
@@ -49,14 +49,14 @@ export default function LearningRoadmap({ onStart, onCat, onStreak, onModeChange
     <div className="road-layout road-layout-focused">
       <aside className="world-switcher">
         <p>CHỌN HÀNH TRÌNH</p>
-        {journeys.map(journey => <button key={journey.id} className={activeJourney.id === journey.id ? "active" : ""} onClick={() => setActiveJourneyId(journey.id)}><span>{journey.emoji}</span><div><b>{journey.title}</b><small>{journey.grades} · {journey.level}</small></div>{activeJourney.id === journey.id ? <Check size={17} /> : <Sparkles size={15} />}</button>)}
+        {journeys.map(journey => <button key={journey.id} className={activeJourney.id === journey.id ? "active" : ""} onClick={() => setActiveJourneyId(journey.id)}><span>{journey.emoji}</span><div><b>{journey.grades}</b><small>{journey.level}</small></div>{activeJourney.id === journey.id ? <Check size={17} /> : <Sparkles size={15} />}</button>)}
         <div className="all-open-note"><Sparkles size={15}/><span><b>Đã mở toàn bộ</b><small>Bấm vào bất kỳ Map hoặc Unit nào để xem demo.</small></span></div>
         {rewardMode === "cat" ? <button className="cat-entry" onClick={onCat}><img src="/cat-companion.png" alt="Miu" /><div><b>Nhà của Miu</b><small>{fish} Cá đang có · Vào chăm Miu</small></div></button> : <button className="streak-entry" onClick={onStreak}><span><Flame size={25} fill="currentColor" /></span><div><b>Chuỗi học của em</b><small>{streak} ngày · Xem mốc lên cấp</small></div></button>}
       </aside>
 
-      <section key={activeJourney.id} className={`island-map map-theme-${activeJourney.accent}`} aria-label={`Bản đồ ${activeJourney.title}`}>
-        <img src={activeJourney.image} alt={`Bản đồ hành trình ${activeJourney.title}`} />
-        <div className="map-title"><span>{activeJourney.grades} · {activeJourney.level}</span><b>{activeJourney.title}</b><small>{activeJourney.description}</small></div>
+      <section key={activeJourney.id} className={`island-map map-theme-${activeJourney.accent}`} aria-label={`Bản đồ ${activeJourney.grades}, ${activeJourney.level}`}>
+        <img src={activeJourney.image} alt={`Bản đồ chủ đề ${activeJourney.theme}`} />
+        <div className="map-title"><span>LỘ TRÌNH HỌC</span><b>{activeJourney.grades} · {activeJourney.level}</b><small>{activeJourney.description}</small></div>
         {activeJourney.units.map((title, index) => {
           const unitId = index + 1;
           return <button key={title} onClick={() => onStart(nextLesson)} className={`journey-node node-${unitId} open${unitId === 1 ? " selected" : ""}`} aria-label={`Mở Unit ${unitId}: ${title}`}>
