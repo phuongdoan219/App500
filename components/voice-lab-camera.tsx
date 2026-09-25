@@ -296,7 +296,7 @@ export default function VoiceLabCamera({ support, setSupport, showMeaning, setSh
     if (!takeUrl) return;
     const link = document.createElement("a");
     link.href = takeUrl;
-    link.download = "vuihoc-wrong-bag-dubbing-" + new Date().toISOString().replace(/[:.]/g, "-") + ".webm";
+    link.download = "wondertrail-wrong-bag-dubbing-" + new Date().toISOString().replace(/[:.]/g, "-") + ".webm";
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -332,11 +332,11 @@ export default function VoiceLabCamera({ support, setSupport, showMeaning, setSh
 
       <section className="coach-panel dub-coach">
         <div className="dub-script-card"><span>LỜI THOẠI CẢNH {activeCue + 1} · {cue.tone}</span><b>{cue.text}</b>{showMeaning && <small>{cue.vi}</small>}</div>
-        <button className="model-button" onClick={() => speak(cue.text, .72)}><span><Volume2 size={22} /></span><div><b>Nghe Miu đọc mẫu</b><small>Chậm và rõ ngữ điệu</small></div><Play size={18} fill="currentColor" /></button>
+        <button className="model-button" onClick={() => speak(cue.text, .72)}><span><Volume2 size={22} /></span><div><b>Nghe giọng mẫu</b><small>Chậm và rõ ngữ điệu</small></div><Play size={18} fill="currentColor" /></button>
         <div className="cue-strip" aria-label="Chọn cảnh">{cues.map((item, index) => <button key={item.text} className={activeCue === index ? "active" : ""} onClick={() => setActiveCue(index)}><span>{index + 1}</span>Cảnh {index + 1}</button>)}</div>
         <details className="dub-options"><summary>Tùy chọn trợ giúp</summary><label className="switch-line"><span>Hiện nghĩa tiếng Việt</span><input type="checkbox" checked={showMeaning} onChange={event => setShowMeaning(event.target.checked)} /></label><div className="support"><span>Khi video chạy</span><div>{[["model","Phụ đề + giọng nhỏ"],["captions","Chỉ phụ đề"],["none","Không trợ giúp"]].map(item => <button key={item[0]} className={support === item[0] ? "active" : ""} onClick={() => setSupport(item[0])}>{item[1]}</button>)}</div></div></details>
         {permissionError && <div className="camera-error">{permissionError}</div>}
-        <button className={"record-button video-record " + (recording ? "recording" : "")} onClick={recording ? stopDubbing : startDubbing}>{recording ? <Square fill="currentColor" /> : <Mic />}<span><b>{recording ? "Dừng thu · " + seconds + "s" : cameraOn ? "Bắt đầu lồng tiếng" : "Bật camera & bắt đầu thu"}</b><small>{recording ? "Miu đang ghi hình và giọng của em" : "Đếm ngược 3 giây rồi bắt đầu lồng tiếng"}</small></span></button>
+        <button className={"record-button video-record " + (recording ? "recording" : "")} onClick={recording ? stopDubbing : startDubbing}>{recording ? <Square fill="currentColor" /> : <Mic />}<span><b>{recording ? "Dừng thu · " + seconds + "s" : cameraOn ? "Bắt đầu lồng tiếng" : "Bật camera & bắt đầu thu"}</b><small>{recording ? "Đang ghi hình và giọng của em" : "Đếm ngược 3 giây rồi bắt đầu lồng tiếng"}</small></span></button>
         {takeUrl && <div className="video-take"><div><b>Bản lồng tiếng của em</b><span>Video hoạt hình, camera và giọng của em đã được ghép cùng nhau</span></div><video src={takeUrl} controls playsInline /><button onClick={startDubbing}><RotateCcw size={16} /> Thu lại</button></div>}
         {saved && <div className="save-success"><Check size={18} /><span><b>Đã lưu về máy!</b> Em có thể mở file trong thư mục Downloads.</span></div>}
         <button className="primary wide" disabled={!takeUrl} onClick={saveTake}>{saved ? "Tải lại bản lồng tiếng" : "Lưu bản lồng tiếng"} {saved ? <Download size={18} /> : <ArrowRight size={18} />}</button>

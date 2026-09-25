@@ -47,14 +47,14 @@ export default function Home() {
   const [owned, setOwned] = useState<string[]>([]);
   const [catMood, setCatMood] = useState("Miu đang vui vì được đồng hành học tiếng Anh cùng em!");
   const [reward, setReward] = useState<{ lesson: number; earned: boolean } | null>(null);
-  useEffect(() => { const saved = localStorage.getItem("vuihoc-demo-progress"); if (saved) setDone(JSON.parse(saved)); }, []);
+  useEffect(() => { const saved = localStorage.getItem("wondertrail-demo-progress"); if (saved) setDone(JSON.parse(saved)); }, []);
   useEffect(() => {
-    const savedFish = localStorage.getItem("vuihoc-demo-fish");
-    const savedOwned = localStorage.getItem("vuihoc-demo-cat-items");
-    const savedMode = localStorage.getItem("vuihoc-demo-reward-mode");
-    const savedStreak = localStorage.getItem("vuihoc-demo-streak");
-    const savedAccess = localStorage.getItem("vuihoc-demo-access-complete");
-    const savedPlan = localStorage.getItem("vuihoc-demo-plan");
+    const savedFish = localStorage.getItem("wondertrail-demo-fish");
+    const savedOwned = localStorage.getItem("wondertrail-demo-cat-items");
+    const savedMode = localStorage.getItem("wondertrail-demo-reward-mode");
+    const savedStreak = localStorage.getItem("wondertrail-demo-streak");
+    const savedAccess = localStorage.getItem("wondertrail-demo-access-complete");
+    const savedPlan = localStorage.getItem("wondertrail-demo-plan");
     if (savedFish) setFish(Number(savedFish));
     if (savedOwned) setOwned(JSON.parse(savedOwned));
     if (savedMode === "cat" || savedMode === "streak") setRewardMode(savedMode);
@@ -67,21 +67,21 @@ export default function Home() {
     const lessonEarned = !done.includes(id);
     const next = Array.from(new Set([...done, id]));
     setDone(next);
-    localStorage.setItem("vuihoc-demo-progress", JSON.stringify(next));
+    localStorage.setItem("wondertrail-demo-progress", JSON.stringify(next));
     let earned = lessonEarned;
     if (rewardMode === "cat" && lessonEarned) {
       const nextFish = fish + 1;
       setFish(nextFish);
-      localStorage.setItem("vuihoc-demo-fish", String(nextFish));
+      localStorage.setItem("wondertrail-demo-fish", String(nextFish));
     }
     if (rewardMode === "streak") {
       const today = new Date().toDateString();
-      earned = localStorage.getItem("vuihoc-demo-streak-date") !== today;
+      earned = localStorage.getItem("wondertrail-demo-streak-date") !== today;
       if (earned) {
         const nextStreak = streak + 1;
         setStreak(nextStreak);
-        localStorage.setItem("vuihoc-demo-streak", String(nextStreak));
-        localStorage.setItem("vuihoc-demo-streak-date", today);
+        localStorage.setItem("wondertrail-demo-streak", String(nextStreak));
+        localStorage.setItem("wondertrail-demo-streak-date", today);
       }
     }
     if (id === 4) {
@@ -104,23 +104,23 @@ export default function Home() {
     if (fish < price || (id !== "snack" && owned.includes(id))) return;
     const nextFish = fish - price;
     setFish(nextFish);
-    localStorage.setItem("vuihoc-demo-fish", String(nextFish));
+    localStorage.setItem("wondertrail-demo-fish", String(nextFish));
     if (id !== "snack") {
       const nextOwned = [...owned, id];
       setOwned(nextOwned);
-      localStorage.setItem("vuihoc-demo-cat-items", JSON.stringify(nextOwned));
+      localStorage.setItem("wondertrail-demo-cat-items", JSON.stringify(nextOwned));
     }
     setCatMood(id === "snack" ? "Miu vừa được uống sữa và đang rất vui!" : `Miu thích ${label} em tặng lắm!`);
   }
   function changeRewardMode(mode: "cat" | "streak") {
     setRewardMode(mode);
-    localStorage.setItem("vuihoc-demo-reward-mode", mode);
+    localStorage.setItem("wondertrail-demo-reward-mode", mode);
   }
   function completeAccess(plan: string) {
     setActivePlan(plan);
     setAccessFlow(null);
-    localStorage.setItem("vuihoc-demo-access-complete", "true");
-    localStorage.setItem("vuihoc-demo-plan", plan);
+    localStorage.setItem("wondertrail-demo-access-complete", "true");
+    localStorage.setItem("wondertrail-demo-plan", plan);
   }
   function toggleStory() { const video = document.getElementById("story-video") as HTMLVideoElement | null; if (!video) return; if (video.paused) { video.play(); setPlaying(true); } else { video.pause(); setPlaying(false); } }
   const level = Math.floor(streak / 7) + 1;
@@ -132,7 +132,7 @@ export default function Home() {
   if (screen === "result") return <LessonResult fish={fish} streak={streak} level={level} rewardMode={rewardMode} onCat={() => setScreen("cat")} onStreak={() => setScreen("streak")} onMap={() => setScreen("roadmap")} onReplay={() => { setLesson(4); setScreen("lesson"); }} />;
   return <main className={`app-shell lesson-theme lesson-theme-${lesson}`}>
     <button className="floating-map-back" onClick={() => setScreen("roadmap")}><ChevronLeft size={17} /> Lộ trình</button>
-    <header className="topbar"><div className="brand"><span className="brand-mark">V</span><span><b>VUIHOC</b><small>ENGLISH</small></span></div><div className="journey"><div className="journey-copy"><span>Hành trình hôm nay</span><b>Lesson {lesson}/4</b></div><div className="journey-track"><i style={{ width: ((done.length + 1) / 4 * 100) + "%" }} /></div></div><div className="top-actions">{rewardMode === "cat" ? <><button className="stat fish-top" onClick={() => setScreen("cat")}><Fish size={18} fill="currentColor" /> <b>{fish}</b> Cá</button><button className="stat cat-home-link" onClick={() => setScreen("cat")}><House size={17} /> Nhà của Miu</button></> : <><button className="stat streak-top" onClick={() => setScreen("streak")}><Flame size={18} fill="currentColor" /> <b>{streak}</b> ngày</button><button className="stat streak-level-link" onClick={() => setScreen("streak")}><Trophy size={17} /> Cấp {level}</button></>}<button className="avatar">AN</button></div></header>
+    <header className="topbar"><div className="brand"><span className="brand-mark">W</span><span><b>WONDERTRAIL</b><small>ENGLISH</small></span></div><div className="journey"><div className="journey-copy"><span>Hành trình hôm nay</span><b>Lesson {lesson}/4</b></div><div className="journey-track"><i style={{ width: ((done.length + 1) / 4 * 100) + "%" }} /></div></div><div className="top-actions">{rewardMode === "cat" ? <><button className="stat fish-top" onClick={() => setScreen("cat")}><Fish size={18} fill="currentColor" /> <b>{fish}</b> Cá</button><button className="stat cat-home-link" onClick={() => setScreen("cat")}><House size={17} /> Nhà của Miu</button></> : <><button className="stat streak-top" onClick={() => setScreen("streak")}><Flame size={18} fill="currentColor" /> <b>{streak}</b> ngày</button><button className="stat streak-level-link" onClick={() => setScreen("streak")}><Trophy size={17} /> Cấp {level}</button></>}<button className="avatar">AN</button></div></header>
     <div className={"workspace" + (sidebarCollapsed ? " sidebar-collapsed" : "")}><aside className={"sidebar" + (sidebarCollapsed ? " collapsed" : "")}><div className="course-head"><button className="round-btn sidebar-toggle" onClick={() => setSidebarCollapsed(value => !value)} aria-expanded={!sidebarCollapsed} aria-label={sidebarCollapsed ? "Mở rộng menu" : "Thu gọn menu"} title={sidebarCollapsed ? "Mở rộng menu" : "Thu gọn menu"}>{sidebarCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}</button><div><span>BEGINNER 1</span><h2>English Adventures</h2></div></div><div className="course-progress"><div><b>Unit 1/24</b><span>{done.length}/4 Lesson</span></div><i><em style={{ width: `${done.length * 25}%` }} /></i></div><p className="side-label">CHỌN UNIT</p><div className="unit-list">{units.map(unit => <button key={unit.id} disabled={!unit.open} title={unit.title} className={"unit-card " + (unit.id === 1 ? "active" : "")}><span className="unit-number">{unit.open ? unit.id : <LockKeyhole size={14} />}</span><span className="unit-copy"><b>{unit.title}</b><small>{unit.theme}</small></span><span className="unit-paw">{unit.id === 1 ? `✓ ${done.length}/4` : "🔒"}</span></button>)}</div><button className="notebook-btn" title="Sổ tay của em" onClick={() => setNotebookOpen(true)}><NotebookTabs size={20} /><span><b>Sổ tay của em</b><small>12 từ · 3 mẫu câu</small></span><ArrowRight size={17} /></button><div className="sheet-note"><span className={sheetOnline ? "live-dot" : "live-dot offline"} /> {sheetOnline ? "Đang đọc khung chương trình từ Google Sheets" : "Đang dùng dữ liệu mẫu nội bộ"}</div></aside>
       <section className="learning-area"><div className="unit-title-row"><div><span className="eyebrow">UNIT 1 · NGOẠI HÌNH &amp; ĐỒ VẬT</span><h1>The Wrong Bag</h1><p className="unit-flow-note">Hoàn thành Lesson hiện tại để tự mở bước tiếp theo.</p></div><div className="lesson-mission"><span><Sparkles size={14}/> NHIỆM VỤ HIỆN TẠI</span><b>{lessonTabs[lesson - 1].label}</b><small>Lesson {lesson}/4 · Nhận {rewardMode === "cat" ? "1 Cá" : "lửa Streak"}</small></div><Pill tone="mint">A1 Starter</Pill></div><nav className="lesson-tabs">{lessonTabs.map(tab => { const Icon = tab.icon; const completed = done.includes(tab.id); const canOpen = tab.id === 1 || done.includes(tab.id - 1) || completed; return <button key={tab.id} disabled={!canOpen} onClick={() => setLesson(tab.id)} className={"lesson-tab " + (lesson === tab.id ? "active " : "") + (completed ? "done " : "") + (!canOpen ? "locked" : "")}><span className="tab-icon">{canOpen ? <Icon size={23} /> : <LockKeyhole size={20} />}{completed && <i className="tab-check" aria-label="Đã hoàn thành"><Check size={11} strokeWidth={4} /></i>}</span><span className="tab-copy"><small>LESSON {tab.id}</small><b>{tab.label}</b></span><em>{canOpen ? tab.sub : "Hoàn thành bước trước"}</em></button>; })}</nav>
         {lesson === 1 && <LessonOneVideo storyStep={storyStep} setStoryStep={setStoryStep} answer={answer} setAnswer={setAnswer} checked={checked} setChecked={setChecked} finish={() => completeLesson(1)} rewardLabel={rewardMode === "cat" ? "Hoàn thành và nhận 1 Cá" : "Hoàn thành và giữ lửa"} />}
