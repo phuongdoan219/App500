@@ -21,6 +21,15 @@ export default function AccessFlow({ initial = "welcome", canExit = false, onExi
   const [plan, setPlan] = useState("year");
   const selectedPlan = plans.find(item => item.id === plan)!;
   const progress = { profile: 1, goal: 2, level: 3, recommendation: 4 }[step as "profile" | "goal" | "level" | "recommendation"];
+  const guide = {
+    login: { eyebrow: "CỔNG VÀO HÀNH TRÌNH", title: "Mừng em quay lại!", body: "Đăng nhập để tiếp tục đúng chặng học và giữ nguyên phần thưởng." },
+    forgot: { eyebrow: "TRỢ GIÚP PHỤ HUYNH", title: "Tìm lại chìa khóa", body: "Khôi phục tài khoản để bé không mất hành trình đang học." },
+    profile: { eyebrow: "CHẶNG 1 · NHÀ THÁM HIỂM", title: "Làm quen với em", body: "Cho Miu biết một chút về em để chọn thử thách vừa sức." },
+    goal: { eyebrow: "CHẶNG 2 · ĐÍCH ĐẾN", title: "Chọn điều em muốn", body: "Mỗi mục tiêu sẽ giúp hành trình ưu tiên hoạt động phù hợp hơn." },
+    level: { eyebrow: "CHẶNG 3 · ĐIỂM XUẤT PHÁT", title: "Chọn thử thách vừa sức", body: "Không cần chọn thật chính xác — em luôn có thể điều chỉnh sau." },
+    recommendation: { eyebrow: "CHẶNG 4 · BẢN ĐỒ ĐÃ MỞ", title: "Sẵn sàng lên đường!", body: "Lộ trình của em đã được ghép từ độ tuổi, mục tiêu và trình độ." },
+    success: { eyebrow: "MỞ KHÓA THÀNH CÔNG", title: "Một thế giới mới đang chờ", body: "Tất cả Map và bài học đã sẵn sàng để em khám phá." },
+  }[step as "login" | "forgot" | "profile" | "goal" | "level" | "recommendation" | "success"];
 
   const back = () => {
     const order: Step[] = ["welcome", "login", "forgot", "profile", "goal", "level", "recommendation", "pricing", "checkout", "success"];
@@ -31,12 +40,14 @@ export default function AccessFlow({ initial = "welcome", canExit = false, onExi
     if (current > 0) setStep(order[current - 1]);
   };
 
-  return <main className="access-screen">
+  return <main className={`access-screen${guide ? " access-panel-mode" : ""}`}>
     <header className="access-topbar">
       <div className="road-brand"><span>V</span><div><b>VUIHOC</b><small>ENGLISH ADVENTURE</small></div></div>
       {progress && <div className="onboard-progress"><span>BƯỚC {progress}/4</span><i><em style={{ width: `${progress * 25}%` }} /></i></div>}
       {canExit && <button className="access-close" onClick={onExit} aria-label="Đóng"><X size={19} /></button>}
     </header>
+
+    {guide && <aside className="access-quest-guide" aria-hidden="true"><img src="/map-magic-school.png" alt=""/><div className="quest-guide-shade"/><div className="quest-guide-copy"><span><Map size={15}/>{guide.eyebrow}</span><h2>{guide.title}</h2><p>{guide.body}</p><div className="quest-guide-route"><i className={progress && progress >= 1 ? "done" : "current"}>1</i><em/><i className={progress && progress >= 2 ? "done" : ""}>2</i><em/><i className={progress && progress >= 3 ? "done" : ""}>3</i><em/><i className={progress && progress >= 4 ? "done" : ""}>4</i></div></div><div className="quest-guide-miu"><img src="/cat-companion.png" alt=""/><span><b>Miu đồng hành</b><small>Mỗi bước chỉ mất khoảng 1 phút</small></span></div></aside>}
 
     {step === "welcome" && <section className="access-welcome">
       <div className="welcome-copy"><span className="access-kicker"><Sparkles size={15} /> HỌC TIẾNG ANH QUA PHIÊU LƯU</span><h1>Mỗi ngày một câu chuyện.<br/><em>Mỗi ngày một bước tiến.</em></h1><p>Lộ trình ngắn gọn, hoạt động tương tác và phần thưởng giúp bé chủ động quay lại học.</p><div className="welcome-actions"><button className="access-primary" onClick={() => setStep("profile")}>Bắt đầu cho bé <ArrowRight size={18} /></button><button className="access-secondary" onClick={() => setStep("login")}>Đã có tài khoản? Đăng nhập</button></div><small><ShieldCheck size={15} /> Phụ huynh quản lý tài khoản và thanh toán</small></div>
