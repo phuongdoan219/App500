@@ -61,7 +61,7 @@ export default function Home() {
     if (savedAccess === "true") setAccessFlow(null);
     if (savedPlan) setActivePlan(savedPlan);
   }, []);
-  useEffect(() => { fetch("/api/curriculum").then(r => r.json()).then(data => setSheetOnline(Boolean(data.connected))).catch(() => setSheetOnline(false)); }, []);
+  useEffect(() => { fetch("/api/curriculum").then(r => r.json()).then((data: unknown) => setSheetOnline(Boolean((data as { connected?: boolean }).connected))).catch(() => setSheetOnline(false)); }, []);
   function completeLesson(id: number) {
     const lessonEarned = !done.includes(id);
     const next = Array.from(new Set([...done, id]));
