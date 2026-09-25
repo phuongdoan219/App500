@@ -308,36 +308,36 @@ export default function VoiceLabCamera({ support, setSupport, showMeaning, setSh
 
   return <div className="voice-shell camera-lab">
     <div className="voice-head">
-      <div><span className="pill pill-purple"><Video size={14} /> LỒNG TIẾNG VIDEO</span><h2>Em là nhân vật trong câu chuyện</h2><p>Xem bản tiếng Anh trước, sau đó bật camera và tự đọc lời thoại theo video.</p></div>
+      <div><span className="pill pill-purple"><Video size={14} /> PHÒNG THU LỒNG TIẾNG</span><h2>Em là diễn viên lồng tiếng</h2><p>Xem cảnh mẫu rồi thu giọng của em khớp với lời thoại.</p></div>
       <div className={"privacy " + (cameraOn ? "camera-active" : "")}><span>●</span> {cameraOn ? "Camera đang bật" : "Camera chỉ bật khi em cho phép"}</div>
     </div>
 
-    <div className="dub-steps"><span className="done"><Check size={14} /> 1. Nghe mẫu</span><span className={cameraOn ? "done" : "active"}>2. Bật camera</span><span className={recording || takeUrl ? "done" : ""}>3. Thu lồng tiếng</span><span className={takeUrl ? "active" : ""}>4. Xem lại</span></div>
+    <div className="dub-stage-status"><span>TIẾN ĐỘ THU ÂM <b>{activeCue + 1}/{cues.length} CÂU</b></span><div>{cues.map((_, index) => <i key={index} className={index < activeCue ? "done" : index === activeCue ? "active" : ""}>{index + 1}</i>)}</div><em>Cảnh {activeCue + 1}/{cues.length}</em></div>
 
     <div className="voice-grid">
       <section className={"scene-panel dub-video " + (playing ? "is-playing" : "") + (recording ? " is-recording" : "")}>
         <video ref={storyVideoRef} className="source-video" crossOrigin="anonymous" src={WRONG_BAG_VIDEO_URL} playsInline preload="metadata" onTimeUpdate={syncCue} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => { setPlaying(false); if (recording) stopDubbing(); }} />
-        <div className="video-topline"><span className="english-video-label"><Play size={13} fill="currentColor" /> VIDEO TIẾNG ANH</span>{recording && <span className="rec-label">● REC {seconds}s</span>}</div>
+        <div className="video-topline"><span className="english-video-label"><Play size={13} fill="currentColor" /> CẢNH {activeCue + 1}</span>{recording && <span className="rec-label">● ĐANG DIỄN {seconds}s</span>}</div>
         <div className={"camera-pip " + (cameraOn ? "on" : "off")}>
           <video ref={previewRef} muted playsInline />
-          {!cameraOn && <button onClick={enableCamera}><Camera size={22} /><span>Bật camera trước</span></button>}
+          {!cameraOn && <button onClick={enableCamera}><Camera size={22} /><span>Bật camera</span></button>}
           {cameraOn && !recording && <button className="camera-off" onClick={disableCamera}>Tắt</button>}
           {cameraOn && <small>CAMERA CỦA EM</small>}
         </div>
         {countdown > 0 && <div className="countdown"><b>{countdown}</b><span>Chuẩn bị nhập vai!</span></div>}
-        {!playing && !recording && !countdown && <button className="video-play-main" onClick={playEnglishVideo}><Play fill="currentColor" /><span>Xem video tiếng Anh</span></button>}
-        {(playing || recording) && support !== "none" && <div className="line-overlay"><span><b>{cue.who}:</b> {cue.text}</span>{showMeaning && <small>{cue.vi}</small>}</div>}
+        {!playing && !recording && !countdown && <button className="video-play-main" onClick={playEnglishVideo}><Play fill="currentColor" /><span>Xem cảnh mẫu</span></button>}
+        {support !== "none" && !countdown && <div className="line-overlay"><small className="your-turn">ĐẾN LƯỢT EM</small><span>{cue.text}</span>{showMeaning && <small>{cue.vi}</small>}</div>}
         <div className="video-progress"><i style={{ width: ((activeCue + 1) / cues.length * 100) + "%" }} /></div>
       </section>
 
       <section className="coach-panel dub-coach">
-        <div className="coach-title"><span className="coach-avatar">AI</span><div><b>Luyện trước khi thu</b><small>{cue.tone}</small></div></div>
-        <button className="model-button" onClick={() => speak(cue.text, .72)}><span><Volume2 size={22} /></span><div><b>Nghe câu hiện tại</b><small>Chậm và rõ ngữ điệu</small></div><Play size={18} fill="currentColor" /></button>
-        <div className="cue-list">{cues.map((item, index) => <button key={item.text} className={activeCue === index ? "active" : ""} onClick={() => { setActiveCue(index); speak(item.text, .72); }}><span>{index + 1}</span><div><b>{item.who}</b><small>{item.text}</small></div><Volume2 size={15} /></button>)}</div>
-        <label className="switch-line"><span>Hiện nghĩa tiếng Việt</span><input type="checkbox" checked={showMeaning} onChange={event => setShowMeaning(event.target.checked)} /></label>
-        <div className="support"><span>Trợ giúp khi video chạy</span><div>{[["model","Phụ đề + giọng nhỏ"],["captions","Chỉ phụ đề"],["none","Không trợ giúp"]].map(item => <button key={item[0]} className={support === item[0] ? "active" : ""} onClick={() => setSupport(item[0])}>{item[1]}</button>)}</div></div>
+        <div className="director-card"><img src="/cat-companion.png" alt="Miu"/><div><small>MIU HƯỚNG DẪN</small><b>Sẵn sàng thu câu này nhé!</b><span>{cue.tone}</span></div></div>
+        <div className="dub-script-card"><span>LỜI THOẠI CẢNH {activeCue + 1}</span><b>{cue.text}</b>{showMeaning && <small>{cue.vi}</small>}</div>
+        <button className="model-button" onClick={() => speak(cue.text, .72)}><span><Volume2 size={22} /></span><div><b>Nghe Miu đọc mẫu</b><small>Chậm và rõ ngữ điệu</small></div><Play size={18} fill="currentColor" /></button>
+        <div className="cue-strip" aria-label="Chọn cảnh">{cues.map((item, index) => <button key={item.text} className={activeCue === index ? "active" : ""} onClick={() => setActiveCue(index)}><span>{index + 1}</span>Cảnh {index + 1}</button>)}</div>
+        <details className="dub-options"><summary>Tùy chọn trợ giúp</summary><label className="switch-line"><span>Hiện nghĩa tiếng Việt</span><input type="checkbox" checked={showMeaning} onChange={event => setShowMeaning(event.target.checked)} /></label><div className="support"><span>Khi video chạy</span><div>{[["model","Phụ đề + giọng nhỏ"],["captions","Chỉ phụ đề"],["none","Không trợ giúp"]].map(item => <button key={item[0]} className={support === item[0] ? "active" : ""} onClick={() => setSupport(item[0])}>{item[1]}</button>)}</div></div></details>
         {permissionError && <div className="camera-error">{permissionError}</div>}
-        <button className={"record-button video-record " + (recording ? "recording" : "")} onClick={recording ? stopDubbing : startDubbing}>{recording ? <Square fill="currentColor" /> : <Camera />}<span><b>{recording ? "Đang thu hình và tiếng... " + seconds + "s" : cameraOn ? "Bắt đầu lồng tiếng" : "Bật camera & bắt đầu"}</b><small>{recording ? "Video sẽ tự dừng sau đoạn thoại" : "Camera trước + micro · khoảng 14 giây"}</small></span></button>
+        <button className={"record-button video-record " + (recording ? "recording" : "")} onClick={recording ? stopDubbing : startDubbing}>{recording ? <Square fill="currentColor" /> : <Mic />}<span><b>{recording ? "Dừng thu · " + seconds + "s" : cameraOn ? "Bắt đầu lồng tiếng" : "Bật camera & bắt đầu thu"}</b><small>{recording ? "Miu đang ghi hình và giọng của em" : "Đếm ngược 3 giây rồi bắt đầu lồng tiếng"}</small></span></button>
         {takeUrl && <div className="video-take"><div><b>Bản lồng tiếng của em</b><span>Video hoạt hình, camera và giọng của em đã được ghép cùng nhau</span></div><video src={takeUrl} controls playsInline /><button onClick={startDubbing}><RotateCcw size={16} /> Thu lại</button></div>}
         {saved && <div className="save-success"><Check size={18} /><span><b>Đã lưu về máy!</b> Em có thể mở file trong thư mục Downloads.</span></div>}
         <button className="primary wide" disabled={!takeUrl} onClick={saveTake}>{saved ? "Tải lại bản lồng tiếng" : "Lưu bản lồng tiếng"} {saved ? <Download size={18} /> : <ArrowRight size={18} />}</button>
