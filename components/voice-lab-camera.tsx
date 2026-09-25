@@ -308,7 +308,7 @@ export default function VoiceLabCamera({ support, setSupport, showMeaning, setSh
 
   return <div className="voice-shell camera-lab">
     <div className="voice-head">
-      <div><span className="pill pill-purple"><Video size={14} /> PHÒNG THU LỒNG TIẾNG</span><h2>Em là diễn viên lồng tiếng</h2><p>Xem cảnh mẫu rồi thu giọng của em khớp với lời thoại.</p></div>
+      <div><h2><Video size={21} /> Thu giọng của em khớp với lời thoại</h2></div>
       <div className={"privacy " + (cameraOn ? "camera-active" : "")}><span>●</span> {cameraOn ? "Camera đang bật" : "Camera chỉ bật khi em cho phép"}</div>
     </div>
 
@@ -331,8 +331,7 @@ export default function VoiceLabCamera({ support, setSupport, showMeaning, setSh
       </section>
 
       <section className="coach-panel dub-coach">
-        <div className="director-card"><img src="/cat-companion.png" alt="Miu"/><div><small>MIU HƯỚNG DẪN</small><b>Sẵn sàng thu câu này nhé!</b><span>{cue.tone}</span></div></div>
-        <div className="dub-script-card"><span>LỜI THOẠI CẢNH {activeCue + 1}</span><b>{cue.text}</b>{showMeaning && <small>{cue.vi}</small>}</div>
+        <div className="dub-script-card"><span>LỜI THOẠI CẢNH {activeCue + 1} · {cue.tone}</span><b>{cue.text}</b>{showMeaning && <small>{cue.vi}</small>}</div>
         <button className="model-button" onClick={() => speak(cue.text, .72)}><span><Volume2 size={22} /></span><div><b>Nghe Miu đọc mẫu</b><small>Chậm và rõ ngữ điệu</small></div><Play size={18} fill="currentColor" /></button>
         <div className="cue-strip" aria-label="Chọn cảnh">{cues.map((item, index) => <button key={item.text} className={activeCue === index ? "active" : ""} onClick={() => setActiveCue(index)}><span>{index + 1}</span>Cảnh {index + 1}</button>)}</div>
         <details className="dub-options"><summary>Tùy chọn trợ giúp</summary><label className="switch-line"><span>Hiện nghĩa tiếng Việt</span><input type="checkbox" checked={showMeaning} onChange={event => setShowMeaning(event.target.checked)} /></label><div className="support"><span>Khi video chạy</span><div>{[["model","Phụ đề + giọng nhỏ"],["captions","Chỉ phụ đề"],["none","Không trợ giúp"]].map(item => <button key={item[0]} className={support === item[0] ? "active" : ""} onClick={() => setSupport(item[0])}>{item[1]}</button>)}</div></div></details>

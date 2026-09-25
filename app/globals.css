@@ -200,9 +200,7 @@
 /* Immersive, simplified dubbing stage */
 .lesson-theme .camera-lab{padding:0;overflow:hidden;background:linear-gradient(145deg,#111946,#252064);border-color:#c7d7ff;color:#fff}
 .camera-lab .voice-head{padding:22px 25px 17px;background:linear-gradient(110deg,#202b78,#47319a);align-items:center}
-.camera-lab .voice-head h2{font-size:26px;margin:8px 0 3px;color:#fff;text-shadow:0 2px 0 #15174a}
-.camera-lab .voice-head p{color:#dbe1ff}
-.camera-lab .voice-head .pill{background:#fff1a8;color:#64437a;border:2px solid #fff7ca;box-shadow:inset 0 -3px 0 #e6bb52}
+.camera-lab .voice-head h2{font-size:23px;margin:0;color:#fff;text-shadow:0 2px 0 #15174a;display:flex;align-items:center;gap:9px}
 .camera-lab .privacy{background:#11183c99;color:#d7ddff;border:1px solid #ffffff2d}
 .camera-lab .privacy.camera-active{background:#1b795f;color:#d9fff2;border-color:#65e3b8}
 .dub-stage-status{margin:16px 22px 0;min-height:48px;padding:8px 13px;border:1px solid #ffffff25;border-radius:15px;background:#0c133aaa;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:#cdd5ff}
@@ -224,9 +222,7 @@
 .camera-lab .line-overlay>small:last-child:not(.your-turn){padding-left:8px;color:#e2e5ff;font-size:11px}
 .camera-lab .video-progress{height:7px;background:#121738}.camera-lab .video-progress i{background:linear-gradient(90deg,#ffce55,#60e9c4)}
 .camera-lab .dub-coach{max-height:none;overflow:visible;padding:15px;background:linear-gradient(165deg,#fffef8,#f3efff);border:3px solid #fff;border-radius:23px;color:#26305b;box-shadow:0 16px 38px #080b2c70}
-.director-card{display:flex;align-items:center;gap:11px;padding:10px;border-radius:16px;background:linear-gradient(135deg,#fff0a6,#ffd467);box-shadow:inset 0 -4px 0 #e5a43a;color:#503b68}
-.director-card img{width:52px;height:52px;border-radius:15px;object-fit:cover;border:3px solid #fff;box-shadow:0 5px 12px #72572f35}.director-card>div{display:flex;flex-direction:column}.director-card small{font-size:8px;font-weight:1000;letter-spacing:1px}.director-card b{font-size:15px;margin:2px 0}.director-card span{font-size:9px;color:#795569}
-.dub-script-card{margin:12px 0;padding:14px;border-radius:16px;background:#242a70;color:#fff;border:2px solid #626fd2;display:flex;flex-direction:column}.dub-script-card>span{font-size:8px;color:#75e8ff;font-weight:1000;letter-spacing:1px}.dub-script-card>b{font-size:16px;line-height:1.35;margin:6px 0}.dub-script-card>small{font-size:9px;color:#cbd2ff}
+.dub-script-card{margin:0 0 12px;padding:14px;border-radius:16px;background:#242a70;color:#fff;border:2px solid #626fd2;display:flex;flex-direction:column}.dub-script-card>span{font-size:8px;color:#75e8ff;font-weight:1000;letter-spacing:.7px}.dub-script-card>b{font-size:16px;line-height:1.35;margin:6px 0}.dub-script-card>small{font-size:9px;color:#cbd2ff}
 .camera-lab .model-button{margin:0 0 10px;background:#ece9ff;border:2px solid #d2ccff;box-shadow:inset 0 -4px 0 #d0c9f1}.camera-lab .model-button>span{background:linear-gradient(145deg,#785fe9,#4f55d2);box-shadow:inset 0 -4px 0 #3e3da8}
 .cue-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:11px}.cue-strip button{border:1px solid #dedff0;background:#fff;color:#72778e;border-radius:10px;padding:7px 3px;font-size:9px;font-weight:900}.cue-strip button span{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:6px;background:#eceef5;margin-right:3px}.cue-strip button.active{border-color:#6c63e8;background:#eceaff;color:#514bc8}.cue-strip button.active span{background:#665de0;color:#fff}
 .dub-options{border:1px solid #e1e2ef;border-radius:12px;background:#fff;padding:0 10px;margin-bottom:11px}.dub-options summary{cursor:pointer;padding:9px 0;color:#666c84;font-size:10px;font-weight:900}.dub-options[open] summary{border-bottom:1px solid #ececf3}.dub-options .switch-line{margin:10px 0}.dub-options .support>div{margin-bottom:10px}
