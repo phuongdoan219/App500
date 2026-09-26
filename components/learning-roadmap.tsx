@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Fish, Flame, Map, Sparkles, UserRound } from "lucide-react";
+import { ArrowRight, ClipboardCheck, Coins, Flame, Gift, Map, Sparkles, UserRound } from "lucide-react";
 
 export const journeys = [
   {
@@ -12,7 +12,7 @@ export const journeys = [
       { landmark: "Làng Cây Sum Vầy", topic: "Gia đình & bạn bè", position: [51, 45] },
       { landmark: "Lớp học Bay", topic: "Trường học & lớp học", position: [68, 28] },
       { landmark: "Tháp Đồng hồ Ngày Mới", topic: "Hoạt động hằng ngày", position: [80, 55] },
-      { landmark: "Đài Quan sát Ánh Sao", topic: "Ôn tập & thực hành", position: [89, 23] },
+      { landmark: "Đài Quan sát Ánh Sao", topic: "Đánh giá năng lực cuối Level", position: [89, 23] },
     ],
   },
   {
@@ -24,7 +24,7 @@ export const journeys = [
       { landmark: "Chợ Nấm Ngọt", topic: "Đồ ăn & thức uống", position: [47, 34] },
       { landmark: "Hồ La Bàn", topic: "Địa điểm & vị trí", position: [63, 68] },
       { landmark: "Sân Rừng Vận Động", topic: "Hành động & khả năng", position: [76, 41] },
-      { landmark: "Cây Trí Nhớ", topic: "Ôn tập & thực hành", position: [89, 25] },
+      { landmark: "Cây Trí Nhớ", topic: "Đánh giá năng lực cuối Level", position: [89, 25] },
     ],
   },
   {
@@ -36,7 +36,7 @@ export const journeys = [
       { landmark: "Tháp Thời Gian", topic: "Thói quen hằng ngày", position: [48, 39] },
       { landmark: "Chợ Đèo Kỳ Ảo", topic: "Mua sắm & đồ ăn", position: [64, 34] },
       { landmark: "Hẻm Núi La Bàn", topic: "Du lịch & chỉ đường", position: [85, 34] },
-      { landmark: "Đỉnh Pha Lê", topic: "Ôn tập & thực hành", position: [91, 15] },
+      { landmark: "Đỉnh Pha Lê", topic: "Đánh giá năng lực cuối Level", position: [91, 15] },
     ],
   },
 ] as const;
@@ -45,32 +45,28 @@ type Props = {
   activeJourneyId: (typeof journeys)[number]["id"];
   onChangeJourney: () => void;
   onStart: (lesson: number) => void;
-  onCat: () => void;
+  onCompanion: () => void;
   onStreak: () => void;
-  onModeChange: (mode: "cat" | "streak") => void;
+  onAssessment: () => void;
   onShowAccess: () => void;
   onLockedMap?: () => void;
   completedLessons?: number[];
-  fish: number;
+  coins: number;
   streak: number;
-  rewardMode: "cat" | "streak";
+  companionId: "dragon" | "owl" | "fox" | null;
   activePlan: string;
 };
 
-type SelectionProps = Pick<Props, "fish" | "streak" | "rewardMode" | "activePlan" | "onCat" | "onStreak" | "onModeChange" | "onShowAccess"> & {
+type SelectionProps = Pick<Props, "coins" | "streak" | "companionId" | "activePlan" | "onCompanion" | "onStreak" | "onShowAccess"> & {
   onSelect: (journeyId: (typeof journeys)[number]["id"]) => void;
 };
 
-export function JourneySelection({ onSelect, onCat, onStreak, onModeChange, onShowAccess, fish, streak, rewardMode, activePlan }: SelectionProps) {
+export function JourneySelection({ onSelect, onCompanion, onStreak, onShowAccess, coins, streak, companionId, activePlan }: SelectionProps) {
   return <main className="roadmap-screen journey-select-screen">
     <header className="road-topbar">
       <div className="road-brand"><span>E</span><div><b>ENGLISH IN</b><small>WONDERLAND</small></div></div>
-      <div className="road-profile"><button className="access-demo-button" onClick={onShowAccess}><UserRound size={16}/><span>Login &amp; thanh toán</span><small>{activePlan}</small></button>{rewardMode === "cat" ? <button className="fish-stat" onClick={onCat}><Fish size={19} fill="currentColor" /><b>{fish}</b><span>Cá</span></button> : <button className="streak-stat" onClick={onStreak}><Flame size={19} fill="currentColor" /><b>{streak}</b><span>ngày</span></button>}<span className="road-avatar">AN</span></div>
+      <div className="road-profile"><button className="access-demo-button" onClick={onShowAccess}><UserRound size={16}/><span>Login &amp; thanh toán</span><small>{activePlan}</small></button><button className="companion-stat" aria-label={companionId ? "Mở khu vườn linh vật" : "Xem rương linh vật"} onClick={onCompanion}><Gift size={18}/><b>{companionId ? "Linh vật" : "Rương"}</b></button><button className="coin-stat" aria-label={`${coins} Xu ôn luyện`} onClick={onCompanion}><Coins size={18}/><b>{coins}</b><span>Xu</span></button><button className="streak-stat" onClick={onStreak}><Flame size={18} fill="currentColor"/><b>{streak}</b><span>ngày</span></button><span className="road-avatar">AN</span></div>
     </header>
-    <section className="reward-demo-switch" aria-label="Chọn phương án giữ chân để xem demo">
-      <span>PHƯƠNG ÁN THƯỞNG</span>
-      <div><button className={rewardMode === "cat" ? "active cat" : ""} onClick={() => onModeChange("cat")}><Fish size={17} /> Cá &amp; nuôi Miu</button><button className={rewardMode === "streak" ? "active streak" : ""} onClick={() => onModeChange("streak")}><Flame size={17} /> Streak &amp; lên cấp</button></div>
-    </section>
     <section className="journey-select-wrap">
       <span className="road-kicker"><Map size={15}/> BẮT ĐẦU HÀNH TRÌNH</span>
       <h1>Em đang học khối nào?</h1>
@@ -88,36 +84,34 @@ export function JourneySelection({ onSelect, onCat, onStreak, onModeChange, onSh
   </main>;
 }
 
-export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onStart, onCat, onStreak, onModeChange, onShowAccess, completedLessons = [], fish, streak, rewardMode, activePlan }: Props) {
+export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onStart, onCompanion, onStreak, onAssessment, onShowAccess, completedLessons = [], coins, streak, companionId, activePlan }: Props) {
   const activeJourney = journeys.find(journey => journey.id === activeJourneyId) ?? journeys[0];
   const completedCount = completedLessons.filter(id => id >= 1 && id <= 4).length;
   const nextLesson = [1, 2, 3, 4].find(id => !completedLessons.includes(id)) ?? 4;
   const progress = completedCount * 25;
+  const assessmentReady = completedCount === 4;
 
   return <main className="roadmap-screen">
     <header className="road-topbar">
       <div className="road-brand"><span>E</span><div><b>ENGLISH IN</b><small>WONDERLAND</small></div></div>
-      <div className="road-profile"><button className="access-demo-button" onClick={onShowAccess}><UserRound size={16}/><span>Login &amp; thanh toán</span><small>{activePlan}</small></button>{rewardMode === "cat" ? <><button className="cat-home-top" onClick={onCat} aria-label="Vào Nhà của Miu"><img src="/cat-companion.png" alt=""/><span>Nhà của Miu</span></button><button className="fish-stat" onClick={onCat}><Fish size={19} fill="currentColor" /><b>{fish}</b><span>Cá</span></button></> : <button className="streak-stat" onClick={onStreak}><Flame size={19} fill="currentColor" /><b>{streak}</b><span>ngày</span></button>}<span className="road-avatar">AN</span></div>
+      <div className="road-profile"><button className="access-demo-button" onClick={onShowAccess}><UserRound size={16}/><span>Login &amp; thanh toán</span><small>{activePlan}</small></button><button className="companion-stat" aria-label={companionId ? "Mở khu vườn linh vật" : "Xem rương linh vật"} onClick={onCompanion}><Gift size={18}/><b>{companionId ? "Linh vật" : "Rương"}</b></button><button className="coin-stat" aria-label={`${coins} Xu ôn luyện`} onClick={onCompanion}><Coins size={18}/><b>{coins}</b><span>Xu</span></button><button className="streak-stat" onClick={onStreak}><Flame size={18} fill="currentColor"/><b>{streak}</b><span>ngày</span></button><span className="road-avatar">AN</span></div>
     </header>
 
-    <section className="reward-demo-switch" aria-label="Chọn phương án giữ chân để xem demo">
-      <span>PHƯƠNG ÁN THƯỞNG</span>
-      <div><button className={rewardMode === "cat" ? "active cat" : ""} onClick={() => onModeChange("cat")}><Fish size={17} /> Cá &amp; nuôi Miu</button><button className={rewardMode === "streak" ? "active streak" : ""} onClick={() => onModeChange("streak")}><Flame size={17} /> Streak &amp; lên cấp</button></div>
-    </section>
-
     <section className="road-heading">
-      <div><span className="road-kicker"><Map size={15} /> {activeJourney.grades.toUpperCase()} · {activeJourney.level}</span><h1>{activeJourney.theme}</h1><p>{activeJourney.description}</p><button className="change-journey" onClick={onChangeJourney}>Đổi khối học</button></div>
-      <div className="level-progress"><span><b>{completedCount}</b>/4 Lesson đã hoàn thành</span><i><em style={{ width: `${progress}%` }} /></i><small>{completedCount === 4 ? "Unit hiện tại đã hoàn thành" : `Tiếp theo: Lesson ${nextLesson}`}</small></div>
+      <div><span className="road-kicker"><Map size={15} /> LEVEL 1 · {activeJourney.grades.toUpperCase()} · {activeJourney.level}</span><h1>{activeJourney.theme}</h1><p>Mỗi bản đồ là một Level. Đi đến mốc đánh giá cuối để hoàn thành hành trình.</p><button className="change-journey" onClick={onChangeJourney}>Đổi khối học</button></div>
+      <div className="level-progress"><span><b>{completedCount}</b>/4 Lesson đã hoàn thành</span><i><em style={{ width: `${progress}%` }} /></i><small>{assessmentReady ? "Mốc đánh giá năng lực đã mở" : `Tiếp theo: Lesson ${nextLesson}`}</small></div>
     </section>
 
     <div className="road-layout road-layout-focused map-only-layout">
       <section key={activeJourney.id} className={`island-map map-theme-${activeJourney.accent}`} aria-label={`Bản đồ ${activeJourney.grades}, ${activeJourney.level}`}>
         <img src={activeJourney.image} alt={`Bản đồ chủ đề ${activeJourney.theme}`} />
-        <div className="map-title"><span>VÙNG ĐẤT {activeJourney.level}</span><b>{activeJourney.theme}</b><small>{activeJourney.description}</small></div>
+        <div className="map-title"><span>LEVEL 1 · BẢN ĐỒ HỌC TẬP</span><b>{activeJourney.theme}</b><small>Đích đến: Bài đánh giá năng lực</small></div>
         {activeJourney.units.map((unit, index) => {
           const unitId = index + 1;
-          return <button key={unit.landmark} style={{ left: `${unit.position[0]}%`, top: `${unit.position[1]}%` }} onClick={() => onStart(nextLesson)} className={`journey-node node-${unitId} open${unitId === 1 ? " selected" : ""}`} aria-label={`Mở Unit ${unitId}: ${unit.landmark} — ${unit.topic}`}>
-            <span className="node-medal">{unitId}</span><b><small>UNIT {unitId}</small>{unit.landmark}</b><small>{unit.topic}</small>{unitId === 1 && <em>{completedCount === 4 ? "Học lại" : `Tiếp tục Lesson ${nextLesson}`}</em>}
+          const isAssessment = unitId === activeJourney.units.length;
+          const isLocked = isAssessment && !assessmentReady;
+          return <button key={unit.landmark} disabled={isLocked} style={{ left: `${unit.position[0]}%`, top: `${unit.position[1]}%` }} onClick={() => isAssessment ? onAssessment() : onStart(Math.min(unitId, 4))} className={`journey-node node-${unitId} ${isAssessment ? "assessment-node " : ""}${isLocked ? "locked" : "open"}${(!isAssessment && unitId === nextLesson) || (isAssessment && assessmentReady) ? " selected" : ""}`} aria-label={isAssessment ? `Mốc cuối: Đánh giá năng lực tại ${unit.landmark}` : `Mở chặng ${unitId}: ${unit.landmark} — ${unit.topic}`}>
+            <span className="node-medal">{isAssessment ? <><strong>6</strong><ClipboardCheck size={14}/></> : unitId}</span><b><small>{isAssessment ? "MỐC CUỐI" : `CHẶNG ${unitId}`}</small>{unit.landmark}</b><small>{unit.topic}</small>{isAssessment && <em>{assessmentReady ? "Sẵn sàng chinh phục" : `Cần ${4 - completedCount} Lesson nữa`}</em>}
           </button>;
         })}
         <div className="map-cloud cloud-a" /><div className="map-cloud cloud-b" />

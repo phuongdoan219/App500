@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, BookOpen, Camera, Check, ChevronLeft, ChevronRight, Fish, Flame, Headphones, House, LockKeyhole, Mic, NotebookTabs, Pause, Play, RotateCcw, Settings, Sparkles, Square, Trophy, Video, Volume2, Waves, X, Zap } from "lucide-react";
+import { ArrowRight, BookOpen, Camera, Check, ChevronLeft, ChevronRight, Coins, Flame, Gift, Headphones, LockKeyhole, Mic, NotebookTabs, Pause, Play, RotateCcw, Settings, Sparkles, Square, Trophy, Video, Volume2, Waves, X, Zap } from "lucide-react";
 import VoiceLabCamera from "@/components/voice-lab-camera";
 import LessonOneVideo from "@/components/lesson-one-video";
 import LearningRoadmap, { JourneySelection, journeys } from "@/components/learning-roadmap";
 import LessonResult from "@/components/lesson-result";
-import CatHome from "@/components/cat-home";
+import CompanionHub, { CompanionId, companions, MascotPortrait } from "@/components/companion-hub";
 import StreakHub from "@/components/streak-hub";
 import AccessFlow from "@/components/access-flow";
+import LevelAssessment from "@/components/level-assessment";
 
 const units = [
   { id: 1, title: "The Wrong Bag", theme: "Ngoại hình & đồ vật", open: true },
@@ -31,7 +32,7 @@ function say(text: string, rate = 0.82) { if (!("speechSynthesis" in window)) re
 function Pill({ children, tone = "blue" }: { children: React.ReactNode; tone?: string }) { return <span className={"pill pill-" + tone}>{children}</span>; }
 
 export default function Home() {
-  const [screen, setScreen] = useState<"journey-select" | "roadmap" | "lesson" | "result" | "cat" | "streak">("journey-select");
+  const [screen, setScreen] = useState<"journey-select" | "roadmap" | "lesson" | "assessment" | "result" | "companion" | "streak">("journey-select");
   const [activeJourneyId, setActiveJourneyId] = useState<(typeof journeys)[number]["id"]>("magic-school");
   const [lesson, setLesson] = useState(1), [storyStep, setStoryStep] = useState(1), [playing, setPlaying] = useState(false);
   const [answer, setAnswer] = useState(""), [checked, setChecked] = useState(false), [dictation, setDictation] = useState("");
@@ -39,59 +40,55 @@ export default function Home() {
   const [notebookOpen, setNotebookOpen] = useState(false), [done, setDone] = useState<number[]>([]);
   const [sheetOnline, setSheetOnline] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [fish, setFish] = useState(8);
-  const [rewardMode, setRewardMode] = useState<"cat" | "streak">("cat");
+  const [coins, setCoins] = useState(0);
   const [streak, setStreak] = useState(6);
   const [accessFlow, setAccessFlow] = useState<null | "welcome" | "pricing">("welcome");
   const [activePlan, setActivePlan] = useState("Dùng thử");
   const [owned, setOwned] = useState<string[]>([]);
-  const [catMood, setCatMood] = useState("Miu đang vui vì được đồng hành học tiếng Anh cùng em!");
+  const [companionId, setCompanionId] = useState<CompanionId | null>(null);
+  const [pendingCompanion, setPendingCompanion] = useState<CompanionId>("dragon");
+  const [chestOpen, setChestOpen] = useState(false);
+  const [assessmentScore, setAssessmentScore] = useState(0);
+  const [reviewClaimed, setReviewClaimed] = useState(false);
   const [reward, setReward] = useState<{ lesson: number; earned: boolean } | null>(null);
   useEffect(() => { const saved = localStorage.getItem("english-in-wonderland-demo-progress"); if (saved) setDone(JSON.parse(saved)); }, []);
   useEffect(() => {
-    const savedFish = localStorage.getItem("english-in-wonderland-demo-fish");
-    const savedOwned = localStorage.getItem("english-in-wonderland-demo-cat-items");
-    const savedMode = localStorage.getItem("english-in-wonderland-demo-reward-mode");
+    const savedCoins = localStorage.getItem("english-in-wonderland-demo-coins");
+    const savedOwned = localStorage.getItem("english-in-wonderland-demo-companion-items");
+    const savedCompanion = localStorage.getItem("english-in-wonderland-demo-companion") as CompanionId | null;
     const savedStreak = localStorage.getItem("english-in-wonderland-demo-streak");
     const savedAccess = localStorage.getItem("english-in-wonderland-demo-access-complete");
     const savedPlan = localStorage.getItem("english-in-wonderland-demo-plan");
-    if (savedFish) setFish(Number(savedFish));
+    if (savedCoins) setCoins(Number(savedCoins));
     if (savedOwned) setOwned(JSON.parse(savedOwned));
-    if (savedMode === "cat" || savedMode === "streak") setRewardMode(savedMode);
+    if (savedCompanion && savedCompanion in companions) setCompanionId(savedCompanion);
+    setReviewClaimed(localStorage.getItem("english-in-wonderland-demo-review-date") === new Date().toDateString());
     if (savedStreak) setStreak(Number(savedStreak));
     if (savedAccess === "true") setAccessFlow(null);
     if (savedPlan) setActivePlan(savedPlan);
   }, []);
   useEffect(() => { fetch("/api/curriculum").then(r => r.json()).then((data: unknown) => setSheetOnline(Boolean((data as { connected?: boolean }).connected))).catch(() => setSheetOnline(false)); }, []);
   function completeLesson(id: number) {
-    const lessonEarned = !done.includes(id);
     const next = Array.from(new Set([...done, id]));
     setDone(next);
     localStorage.setItem("english-in-wonderland-demo-progress", JSON.stringify(next));
-    let earned = lessonEarned;
-    if (rewardMode === "cat" && lessonEarned) {
-      const nextFish = fish + 1;
-      setFish(nextFish);
-      localStorage.setItem("english-in-wonderland-demo-fish", String(nextFish));
-    }
-    if (rewardMode === "streak") {
-      const today = new Date().toDateString();
-      earned = localStorage.getItem("english-in-wonderland-demo-streak-date") !== today;
-      if (earned) {
-        const nextStreak = streak + 1;
-        setStreak(nextStreak);
-        localStorage.setItem("english-in-wonderland-demo-streak", String(nextStreak));
-        localStorage.setItem("english-in-wonderland-demo-streak-date", today);
-      }
-    }
-    if (id === 4) {
-      setScreen("result");
-      return;
+    const today = new Date().toDateString();
+    const earned = localStorage.getItem("english-in-wonderland-demo-streak-date") !== today;
+    if (earned) {
+      const nextStreak = streak + 1;
+      setStreak(nextStreak);
+      localStorage.setItem("english-in-wonderland-demo-streak", String(nextStreak));
+      localStorage.setItem("english-in-wonderland-demo-streak-date", today);
     }
     setReward({ lesson: id, earned });
   }
   function continueAfterReward() {
     if (!reward) return;
+    if (reward.lesson === 4) {
+      setReward(null);
+      setScreen("roadmap");
+      return;
+    }
     setLesson(reward.lesson + 1);
     setStoryStep(1);
     setAnswer("");
@@ -100,21 +97,37 @@ export default function Home() {
     setReward(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
-  function buyForCat(id: string, price: number, label: string) {
-    if (fish < price || (id !== "snack" && owned.includes(id))) return;
-    const nextFish = fish - price;
-    setFish(nextFish);
-    localStorage.setItem("english-in-wonderland-demo-fish", String(nextFish));
-    if (id !== "snack") {
+  function buyForCompanion(id: string, price: number, _label: string, type: "food" | "skin") {
+    if (coins < price || (type === "skin" && owned.includes(id))) return;
+    const nextCoins = coins - price;
+    setCoins(nextCoins);
+    localStorage.setItem("english-in-wonderland-demo-coins", String(nextCoins));
+    if (type === "skin") {
       const nextOwned = [...owned, id];
       setOwned(nextOwned);
-      localStorage.setItem("english-in-wonderland-demo-cat-items", JSON.stringify(nextOwned));
+      localStorage.setItem("english-in-wonderland-demo-companion-items", JSON.stringify(nextOwned));
     }
-    setCatMood(id === "snack" ? "Miu vừa được uống sữa và đang rất vui!" : `Miu thích ${label} em tặng lắm!`);
   }
-  function changeRewardMode(mode: "cat" | "streak") {
-    setRewardMode(mode);
-    localStorage.setItem("english-in-wonderland-demo-reward-mode", mode);
+  function completeReview() {
+    const nextCoins = coins + 3;
+    setCoins(nextCoins);
+    setReviewClaimed(true);
+    localStorage.setItem("english-in-wonderland-demo-coins", String(nextCoins));
+    localStorage.setItem("english-in-wonderland-demo-review-date", new Date().toDateString());
+  }
+  function completeAssessment(score: number) {
+    const ids = Object.keys(companions) as CompanionId[];
+    const available = companionId ? ids.filter(id => id !== companionId) : ids;
+    const unlocked = available[Math.floor(Math.random() * available.length)] ?? ids[0];
+    setAssessmentScore(score);
+    setPendingCompanion(unlocked);
+    setChestOpen(false);
+    setScreen("result");
+  }
+  function claimCompanion() {
+    setCompanionId(pendingCompanion);
+    localStorage.setItem("english-in-wonderland-demo-companion", pendingCompanion);
+    setChestOpen(false);
   }
   function completeAccess(plan: string) {
     setActivePlan(plan);
@@ -125,27 +138,28 @@ export default function Home() {
   function toggleStory() { const video = document.getElementById("story-video") as HTMLVideoElement | null; if (!video) return; if (video.paused) { video.play(); setPlaying(true); } else { video.pause(); setPlaying(false); } }
   const level = Math.floor(streak / 7) + 1;
   if (accessFlow) return <AccessFlow key={accessFlow} initial={accessFlow} canExit={accessFlow === "pricing"} onExit={() => setAccessFlow(null)} onComplete={completeAccess} />;
-  if (screen === "journey-select") return <JourneySelection fish={fish} streak={streak} rewardMode={rewardMode} activePlan={activePlan} onCat={() => setScreen("cat")} onStreak={() => setScreen("streak")} onModeChange={changeRewardMode} onShowAccess={() => setAccessFlow("welcome")} onSelect={(journeyId) => { setActiveJourneyId(journeyId); setScreen("roadmap"); }} />;
-  if (screen === "roadmap") return <LearningRoadmap activeJourneyId={activeJourneyId} onChangeJourney={() => setScreen("journey-select")} fish={fish} streak={streak} rewardMode={rewardMode} activePlan={activePlan} completedLessons={done} onCat={() => setScreen("cat")} onStreak={() => setScreen("streak")} onModeChange={changeRewardMode} onShowAccess={() => setAccessFlow("welcome")} onLockedMap={() => setAccessFlow("pricing")} onStart={(lessonId) => { setLesson(lessonId); setScreen("lesson"); }} />;
-  if (screen === "cat") return <CatHome fish={fish} owned={owned} mood={catMood} onBack={() => setScreen("roadmap")} onBuy={buyForCat} />;
+  if (screen === "journey-select") return <JourneySelection coins={coins} streak={streak} companionId={companionId} activePlan={activePlan} onCompanion={() => setScreen("companion")} onStreak={() => setScreen("streak")} onShowAccess={() => setAccessFlow("welcome")} onSelect={(journeyId) => { setActiveJourneyId(journeyId); setScreen("roadmap"); }} />;
+  if (screen === "roadmap") return <LearningRoadmap activeJourneyId={activeJourneyId} onChangeJourney={() => setScreen("journey-select")} coins={coins} streak={streak} companionId={companionId} activePlan={activePlan} completedLessons={done} onCompanion={() => setScreen("companion")} onStreak={() => setScreen("streak")} onShowAccess={() => setAccessFlow("welcome")} onLockedMap={() => setAccessFlow("pricing")} onAssessment={() => setScreen("assessment")} onStart={(lessonId) => { setLesson(lessonId); setScreen("lesson"); }} />;
+  if (screen === "companion") return <CompanionHub coins={coins} companionId={companionId} owned={owned} reviewClaimed={reviewClaimed} onBack={() => setScreen("roadmap")} onReviewComplete={completeReview} onBuy={buyForCompanion} />;
   if (screen === "streak") return <StreakHub streak={streak} level={level} onBack={() => setScreen("roadmap")} onLearn={() => { setLesson([1, 2, 3, 4].find(id => !done.includes(id)) ?? 1); setScreen("lesson"); }} />;
-  if (screen === "result") return <LessonResult fish={fish} streak={streak} level={level} rewardMode={rewardMode} onCat={() => setScreen("cat")} onStreak={() => setScreen("streak")} onMap={() => setScreen("roadmap")} onReplay={() => { setLesson(4); setScreen("lesson"); }} />;
+  if (screen === "assessment") return <LevelAssessment onBack={() => setScreen("roadmap")} onComplete={completeAssessment} />;
+  if (screen === "result") return <><LessonResult score={assessmentScore} streak={streak} level={level} companionName={companions[pendingCompanion].name} onOpenChest={() => setChestOpen(true)} onStreak={() => setScreen("streak")} onMap={() => setScreen("roadmap")} onReplay={() => setScreen("assessment")} />{chestOpen && <div className="chest-modal" role="dialog" aria-modal="true" aria-label="Rương linh vật"><section><span className="chest-rays"/><small>RƯƠNG LEVEL 1 ĐÃ MỞ</small><MascotPortrait id={pendingCompanion}/><h2>Xin chào, {companions[pendingCompanion].name}!</h2><p>Em đã mở khóa <b>{companions[pendingCompanion].kind}</b>. Từ bây giờ, ôn bài sẽ giúp em kiếm Xu để chăm người bạn mới.</p><button onClick={claimCompanion}><Gift size={18}/> Nhận linh vật</button></section></div>}</>;
   return <main className={`app-shell lesson-theme lesson-theme-${lesson}`}>
     <button className="floating-map-back" onClick={() => setScreen("roadmap")}><ChevronLeft size={17} /> Lộ trình</button>
-    <header className="topbar"><div className="brand"><span className="brand-mark">E</span><span><b>ENGLISH IN</b><small>WONDERLAND</small></span></div><div className="journey"><div className="journey-copy"><span>Hành trình hôm nay</span><b>Lesson {lesson}/4</b></div><div className="journey-track"><i style={{ width: ((done.length + 1) / 4 * 100) + "%" }} /></div></div><div className="top-actions">{rewardMode === "cat" ? <><button className="stat fish-top" onClick={() => setScreen("cat")}><Fish size={18} fill="currentColor" /> <b>{fish}</b> Cá</button><button className="stat cat-home-link" onClick={() => setScreen("cat")}><House size={17} /> Nhà của Miu</button></> : <><button className="stat streak-top" onClick={() => setScreen("streak")}><Flame size={18} fill="currentColor" /> <b>{streak}</b> ngày</button><button className="stat streak-level-link" onClick={() => setScreen("streak")}><Trophy size={17} /> Cấp {level}</button></>}<button className="avatar">AN</button></div></header>
+    <header className="topbar"><div className="brand"><span className="brand-mark">E</span><span><b>ENGLISH IN</b><small>WONDERLAND</small></span></div><div className="journey"><div className="journey-copy"><span>Hành trình hôm nay</span><b>Lesson {lesson}/4</b></div><div className="journey-track"><i style={{ width: ((done.length + 1) / 4 * 100) + "%" }} /></div></div><div className="top-actions"><button className="stat coin-top" onClick={() => setScreen("companion")}><Coins size={18}/> <b>{coins}</b> Xu</button><button className="stat streak-top" onClick={() => setScreen("streak")}><Flame size={18} fill="currentColor"/> <b>{streak}</b> ngày</button><button className="avatar">AN</button></div></header>
     <div className={"workspace" + (sidebarCollapsed ? " sidebar-collapsed" : "")}><aside className={"sidebar" + (sidebarCollapsed ? " collapsed" : "")}><div className="course-head"><button className="round-btn sidebar-toggle" onClick={() => setSidebarCollapsed(value => !value)} aria-expanded={!sidebarCollapsed} aria-label={sidebarCollapsed ? "Mở rộng menu" : "Thu gọn menu"} title={sidebarCollapsed ? "Mở rộng menu" : "Thu gọn menu"}>{sidebarCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}</button><div><span>BEGINNER 1</span><h2>English Adventures</h2></div></div><div className="course-progress"><div><b>Unit 1/24</b><span>{done.length}/4 Lesson</span></div><i><em style={{ width: `${done.length * 25}%` }} /></i></div><p className="side-label">CHỌN UNIT</p><div className="unit-list">{units.map(unit => <button key={unit.id} disabled={!unit.open} title={unit.title} className={"unit-card " + (unit.id === 1 ? "active" : "")}><span className="unit-number">{unit.open ? unit.id : <LockKeyhole size={14} />}</span><span className="unit-copy"><b>{unit.title}</b><small>{unit.theme}</small></span><span className="unit-paw">{unit.id === 1 ? `✓ ${done.length}/4` : "🔒"}</span></button>)}</div><button className="notebook-btn" title="Sổ tay của em" onClick={() => setNotebookOpen(true)}><NotebookTabs size={20} /><span><b>Sổ tay của em</b><small>12 từ · 3 mẫu câu</small></span><ArrowRight size={17} /></button><div className="sheet-note"><span className={sheetOnline ? "live-dot" : "live-dot offline"} /> {sheetOnline ? "Đang đọc khung chương trình từ Google Sheets" : "Đang dùng dữ liệu mẫu nội bộ"}</div></aside>
-      <section className="learning-area"><div className="unit-title-row"><div><span className="eyebrow">UNIT 1 · NGOẠI HÌNH &amp; ĐỒ VẬT</span><h1>The Wrong Bag</h1><p className="unit-flow-note">Hoàn thành Lesson hiện tại để tự mở bước tiếp theo.</p></div><div className="lesson-mission"><span><Sparkles size={14}/> NHIỆM VỤ HIỆN TẠI</span><b>{lessonTabs[lesson - 1].label}</b><small>Lesson {lesson}/4 · Nhận {rewardMode === "cat" ? "1 Cá" : "lửa Streak"}</small></div><Pill tone="mint">A1 Starter</Pill></div><nav className="lesson-tabs">{lessonTabs.map(tab => { const Icon = tab.icon; const completed = done.includes(tab.id); const canOpen = tab.id === 1 || done.includes(tab.id - 1) || completed; return <button key={tab.id} disabled={!canOpen} onClick={() => setLesson(tab.id)} className={"lesson-tab " + (lesson === tab.id ? "active " : "") + (completed ? "done " : "") + (!canOpen ? "locked" : "")}><span className="tab-icon">{canOpen ? <Icon size={23} /> : <LockKeyhole size={20} />}{completed && <i className="tab-check" aria-label="Đã hoàn thành"><Check size={11} strokeWidth={4} /></i>}</span><span className="tab-copy"><small>LESSON {tab.id}</small><b>{tab.label}</b></span><em>{canOpen ? tab.sub : "Hoàn thành bước trước"}</em></button>; })}</nav>
-        {lesson === 1 && <LessonOneVideo storyStep={storyStep} setStoryStep={setStoryStep} answer={answer} setAnswer={setAnswer} checked={checked} setChecked={setChecked} finish={() => completeLesson(1)} rewardLabel={rewardMode === "cat" ? "Hoàn thành và nhận 1 Cá" : "Hoàn thành và giữ lửa"} />}
-        {lesson === 2 && <LessonTwo finish={() => completeLesson(2)} rewardMode={rewardMode} />}
+      <section className="learning-area"><div className="unit-title-row"><div><span className="eyebrow">UNIT 1 · NGOẠI HÌNH &amp; ĐỒ VẬT</span><h1>The Wrong Bag</h1><p className="unit-flow-note">Hoàn thành Lesson hiện tại để tự mở bước tiếp theo.</p></div><div className="lesson-mission"><span><Sparkles size={14}/> NHIỆM VỤ HIỆN TẠI</span><b>{lessonTabs[lesson - 1].label}</b><small>Lesson {lesson}/4 · Tiến gần mốc đánh giá</small></div><Pill tone="mint">A1 Starter</Pill></div><nav className="lesson-tabs">{lessonTabs.map(tab => { const Icon = tab.icon; const completed = done.includes(tab.id); const canOpen = tab.id === 1 || done.includes(tab.id - 1) || completed; return <button key={tab.id} disabled={!canOpen} onClick={() => setLesson(tab.id)} className={"lesson-tab " + (lesson === tab.id ? "active " : "") + (completed ? "done " : "") + (!canOpen ? "locked" : "")}><span className="tab-icon">{canOpen ? <Icon size={23} /> : <LockKeyhole size={20} />}{completed && <i className="tab-check" aria-label="Đã hoàn thành"><Check size={11} strokeWidth={4} /></i>}</span><span className="tab-copy"><small>LESSON {tab.id}</small><b>{tab.label}</b></span><em>{canOpen ? tab.sub : "Hoàn thành bước trước"}</em></button>; })}</nav>
+        {lesson === 1 && <LessonOneVideo storyStep={storyStep} setStoryStep={setStoryStep} answer={answer} setAnswer={setAnswer} checked={checked} setChecked={setChecked} finish={() => completeLesson(1)} rewardLabel="Hoàn thành Lesson" />}
+        {lesson === 2 && <LessonTwo finish={() => completeLesson(2)} />}
         {lesson === 3 && <LessonThree dictation={dictation} setDictation={setDictation} finish={() => completeLesson(3)} />}
         {lesson === 4 && <VoiceLabCamera support={support} setSupport={setSupport} showMeaning={showMeaning} setShowMeaning={setShowMeaning} finish={() => completeLesson(4)} />}
-      </section></div>{notebookOpen && <Notebook onClose={() => setNotebookOpen(false)} />}{reward && <div className={`fish-reward-modal ${rewardMode === "streak" ? "streak-modal" : ""}`} role="dialog" aria-modal="true" aria-label="Phần thưởng hoàn thành Lesson"><section><span className="reward-fish-icon">{rewardMode === "cat" ? "🐟" : "🔥"}</span><small>LESSON HOÀN THÀNH</small><h2>{rewardMode === "cat" ? (reward.earned ? "Em nhận được 1 Cá!" : "Em đã hoàn thành lại bài!") : (reward.earned ? `Chuỗi tăng lên ${streak} ngày!` : "Hôm nay em đã giữ lửa rồi!")}</h2><p>{rewardMode === "cat" ? (reward.earned ? "Miu đang chờ em mang Cá về nhà." : "Cá của Lesson này đã được nhận trước đó.") : (reward.earned ? `${streak % 7 === 0 ? "Em đã lên cấp và mở Rương Vàng!" : `Còn ${7 - streak % 7} ngày để lên cấp ${level + 1}.`}` : "Mỗi ngày chuỗi chỉ tăng 1 lần, em vẫn có thể học tiếp.")}</p><div><button className="reward-cat-button" onClick={() => { setReward(null); setScreen(rewardMode === "cat" ? "cat" : "streak"); }}>{rewardMode === "cat" ? <><House size={18} /> Đến nhà của Miu</> : <><Trophy size={18} /> Xem mốc thưởng</>}</button><button className="primary" onClick={continueAfterReward}>Học Lesson tiếp theo <ArrowRight size={18} /></button></div></section></div>}
+      </section></div>{notebookOpen && <Notebook onClose={() => setNotebookOpen(false)} />}{reward && <div className="fish-reward-modal streak-modal" role="dialog" aria-modal="true" aria-label="Tiến trình hoàn thành Lesson"><section><span className="reward-fish-icon">{reward.lesson === 4 ? "🏁" : "✓"}</span><small>LESSON HOÀN THÀNH</small><h2>{reward.lesson === 4 ? "Mốc đánh giá đã mở!" : `Đã hoàn thành Lesson ${reward.lesson}`}</h2><p>{reward.lesson === 4 ? "Quay về bản đồ và chinh phục mốc cuối để hoàn thành Level, mở rương linh vật." : reward.earned ? `Streak vẫn an toàn: chuỗi hiện tại là ${streak} ngày.` : "Hôm nay em đã giữ streak. Học tiếp để tiến gần mốc đánh giá cuối Level."}</p><div><button className="reward-cat-button" onClick={() => { setReward(null); setScreen("streak"); }}><Flame size={18}/> Xem streak</button><button className="primary" onClick={continueAfterReward}>{reward.lesson === 4 ? "Về mốc đánh giá" : "Học Lesson tiếp theo"} <ArrowRight size={18}/></button></div></section></div>}
   </main>;
 }
 
-function LessonOne(p: any) { const { storyStep, setStoryStep, playing, toggleStory, answer, setAnswer, checked, setChecked, finish } = p; return <div className="lesson-layout"><div className="main-card story-card"><div className="card-top"><div><Pill tone="coral"><Sparkles size={13} /> Câu chuyện</Pill><h2>Chiếc diều đi đâu rồi?</h2><p>Xem câu chuyện và thử đoán điều xảy ra tiếp theo.</p></div><button className="icon-button"><Settings size={18} /></button></div><div className="story-stage"><img src="/story-park.png" alt="Hai bạn nhỏ tìm chiếc diều đỏ mắc trên cây" /><div className="story-shade" /><span className="video-empty">VIDEO SẼ ĐƯỢC THÊM SAU</span><button className="big-play" onClick={toggleStory}>{playing ? <Pause fill="currentColor" /> : <Play fill="currentColor" />}</button><div className="caption"><b>Ben:</b> Oh no! Where is my red kite?</div><div className="player-bar"><button onClick={toggleStory}>{playing ? <Pause size={16} /> : <Play size={16} />}</button><span>0:08</span><i><em style={{ width: playing ? "52%" : "28%" }} /></i><span>0:32</span><Volume2 size={16} /><span className="cc">CC</span></div></div><div className="micro-actions"><button onClick={() => say("Where is my red kite?", .72)}><Volume2 size={17} /> Nghe chậm</button><button onClick={() => say("Where is my red kite?", .9)}><Waves size={17} /> Nghe tự nhiên</button></div></div><aside className="activity-card"><div className="activity-kicker">BƯỚC {storyStep}/4</div><h3>{storyStep === 1 ? "Sẵn sàng khám phá?" : "Diều đang ở đâu?"}</h3>{storyStep === 1 ? <><p>Hãy xem đoạn đầu. Chưa cần hiểu từng từ — chỉ cần để ý nét mặt và hành động.</p><div className="tip"><Zap size={19} /><span><b>Mẹo nhỏ</b>Em có thể nghe lại bao nhiêu lần tùy thích.</span></div><button className="primary" onClick={() => { toggleStory(); setStoryStep(2); }}>Xem & tiếp tục <ArrowRight size={18} /></button></> : <><p>Chọn câu trả lời đúng theo hình và câu chuyện.</p><div className="answers">{["It is under the bench.", "It is in the tree.", "It is in the bag."].map(item => <button key={item} className={(answer === item ? "selected " : "") + (checked && item === "It is in the tree." ? "correct" : "")} onClick={() => setAnswer(item)}>{item}</button>)}</div>{checked && <div className="success"><Check size={18} /><span><b>Chính xác!</b> “In the tree” nghĩa là ở trên cây.</span></div>}<button disabled={!answer} className="primary" onClick={() => { setChecked(true); finish(); }}>{checked ? "Hoàn thành và nhận 1 Cá" : "Kiểm tra"} <ArrowRight size={18} /></button></>}<div className="step-dots">{[1,2,3,4].map(i => <button key={i} className={i <= storyStep ? "on" : ""} onClick={() => setStoryStep(i)} />)}</div></aside></div>; }
+function LessonOne(p: any) { const { storyStep, setStoryStep, playing, toggleStory, answer, setAnswer, checked, setChecked, finish } = p; return <div className="lesson-layout"><div className="main-card story-card"><div className="card-top"><div><Pill tone="coral"><Sparkles size={13} /> Câu chuyện</Pill><h2>Chiếc diều đi đâu rồi?</h2><p>Xem câu chuyện và thử đoán điều xảy ra tiếp theo.</p></div><button className="icon-button"><Settings size={18} /></button></div><div className="story-stage"><img src="/story-park.png" alt="Hai bạn nhỏ tìm chiếc diều đỏ mắc trên cây" /><div className="story-shade" /><span className="video-empty">VIDEO SẼ ĐƯỢC THÊM SAU</span><button className="big-play" onClick={toggleStory}>{playing ? <Pause fill="currentColor" /> : <Play fill="currentColor" />}</button><div className="caption"><b>Ben:</b> Oh no! Where is my red kite?</div><div className="player-bar"><button onClick={toggleStory}>{playing ? <Pause size={16} /> : <Play size={16} />}</button><span>0:08</span><i><em style={{ width: playing ? "52%" : "28%" }} /></i><span>0:32</span><Volume2 size={16} /><span className="cc">CC</span></div></div><div className="micro-actions"><button onClick={() => say("Where is my red kite?", .72)}><Volume2 size={17} /> Nghe chậm</button><button onClick={() => say("Where is my red kite?", .9)}><Waves size={17} /> Nghe tự nhiên</button></div></div><aside className="activity-card"><div className="activity-kicker">BƯỚC {storyStep}/4</div><h3>{storyStep === 1 ? "Sẵn sàng khám phá?" : "Diều đang ở đâu?"}</h3>{storyStep === 1 ? <><p>Hãy xem đoạn đầu. Chưa cần hiểu từng từ — chỉ cần để ý nét mặt và hành động.</p><div className="tip"><Zap size={19} /><span><b>Mẹo nhỏ</b>Em có thể nghe lại bao nhiêu lần tùy thích.</span></div><button className="primary" onClick={() => { toggleStory(); setStoryStep(2); }}>Xem & tiếp tục <ArrowRight size={18} /></button></> : <><p>Chọn câu trả lời đúng theo hình và câu chuyện.</p><div className="answers">{["It is under the bench.", "It is in the tree.", "It is in the bag."].map(item => <button key={item} className={(answer === item ? "selected " : "") + (checked && item === "It is in the tree." ? "correct" : "")} onClick={() => setAnswer(item)}>{item}</button>)}</div>{checked && <div className="success"><Check size={18} /><span><b>Chính xác!</b> “In the tree” nghĩa là ở trên cây.</span></div>}<button disabled={!answer} className="primary" onClick={() => { setChecked(true); finish(); }}>{checked ? "Hoàn thành Lesson" : "Kiểm tra"} <ArrowRight size={18} /></button></>}<div className="step-dots">{[1,2,3,4].map(i => <button key={i} className={i <= storyStep ? "on" : ""} onClick={() => setStoryStep(i)} />)}</div></aside></div>; }
 
-function LessonTwo({ finish, rewardMode }: { finish: () => void; rewardMode: "cat" | "streak" }) {
+function LessonTwo({ finish }: { finish: () => void }) {
   const [step, setStep] = useState(1);
   const [choice, setChoice] = useState("");
   const [result, setResult] = useState(false);
@@ -155,7 +169,7 @@ function LessonTwo({ finish, rewardMode }: { finish: () => void; rewardMode: "ca
   return <div className="deep-dive-card">
     <div className="deep-dive-head">
       <div><Pill tone="yellow"><BookOpen size={13}/> TỪ &amp; MẪU CÂU</Pill><h2>Hiểu sâu câu chuyện</h2><p>Đi lần lượt từng bước để ghi nhớ từ và cách dùng trong câu.</p></div>
-      <span className="deep-dive-reward">{rewardMode === "cat" ? "+1 🐟 khi hoàn thành" : "🔥 Giữ chuỗi hôm nay"}</span>
+      <span className="deep-dive-reward">Hoàn thành để mở mốc tiếp theo</span>
     </div>
 
     <ol className="deep-dive-steps" aria-label="Tiến trình Lesson 2">
