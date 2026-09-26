@@ -1,30 +1,53 @@
 "use client";
 
-import { ArrowRight, BookOpen, Check, Gift, Headphones, Map, Mic, RotateCcw, Sparkles, Star, Trophy } from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, ArrowRight, BookOpen, Check, Headphones, Map, Mic, Trophy } from "lucide-react";
 
 type Props = {
   onMap: () => void;
-  onReplay: () => void;
   onOpenChest: () => void;
   score: number;
-  companionName: string;
 };
 
-export default function LessonResult({ onMap, onReplay, onOpenChest, score, companionName }: Props) {
-  return <main className="result-screen level-result-screen">
-    <div className="confetti confetti-a">◆</div><div className="confetti confetti-b">●</div><div className="confetti confetti-c">★</div><div className="confetti confetti-d">◆</div>
-    <header className="result-topbar"><div className="road-brand"><span>E</span><div><b>ENGLISH IN</b><small>WONDERLAND</small></div></div><button onClick={onMap}><Map size={18}/> Về lộ trình</button></header>
-    <section className="result-wrap">
-      <div className="result-hero"><div className="trophy-halo"><span className="halo-ring"/><span className="trophy-main"><Trophy size={58} fill="currentColor"/></span><span className="paw-float">LEVEL 1 ✓</span></div><span className="result-kicker"><Sparkles size={15}/> ĐÃ VƯỢT MỐC CUỐI</span><h1>Hoàn thành bản đồ, An!</h1><p>Em đã vượt bài đánh giá năng lực của <b>Học viện Ánh Sao</b></p></div>
+const learningProof = [
+  { label: "Listening", Icon: Headphones, tone: "blue" },
+  { label: "Vocabulary", Icon: BookOpen, tone: "gold" },
+  { label: "Speaking", Icon: Mic, tone: "violet" },
+];
 
-      <div className="result-grid">
-        <section className="score-card"><div className="score-ring" style={{ background: `conic-gradient(#625be5 0 ${score}%,#e8e9f4 ${score}%)` }}><div><b>{score}</b><small>ĐIỂM</small></div></div><div className="score-copy"><span>KẾT QUẢ ĐÁNH GIÁ</span><h2>Năng lực đã được xác nhận!</h2><p>Em đã nắm được nội dung cốt lõi và sẵn sàng bước sang Level tiếp theo.</p><div className="score-chips"><span>✓ Hoàn thành Level</span><span>⭐ Mốc cuối hành trình</span></div></div></section>
-        <section className="reward-card chest-reward-card"><span>RƯƠNG LINH VẬT</span><Gift size={48}/><b>1 rương</b><p>Linh vật ngẫu nhiên đang chờ</p><small>Mở ra để gặp {companionName}</small><button onClick={onOpenChest}><Sparkles size={16}/> Mở rương ngay</button></section>
+export default function LessonResult({ onMap, onOpenChest, score }: Props) {
+  return <main className="result-screen level-result-screen">
+    <header className="result-topbar level-result-topbar">
+      <div className="road-brand"><span>E</span><div><b>ENGLISH IN</b><small>WONDERLAND</small></div></div>
+      <button onClick={onMap}><ArrowLeft size={17}/> Về lộ trình</button>
+    </header>
+
+    <section className="level-complete-wrap">
+      <div className="completion-meta">
+        <span><Trophy size={15}/> ĐÃ HOÀN THÀNH</span>
+        <strong>{score} ĐIỂM</strong>
+      </div>
+      <h1>Hoàn thành Level 1!</h1>
+      <p className="completion-lead">Em đã sẵn sàng gặp người bạn sẽ đồng hành ở Level tiếp theo.</p>
+
+      <div className="learning-proof" aria-label="Các kỹ năng đã hoàn thành">
+        {learningProof.map(({ label, Icon, tone }) => <div key={label}>
+          <span className={`proof-icon ${tone}`}><Icon size={21}/></span>
+          <b>{label}</b>
+          <Check size={17}/>
+        </div>)}
       </div>
 
-      <section className="skill-summary"><div className="summary-title"><span>Năng lực cuối Level</span><small>Kết quả từ bài đánh giá tổng hợp</small></div><div className="skill-grid"><div><span className="skill-icon blue"><Headphones/></span><b>Nghe hiểu</b><small>Nắm đúng ý chính câu chuyện</small><em><Check size={14}/> Đạt</em></div><div><span className="skill-icon yellow"><BookOpen/></span><b>Từ & mẫu câu</b><small>Dùng đúng cấu trúc đã học</small><em><Check size={14}/> Đạt</em></div><div><span className="skill-icon purple"><Mic/></span><b>Giao tiếp</b><small>Chọn câu phù hợp tình huống</small><em><Check size={14}/> Đạt</em></div><div><span className="skill-icon coral"><Star/></span><b>Sẵn sàng</b><small>Đủ điều kiện sang Level mới</small><em><Check size={14}/> Tuyệt vời</em></div></div></section>
+      <section className="chest-focus" aria-labelledby="chest-title">
+        <Image className="reward-chest-image" src="/pet-reward-chest.png" alt="Rương linh vật màu xanh tím với khóa hình dấu chân" width={720} height={480} priority/>
+        <div className="chest-focus-copy">
+          <span id="chest-title">RƯƠNG LINH VẬT</span>
+          <p>Một người bạn mới đang chờ em bên trong.</p>
+        </div>
+        <button className="open-chest-primary" onClick={onOpenChest}>Mở rương linh vật <ArrowRight size={20}/></button>
+      </section>
 
-      <div className="result-actions"><button className="result-secondary" onClick={onReplay}><RotateCcw size={18}/> Làm lại đánh giá</button><button className="result-primary" onClick={onOpenChest}>Mở rương linh vật <ArrowRight size={19}/></button></div><p className="next-note">Sau khi nhận linh vật, hãy ôn lại bài để kiếm Xu mua thức ăn và skin.</p>
+      <button className="quiet-map-link" onClick={onMap}><Map size={15}/> Xem lại hành trình đã hoàn thành</button>
     </section>
   </main>;
 }
