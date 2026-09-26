@@ -128,6 +128,7 @@ export default function Home() {
     setCompanionId(pendingCompanion);
     localStorage.setItem("english-in-wonderland-demo-companion", pendingCompanion);
     setChestOpen(false);
+    setScreen("companion");
   }
   function completeAccess(plan: string) {
     setActivePlan(plan);
