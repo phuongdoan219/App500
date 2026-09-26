@@ -1,19 +1,16 @@
 "use client";
 
-import { ArrowRight, BookOpen, Check, Flame, Gift, Headphones, Map, Mic, RotateCcw, Sparkles, Star, Trophy } from "lucide-react";
+import { ArrowRight, BookOpen, Check, Gift, Headphones, Map, Mic, RotateCcw, Sparkles, Star, Trophy } from "lucide-react";
 
 type Props = {
   onMap: () => void;
   onReplay: () => void;
   onOpenChest: () => void;
-  onStreak: () => void;
   score: number;
-  streak: number;
-  level: number;
   companionName: string;
 };
 
-export default function LessonResult({ onMap, onReplay, onOpenChest, onStreak, score, streak, level, companionName }: Props) {
+export default function LessonResult({ onMap, onReplay, onOpenChest, score, companionName }: Props) {
   return <main className="result-screen level-result-screen">
     <div className="confetti confetti-a">◆</div><div className="confetti confetti-b">●</div><div className="confetti confetti-c">★</div><div className="confetti confetti-d">◆</div>
     <header className="result-topbar"><div className="road-brand"><span>E</span><div><b>ENGLISH IN</b><small>WONDERLAND</small></div></div><button onClick={onMap}><Map size={18}/> Về lộ trình</button></header>
@@ -27,7 +24,6 @@ export default function LessonResult({ onMap, onReplay, onOpenChest, onStreak, s
 
       <section className="skill-summary"><div className="summary-title"><span>Năng lực cuối Level</span><small>Kết quả từ bài đánh giá tổng hợp</small></div><div className="skill-grid"><div><span className="skill-icon blue"><Headphones/></span><b>Nghe hiểu</b><small>Nắm đúng ý chính câu chuyện</small><em><Check size={14}/> Đạt</em></div><div><span className="skill-icon yellow"><BookOpen/></span><b>Từ & mẫu câu</b><small>Dùng đúng cấu trúc đã học</small><em><Check size={14}/> Đạt</em></div><div><span className="skill-icon purple"><Mic/></span><b>Giao tiếp</b><small>Chọn câu phù hợp tình huống</small><em><Check size={14}/> Đạt</em></div><div><span className="skill-icon coral"><Star/></span><b>Sẵn sàng</b><small>Đủ điều kiện sang Level mới</small><em><Check size={14}/> Tuyệt vời</em></div></div></section>
 
-      <section className="streak-safety-card"><Flame size={28} fill="currentColor"/><div><span>STREAK VẪN ĐƯỢC GIỮ</span><b>{streak} ngày liên tiếp · Nhà thám hiểm {level}</b><small>Streak chạy song song để bảo vệ thói quen học mỗi ngày.</small></div><button onClick={onStreak}>Xem streak</button></section>
       <div className="result-actions"><button className="result-secondary" onClick={onReplay}><RotateCcw size={18}/> Làm lại đánh giá</button><button className="result-primary" onClick={onOpenChest}>Mở rương linh vật <ArrowRight size={19}/></button></div><p className="next-note">Sau khi nhận linh vật, hãy ôn lại bài để kiếm Xu mua thức ăn và skin.</p>
     </section>
   </main>;
