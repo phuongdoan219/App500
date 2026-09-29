@@ -46,7 +46,7 @@ export default function Home() {
   const [chestOpen, setChestOpen] = useState(false);
   const [bagReward, setBagReward] = useState<{ id: string; icon: string; name: string; note: string } | null>(null);
   const [assessmentScore, setAssessmentScore] = useState(0);
-  const [reviewClaimed, setReviewClaimed] = useState(false);
+  const [mapReviewClaims, setMapReviewClaims] = useState<string[]>([]);
   const [reward, setReward] = useState<{ lesson: number; unitComplete: boolean } | null>(null);
   const [reviewedLessons, setReviewedLessons] = useState<string[]>([]);
   useEffect(() => {
@@ -69,7 +69,8 @@ export default function Home() {
     if (savedCollection) setCollection(Array.from(new Set(["wolf", ...JSON.parse(savedCollection)])) as CompanionId[]);
     else if (savedCompanion && savedCompanion in companions) setCollection(["wolf", savedCompanion]);
     if (savedClaimedUnits) setClaimedUnits((JSON.parse(savedClaimedUnits) as Array<string | number>).map(String));
-    setReviewClaimed(localStorage.getItem("english-in-wonderland-demo-review-date") === new Date().toDateString());
+    const savedMapReviews = localStorage.getItem("english-in-wonderland-map-review-claims");
+    if (savedMapReviews) setMapReviewClaims(JSON.parse(savedMapReviews));
   }, []);
   useEffect(() => { fetch("/api/curriculum").then(r => r.json()).then((data: unknown) => setSheetOnline(Boolean((data as { connected?: boolean }).connected))).catch(() => setSheetOnline(false)); }, []);
   function completeLesson(id: number) {
@@ -112,12 +113,25 @@ export default function Home() {
       localStorage.setItem("english-in-wonderland-demo-companion-items", JSON.stringify(nextOwned));
     }
   }
-  function completeReview() {
-    const nextCoins = coins + 3;
+  function completeMapReview(unitId: number) {
+    const today = new Date().toLocaleDateString("en-CA");
+    const claimKey = `${activeJourneyId}:${unitId}:${today}`;
+    if (mapReviewClaims.includes(claimKey)) return;
+    const firstReviewToday = !mapReviewClaims.some(key => key.endsWith(`:${today}`));
+    const earned = firstReviewToday ? 5 : 3;
+    const nextClaims = [...mapReviewClaims, claimKey];
+    const nextCoins = coins + earned;
+    setMapReviewClaims(nextClaims);
     setCoins(nextCoins);
-    setReviewClaimed(true);
+    localStorage.setItem("english-in-wonderland-map-review-claims", JSON.stringify(nextClaims));
     localStorage.setItem("english-in-wonderland-demo-coins", String(nextCoins));
-    localStorage.setItem("english-in-wonderland-demo-review-date", new Date().toDateString());
+  }
+  function careForCompanion(cost: number) {
+    if (coins < cost) return false;
+    const nextCoins = coins - cost;
+    setCoins(nextCoins);
+    localStorage.setItem("english-in-wonderland-demo-coins", String(nextCoins));
+    return true;
   }
   function completeAssessment(score: number) {
     const ids = (Object.keys(companions) as CompanionId[]).filter(id => id !== "wolf");
@@ -157,6 +171,9 @@ export default function Home() {
   function toggleStory() { const video = document.getElementById("story-video") as HTMLVideoElement | null; if (!video) return; if (video.paused) { video.play(); setPlaying(true); } else { video.pause(); setPlaying(false); } }
   const progress = progressByJourney[activeJourneyId] ?? {};
   const claimedUnitIds = claimedUnits.filter(key => key.startsWith(`${activeJourneyId}:`)).map(key => Number(key.split(":")[1]));
+  const reviewDate = new Date().toLocaleDateString("en-CA");
+  const reviewedUnitIds = mapReviewClaims.filter(key => key.startsWith(`${activeJourneyId}:`) && key.endsWith(`:${reviewDate}`)).map(key => Number(key.split(":")[1]));
+  const nextReviewReward = mapReviewClaims.some(key => key.endsWith(`:${reviewDate}`)) ? 3 : 5;
   const done = progress[activeUnit] ?? [];
   const activeJourney = journeys.find(item => item.id === activeJourneyId) ?? journeys[0];
   const activeLevelNumber = journeys.findIndex(item => item.id === activeJourney.id) + 1;
@@ -166,8 +183,8 @@ export default function Home() {
   const needsReview = lesson > 1 && !done.includes(lesson) && !reviewedLessons.includes(reviewKey);
   if (accessFlow) return <AccessFlow initial={accessFlow} onProfileComplete={completeProfile} onComplete={completeAccess} />;
   if (screen === "journey-select") return <JourneySelection assignedJourneyId={assignedJourneyId} coins={coins} companionId={companionId} onCompanion={() => setScreen("companion")} onSelect={(journeyId) => { if (journeyId !== assignedJourneyId) return; setActiveJourneyId(journeyId); setScreen("roadmap"); }} />;
-  if (screen === "roadmap") return <LearningRoadmap activeJourneyId={activeJourneyId} onChangeJourney={() => setScreen("journey-select")} coins={coins} companionId={companionId} progress={progress} claimedUnits={claimedUnitIds} onCompanion={() => setScreen("companion")} onAssessment={() => setScreen("assessment")} onStart={(unitId, lessonId) => { setActiveUnit(unitId); setLesson(lessonId); if ((progress[unitId]?.length ?? 0) >= lessonTabs.length && !claimedUnitIds.includes(unitId)) setReward({ lesson: lessonTabs.length, unitComplete: true }); setScreen("lesson"); }} />;
-  if (screen === "companion") return <CompanionHub coins={coins} companionId={companionId} collection={collection} owned={owned} reviewClaimed={reviewClaimed} onBack={() => setScreen("roadmap")} onReviewComplete={completeReview} onSelectCompanion={(id) => { setCompanionId(id); localStorage.setItem("english-in-wonderland-demo-companion", id); }} onBuy={buyForCompanion} />;
+  if (screen === "roadmap") return <LearningRoadmap activeJourneyId={activeJourneyId} onChangeJourney={() => setScreen("journey-select")} coins={coins} companionId={companionId} progress={progress} claimedUnits={claimedUnitIds} reviewedUnits={reviewedUnitIds} reviewReward={nextReviewReward} onReviewComplete={completeMapReview} onCompanion={() => setScreen("companion")} onAssessment={() => setScreen("assessment")} onStart={(unitId, lessonId) => { setActiveUnit(unitId); setLesson(lessonId); if ((progress[unitId]?.length ?? 0) >= lessonTabs.length && !claimedUnitIds.includes(unitId)) setReward({ lesson: lessonTabs.length, unitComplete: true }); setScreen("lesson"); }} />;
+  if (screen === "companion") return <CompanionHub coins={coins} companionId={companionId} collection={collection} owned={owned} onBack={() => setScreen("roadmap")} onGoReview={() => setScreen("roadmap")} onCare={careForCompanion} onSelectCompanion={(id) => { setCompanionId(id); localStorage.setItem("english-in-wonderland-demo-companion", id); }} onBuy={buyForCompanion} />;
   if (screen === "assessment") return <LevelAssessment levelNumber={activeLevelNumber} levelName={activeJourney.level} onBack={() => setScreen("roadmap")} onComplete={completeAssessment} />;
   if (screen === "result") return <><LessonResult levelNumber={activeLevelNumber} levelName={activeJourney.level} score={assessmentScore} onOpenChest={() => setChestOpen(true)} onMap={() => setScreen("roadmap")} />{chestOpen && <div className="chest-modal" role="dialog" aria-modal="true" aria-label="Rương linh vật"><section><span className="chest-rays"/><small>RƯƠNG LEVEL {activeLevelNumber} ĐÃ MỞ</small><MascotPortrait id={pendingCompanion}/><h2>Xin chào, {companions[pendingCompanion].name}!</h2><p>Em đã mở khóa <b>{companions[pendingCompanion].kind}</b>. Em có thể chọn bạn ấy hoặc Sói Con cùng đồng hành.</p><button onClick={claimCompanion}><Gift size={18}/> Nhận linh vật</button></section></div>}</>;
   return <main className={`app-shell lesson-theme lesson-theme-${lesson}`}>

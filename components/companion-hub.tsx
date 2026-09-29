@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowLeft, Check, Coins, Gift, Heart, ShoppingBag, Sparkles } from "lucide-react";
+import { ArrowLeft, Check, Coins, Gift, Heart, MapPinned, ShoppingBag, Sparkles } from "lucide-react";
 import { useState } from "react";
+import "./companion-reward-loop.css";
 
 export const companions = {
   wolf: { name: "Sói Con", kind: "Bạn đồng hành đầu tiên", note: "Luôn đi cùng, nhắc em học và vui nhất khi em quay lại đúng hẹn." },
@@ -24,9 +25,9 @@ type Props = {
   companionId: CompanionId;
   collection: CompanionId[];
   owned: string[];
-  reviewClaimed: boolean;
   onBack: () => void;
-  onReviewComplete: () => void;
+  onGoReview: () => void;
+  onCare: (cost: number) => boolean;
   onSelectCompanion: (id: CompanionId) => void;
   onBuy: (id: string, price: number, label: string, type: "food" | "skin") => void;
 };
@@ -36,20 +37,36 @@ export function MascotPortrait({ id, label, className = "" }: { id: CompanionId;
   return <span className={`mascot-sprite mascot-${id} ${className}`} role="img" aria-label={label ?? companions[id].kind}/>;
 }
 
-export default function CompanionHub({ coins, companionId, collection, owned, reviewClaimed, onBack, onReviewComplete, onSelectCompanion, onBuy }: Props) {
-  const [reviewOpen, setReviewOpen] = useState(false);
-  const [answer, setAnswer] = useState("");
-  const [checked, setChecked] = useState(false);
-  const correct = answer === "in the tree";
+export default function CompanionHub({ coins, companionId, collection, owned, onBack, onGoReview, onCare, onSelectCompanion, onBuy }: Props) {
+  const [careMessage, setCareMessage] = useState("Chọn một hoạt động để chơi cùng bạn nhé!");
+  const [mood, setMood] = useState(72);
   const companion = companions[companionId];
+
+  function doActivity(cost: number, message: string, moodGain: number) {
+    if (!onCare(cost)) {
+      setCareMessage("Em chưa đủ Xu. Hãy quay lại bản đồ ôn một Unit đã học nhé!");
+      return;
+    }
+    setMood(value => Math.min(100, value + moodGain));
+    setCareMessage(message);
+  }
 
   return <main className="companion-screen">
     <header className="companion-topbar"><button onClick={onBack}><ArrowLeft size={18}/> Về lộ trình</button><div><span>KHU VƯỜN LINH VẬT</span><b>{companion.name} đang đợi em</b></div><strong><Coins size={20} fill="currentColor"/> {coins} Xu chăm sóc</strong></header>
     <section className="companion-wrap">
       <div className="companion-main-card">
-        <div className="companion-copy"><span>BẠN ĐANG ĐỒNG HÀNH</span><h1>{companion.name}</h1><b>{companion.kind}</b><p>{companion.note}</p><div className="pet-mood"><Heart size={15} fill="currentColor"/><span><b>Đang vui</b><small>Hôm nay em đã ghé thăm bạn ấy</small></span></div></div>
+        <div className="companion-copy"><span>BẠN ĐANG ĐỒNG HÀNH</span><h1>{companion.name}</h1><b>{companion.kind}</b><p>{companion.note}</p><div className="pet-mood"><Heart size={15} fill="currentColor"/><span><b>{mood >= 90 ? "Rất vui" : "Đang vui"}</b><small>Mức thân thiết {mood}%</small></span></div></div>
         <div className="companion-stage"><span className="stage-glow"/><MascotPortrait id={companionId}/>{owned.includes("cape") && <span className="equipped-badge cape-badge">✨ Áo choàng sao</span>}{owned.includes("hat") && <span className="equipped-badge hat-badge">🎩 Mũ thám hiểm</span>}</div>
-        <div className="review-callout"><Sparkles size={20}/><span><b>Ôn bài để nhận Xu chăm sóc</b><small>Học bài mới nhận Mảnh Chìa Khóa, ôn bài mới nhận Xu.</small></span><button disabled={reviewClaimed} onClick={() => setReviewOpen(true)}>{reviewClaimed ? <><Check size={16}/> Đã ôn hôm nay</> : "Ôn nhanh · +3 Xu"}</button></div>
+        <div className="garden-activity-panel">
+          <div className="garden-activity-heading"><Sparkles size={20}/><span><b>Chơi cùng {companion.name}</b><small>Dùng Xu để chăm sóc và tăng mức thân thiết.</small></span></div>
+          <div className="garden-activity-actions">
+            <button onClick={() => doActivity(2, `${companion.name} ăn ngon lành và đang rất vui!`, 10)}><span>🍓</span><b>Cho ăn</b><small>2 Xu</small></button>
+            <button onClick={() => doActivity(1, `${companion.name} vừa chơi bóng cùng em!`, 7)}><span>🔮</span><b>Chơi bóng</b><small>1 Xu</small></button>
+            <button onClick={() => doActivity(0, `${companion.name} thích được em vuốt ve lắm!`, 3)}><span>💛</span><b>Vuốt ve</b><small>Miễn phí</small></button>
+          </div>
+          <p className="garden-activity-message">{careMessage}</p>
+          <div className="garden-earn-note"><MapPinned size={18}/><span><b>Muốn kiếm thêm Xu?</b><small>Quay lại các Unit đã hoàn thành trên bản đồ để ôn bài.</small></span><button onClick={onGoReview}>Đến bản đồ</button></div>
+        </div>
       </div>
       <aside className="companion-shop">
         <div className="companion-shop-head"><div><span>BỘ SƯU TẬP</span><h2>Chọn bạn đồng hành</h2></div><Gift size={24}/></div>
@@ -59,6 +76,5 @@ export default function CompanionHub({ coins, companionId, collection, owned, re
         <p className="companion-shop-note">Quà từ Túi Kỳ Vật và đồ mua bằng Xu đều được dùng để chăm sóc các linh vật trong vườn.</p>
       </aside>
     </section>
-    {reviewOpen && <div className="review-modal" role="dialog" aria-modal="true" aria-label="Ôn nhanh nhận Xu"><section><button className="review-close" onClick={() => setReviewOpen(false)}>×</button><span className="review-kicker"><Gift size={16}/> ÔN NHANH 1 PHÚT</span><h2>Chiếc diều đỏ ở đâu?</h2><p>Chọn cụm từ đúng để ôn lại bài vừa học.</p><div className="review-options">{["under the bench", "in the tree", "in the bag"].map(item => <button key={item} className={(answer === item ? "selected " : "") + (checked && item === "in the tree" ? "correct" : "")} onClick={() => { setAnswer(item); setChecked(false); }}>{item}</button>)}</div>{checked && !correct && <p className="review-feedback retry">Gần đúng rồi — hãy nhớ lại cảnh chiếc diều mắc trên cao.</p>}{checked && correct && <div className="review-earned"><Coins size={25}/><span><b>Ôn đúng rồi!</b><small>Em nhận được 3 Xu chăm sóc.</small></span></div>}{!checked || !correct ? <button className="review-submit" disabled={!answer} onClick={() => setChecked(true)}>Kiểm tra</button> : <button className="review-submit" onClick={() => { onReviewComplete(); setReviewOpen(false); }}>Nhận 3 Xu</button>}</section></div>}
   </main>;
 }

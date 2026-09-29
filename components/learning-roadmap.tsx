@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, type PointerEvent, type WheelEvent } from "react";
-import { ArrowRight, ClipboardCheck, Coins, Gift, KeyRound, LockKeyhole, Map, Move, RotateCcw, Sparkles, ZoomIn, ZoomOut } from "lucide-react";
+import { ArrowRight, BookOpen, Check, ClipboardCheck, Coins, Gift, Headphones, KeyRound, Languages, LockKeyhole, Map, Move, RotateCcw, Sparkles, Volume2, X, ZoomIn, ZoomOut } from "lucide-react";
 import { CompanionId, MascotPortrait, companions } from "@/components/companion-hub";
+import "./map-review.css";
 
 const lessonCount = 4;
 const mapCanvas = { width: 2200, height: 1240 };
@@ -75,6 +76,9 @@ type Props = {
   claimedUnits: number[];
   coins: number;
   companionId: CompanionId;
+  reviewedUnits: number[];
+  reviewReward: number;
+  onReviewComplete: (unitId: number) => void;
 };
 
 type SelectionProps = Pick<Props, "coins" | "companionId" | "onCompanion"> & { assignedJourneyId: (typeof journeys)[number]["id"]; onSelect: (journeyId: (typeof journeys)[number]["id"]) => void };
@@ -95,19 +99,39 @@ export function JourneySelection({ assignedJourneyId, onSelect, onCompanion, coi
   </main>;
 }
 
-export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onStart, onCompanion, onAssessment, progress, claimedUnits, coins, companionId }: Props) {
+export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onStart, onCompanion, onAssessment, progress, claimedUnits, coins, companionId, reviewedUnits, reviewReward, onReviewComplete }: Props) {
   const activeJourney = journeys.find(journey => journey.id === activeJourneyId) ?? journeys[0];
   const activeLevelNumber = journeys.findIndex(journey => journey.id === activeJourney.id) + 1;
   const mapViewportRef = useRef<HTMLElement>(null);
   const dragState = useRef<{ pointerId: number; startX: number; startY: number; offsetX: number; offsetY: number } | null>(null);
   const [mapScale, setMapScale] = useState(0.82);
   const [mapOffset, setMapOffset] = useState({ x: 0, y: -260 });
+  const [reviewUnit, setReviewUnit] = useState<number | null>(null);
+  const [reviewAnswer, setReviewAnswer] = useState("");
+  const [reviewChecked, setReviewChecked] = useState(false);
+  const [reviewFinished, setReviewFinished] = useState(false);
+  const [reviewStep, setReviewStep] = useState(0);
   const completedUnits = activeJourney.units.filter((unit, index) => (progress[index + 1]?.length ?? 0) >= unit.lessonCount && claimedUnits.includes(index + 1)).length;
   const assessmentReady = completedUnits === activeJourney.units.length;
   const currentUnitIndex = Math.min(completedUnits, activeJourney.units.length - 1);
   const totalLessons = activeJourney.units.reduce((total, unit) => total + unit.lessonCount, 0);
   const completedLessons = Object.values(progress).reduce((total, lessons) => total + lessons.length, 0);
   const overallProgress = Math.round((completedLessons / totalLessons) * 100);
+  const reviewSets = [
+    { skill: "TỪ VỰNG", title: "Từ little có nghĩa là gì?", hint: "Chọn nghĩa đúng của từ đã học.", options: ["nhỏ", "cao", "trẻ"], answer: "nhỏ" },
+    { skill: "TỪ VỰNG", title: "Từ yellow chỉ màu nào?", hint: "Chọn màu tương ứng với từ tiếng Anh.", options: ["màu vàng", "màu đỏ", "màu xanh"], answer: "màu vàng" },
+    { skill: "NGỮ PHÁP", title: "Tom has a ___ yellow bag.", hint: "Chọn từ còn thiếu để hoàn chỉnh mẫu câu.", options: ["little", "tall", "old"], answer: "little" },
+    { skill: "NGỮ PHÁP", title: "The boy ___ carrying a yellow bag.", hint: "Chọn động từ đúng để hoàn chỉnh câu.", options: ["is", "are", "am"], answer: "is" },
+    { skill: "NGHE", title: "Em nghe thấy câu nào?", hint: "Bấm nghe, sau đó chọn đúng câu được đọc.", audio: "The boy is carrying a yellow bag.", options: ["The boy is carrying a yellow bag.", "The girl is carrying a red bag.", "The boy has a little kite."], answer: "The boy is carrying a yellow bag." },
+    { skill: "NGHE", title: "Nhân vật đang hỏi điều gì?", hint: "Nghe kỹ câu hỏi và chọn câu em vừa nghe.", audio: "Where is my red kite?", options: ["Where is my red kite?", "Where is my yellow bag?", "What is in the tree?"], answer: "Where is my red kite?" },
+  ];
+  const reviewSet = reviewSets[reviewStep];
+  const reviewSkillStages = [
+    { skill: "TỪ VỰNG", icon: <Languages size={14}/>, start: 0, end: 1 },
+    { skill: "NGỮ PHÁP", icon: <BookOpen size={14}/>, start: 2, end: 3 },
+    { skill: "NGHE", icon: <Headphones size={14}/>, start: 4, end: 5 },
+  ];
+  const alreadyReviewed = reviewUnit !== null && reviewedUnits.includes(reviewUnit);
 
   function getMinimumMapScale() {
     const viewport = mapViewportRef.current;
@@ -178,6 +202,48 @@ export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onSt
     event.currentTarget.releasePointerCapture(event.pointerId);
   }
 
+  function openReview(unitId: number) {
+    setReviewUnit(unitId);
+    setReviewAnswer("");
+    setReviewChecked(false);
+    setReviewFinished(false);
+    setReviewStep(0);
+  }
+
+  function closeReview() {
+    setReviewUnit(null);
+    setReviewAnswer("");
+    setReviewChecked(false);
+    setReviewFinished(false);
+    setReviewStep(0);
+  }
+
+  function speakReview() {
+    if (!reviewSet.audio || typeof window === "undefined") return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(reviewSet.audio);
+    utterance.lang = "en-US";
+    utterance.rate = 0.78;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function continueReview() {
+    if (reviewStep < reviewSets.length - 1) {
+      setReviewStep(step => step + 1);
+      setReviewAnswer("");
+      setReviewChecked(false);
+      return;
+    }
+    claimReviewReward();
+    closeReview();
+  }
+
+  function claimReviewReward() {
+    if (reviewUnit === null || alreadyReviewed || reviewFinished) return;
+    onReviewComplete(reviewUnit);
+    setReviewFinished(true);
+  }
+
   useEffect(() => {
     const frame = window.requestAnimationFrame(resetMap);
     return () => window.cancelAnimationFrame(frame);
@@ -199,10 +265,27 @@ export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onSt
       <div className="map-canvas" style={{ width: mapCanvas.width, height: mapCanvas.height, transform: `translate3d(${mapOffset.x}px, ${mapOffset.y}px, 0) scale(${mapScale})` }}>
         <Image src={activeJourney.image} alt={`Bản đồ chủ đề ${activeJourney.theme}`} fill sizes={`${mapCanvas.width}px`} priority/>
         {activeJourney.units.length >= 20 && routeStages.map((stage) => <span key={stage.label} className="map-zone-label" style={{ left: `${stage.left}%`, top: `${stage.top}%` }}>{stage.label}</span>)}
-        {activeJourney.units.map((unit, index) => { const unitId = index + 1; const completed = (progress[unitId]?.length ?? 0) >= unit.lessonCount && claimedUnits.includes(unitId); const unlocked = index === 0 || index <= completedUnits; const doneLessons = progress[unitId]?.length ?? 0; const nextLesson = Math.min(doneLessons + 1, unit.lessonCount); return <button key={unit.landmark} disabled={!unlocked} style={{ left: `${unit.position[0]}%`, top: `${unit.position[1]}%` }} onClick={() => onStart(unitId, nextLesson)} className={`journey-node node-${unitId} ${unlocked ? "open" : "locked"} ${index === currentUnitIndex ? "selected" : ""} ${completed ? "unit-completed" : ""}`}>{index === currentUnitIndex && !completed && <span className="next-unit-badge">TIẾP THEO</span>}<span className="node-medal">{completed ? <Gift size={23}/> : unitId}{!unlocked && <small className="node-lock-mark"><LockKeyhole size={10}/></small>}</span><b><small>UNIT {unitId}</small>{unit.landmark}</b><small>{unit.topic}</small>{unlocked && !completed && <em><KeyRound size={10}/> {doneLessons}/{unit.lessonCount} mảnh chìa khóa</em>}</button>; })}
+        {activeJourney.units.map((unit, index) => { const unitId = index + 1; const completed = (progress[unitId]?.length ?? 0) >= unit.lessonCount && claimedUnits.includes(unitId); const unlocked = index === 0 || index <= completedUnits; const doneLessons = progress[unitId]?.length ?? 0; const nextLesson = Math.min(doneLessons + 1, unit.lessonCount); const reviewedToday = reviewedUnits.includes(unitId); return <button key={unit.landmark} disabled={!unlocked} style={{ left: `${unit.position[0]}%`, top: `${unit.position[1]}%` }} onClick={() => completed ? openReview(unitId) : onStart(unitId, nextLesson)} className={`journey-node node-${unitId} ${unlocked ? "open" : "locked"} ${index === currentUnitIndex ? "selected" : ""} ${completed ? "unit-completed review-ready" : ""}`}>{index === currentUnitIndex && !completed && <span className="next-unit-badge">TIẾP THEO</span>}<span className="node-medal">{completed ? <Gift size={23}/> : unitId}{!unlocked && <small className="node-lock-mark"><LockKeyhole size={10}/></small>}</span><b><small>UNIT {unitId}</small>{unit.landmark}</b><small>{unit.topic}</small>{completed ? <em className={reviewedToday ? "review-done" : "review-available"}>{reviewedToday ? <><Check size={10}/> ĐÃ ÔN HÔM NAY</> : <><Coins size={10}/> ÔN +{reviewReward} XU</>}</em> : unlocked && <em><KeyRound size={10}/> {doneLessons}/{unit.lessonCount} mảnh chìa khóa</em>}</button>; })}
         <button disabled={!assessmentReady} style={{ left: `${activeJourney.assessment.position[0]}%`, top: `${activeJourney.assessment.position[1]}%` }} onClick={onAssessment} className={`journey-node assessment-node node-${activeJourney.units.length + 1} ${assessmentReady ? "open selected" : "locked"}`}><span className="node-medal"><strong>{activeJourney.units.length + 1}</strong><ClipboardCheck size={14}/></span><b><small>MỐC CUỐI</small>{activeJourney.assessment.landmark}</b><small>Đánh giá năng lực cuối Level</small><em>{assessmentReady ? "Rương Linh Vật đang chờ" : `Cần hoàn thành ${activeJourney.units.length - completedUnits} Unit nữa`}</em></button>
         <div className="map-companion"><MascotPortrait id={companionId} className="map-wolf"/><span><b>{companions[companionId].name}</b><small>{assessmentReady ? "Mình cùng mở rương nhé!" : "Mình đang chờ học cùng bạn!"}</small></span></div>
       </div>
     </section></div>
+    {reviewUnit !== null && <div className="map-review-modal" role="dialog" aria-modal="true" aria-label={`Ôn tập Unit ${reviewUnit}`}><section>
+      <button className="map-review-close" onClick={closeReview} aria-label="Đóng"><X size={18}/></button>
+      <span className="map-review-kicker"><Sparkles size={16}/> TRẠM ÔN TẬP · UNIT {reviewUnit}</span>
+      <div className="map-review-progress" aria-label={`Câu ${reviewStep + 1} trên ${reviewSets.length}`}>
+        {reviewSkillStages.map(stage => <span key={stage.skill} className={reviewStep > stage.end ? "done" : reviewStep >= stage.start ? "active" : ""}>{stage.icon}<b>{stage.skill}</b>{reviewStep > stage.end && <Check size={12}/>}</span>)}
+      </div>
+      <small className="map-review-count">CÂU {reviewStep + 1}/{reviewSets.length} · {reviewSet.skill}</small>
+      <h2>{reviewSet.title}</h2><p>{reviewSet.hint}</p>
+      {reviewSet.audio && <button className="map-review-listen" onClick={speakReview}><span><Volume2 size={24}/></span><b>Nghe câu</b><small>Có thể nghe lại nhiều lần</small></button>}
+      <div className="map-review-options">{reviewSet.options.map(option => <button key={option} className={(reviewAnswer === option ? "selected " : "") + (reviewChecked && option === reviewSet.answer ? "correct" : "") + (reviewChecked && reviewAnswer === option && option !== reviewSet.answer ? "wrong" : "")} onClick={() => { setReviewAnswer(option); setReviewChecked(false); }}>{option}</button>)}</div>
+      {reviewChecked && reviewAnswer !== reviewSet.answer && <p className="map-review-feedback retry">Chưa đúng rồi. Em thử nhớ lại bài cũ và chọn lại nhé!</p>}
+      {reviewChecked && reviewAnswer === reviewSet.answer && reviewStep < reviewSets.length - 1 && <div className="map-review-earned skill-complete"><Check size={24}/><span><b>Chính xác!</b><small>Còn {reviewSets.length - reviewStep - 1} câu để hoàn thành lượt ôn.</small></span></div>}
+      {reviewChecked && reviewAnswer === reviewSet.answer && reviewStep === reviewSets.length - 1 && <div className="map-review-earned"><Coins size={26}/><span><b>{alreadyReviewed || reviewFinished ? "Đã ôn đủ 3 kỹ năng!" : `Hoàn thành · Nhận ${reviewReward} Xu`}</b><small>{alreadyReviewed || reviewFinished ? "Unit này đã nhận thưởng hôm nay. Em vẫn có thể luyện lại." : "Xu đã sẵn sàng để dùng trong Khu Vườn Linh Vật."}</small></span></div>}
+      {(!reviewChecked || reviewAnswer !== reviewSet.answer) ? <button className="map-review-submit" disabled={!reviewAnswer} onClick={() => setReviewChecked(true)}>Kiểm tra {reviewSet.skill.toLowerCase()}</button> : <button className="map-review-submit" onClick={continueReview}>{reviewStep < reviewSets.length - 1 ? <>{reviewSets[reviewStep + 1].skill === reviewSet.skill ? "Câu tiếp theo" : `Tiếp tục: ${reviewSets[reviewStep + 1].skill.toLowerCase()}`} <ArrowRight size={17}/></> : alreadyReviewed || reviewFinished ? "Hoàn thành lượt ôn" : `Nhận ${reviewReward} Xu`}</button>}
+      <button className="map-review-lessons" onClick={() => { const unit = reviewUnit; closeReview(); onStart(unit, 1); }}>Xem lại bài học của Unit {reviewUnit}</button>
+      <small className="map-review-rule">Hoàn thành 6 câu gồm từ vựng, ngữ pháp và nghe để nhận thưởng. Mỗi Unit nhận Xu 1 lần/ngày.</small>
+    </section></div>}
   </main>;
 }
