@@ -1,0 +1,77 @@
+.lesson-preview-video {
+  margin: 22px 0;
+  padding: 18px;
+  background: linear-gradient(145deg, #eef8ff, #f3efff);
+  border: 2px solid #dbe2ff;
+  border-radius: 20px;
+}
+
+.lesson-preview-video > header {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 13px;
+}
+
+.lesson-preview-video > header > div { min-width: 0; }
+.lesson-preview-video > header span {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  color: #5751ca;
+  font-size: 10px;
+  font-weight: 1000;
+  letter-spacing: .8px;
+}
+
+.lesson-preview-video h3 { margin: 6px 0 3px; color: #262b64; font-size: 19px; }
+.lesson-preview-video p { margin: 0; color: #737991; font-size: 12px; }
+.lesson-preview-video > header small {
+  display: flex;
+  flex: none;
+  gap: 6px;
+  align-items: center;
+  padding: 7px 10px;
+  color: #15765b;
+  font-size: 10px;
+  font-weight: 900;
+  white-space: nowrap;
+  background: #ddf6ed;
+  border-radius: 20px;
+}
+
+.lesson-preview-frame {
+  position: relative;
+  aspect-ratio: 16 / 7.2;
+  overflow: hidden;
+  background: #11162a;
+  border: 3px solid #252d73;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px #151a4930;
+}
+
+.lesson-preview-frame video { display: block; width: 100%; height: 100%; object-fit: contain; }
+.lesson-preview-frame > span {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  padding: 5px 8px;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 1000;
+  letter-spacing: .7px;
+  pointer-events: none;
+  background: #171d47d9;
+  border: 1px solid #ffffff3d;
+  border-radius: 20px;
+}
+
+.focus-card .lesson-preview-video { margin: 22px 0 20px; text-align: left; }
+
+@media (max-width: 760px) {
+  .lesson-preview-video { padding: 12px; border-radius: 16px; }
+  .lesson-preview-video > header { display: block; }
+  .lesson-preview-video > header small { width: max-content; margin-top: 9px; }
+  .lesson-preview-frame { aspect-ratio: 16 / 9; }
+}
