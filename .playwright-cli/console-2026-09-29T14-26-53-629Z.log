@@ -42,3 +42,18 @@ https://nextjs.org/docs/messages/module-not-found @ http://localhost:5173/_next/
 [  489061ms] [LOG] [Fast Refresh] done in 144ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
 [  548542ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
 [  548570ms] [LOG] [Fast Refresh] done in 134ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1177506ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1178039ms] [LOG] [Fast Refresh] done in 558ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1213390ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1213436ms] [LOG] [Fast Refresh] done in 71ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1247663ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1247783ms] [LOG] [Fast Refresh] done in 175ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1266216ms] [LOG] [Fast Refresh] done in 175ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1266272ms] [LOG] [Fast Refresh] done in 175ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1267409ms] [LOG] [Fast Refresh] done in 175ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1267458ms] [LOG] [Fast Refresh] done in 175ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1269550ms] [LOG] [Fast Refresh] done in 175ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1281351ms] [LOG] [Fast Refresh] done in 175ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1289592ms] [LOG] [Fast Refresh] done in 175ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1290780ms] [LOG] [Fast Refresh] done in 175ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 1348962ms] [LOG] [Fast Refresh] done in 175ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
