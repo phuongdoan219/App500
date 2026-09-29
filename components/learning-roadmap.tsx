@@ -132,7 +132,7 @@ export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onUn
     { skill: "NGỮ PHÁP", title: "Tom has a ___ yellow bag.", hint: "Chọn từ còn thiếu để hoàn chỉnh mẫu câu.", options: ["little", "tall", "old"], answer: "little" },
     { skill: "NGỮ PHÁP", title: "The boy ___ carrying a yellow bag.", hint: "Chọn động từ đúng để hoàn chỉnh câu.", options: ["is", "are", "am"], answer: "is" },
     { skill: "NGHE", title: "Em nghe thấy câu nào?", hint: "Bấm nghe, sau đó chọn đúng câu được đọc.", audio: "The boy is carrying a yellow bag.", options: ["The boy is carrying a yellow bag.", "The girl is carrying a red bag.", "The boy has a little kite."], answer: "The boy is carrying a yellow bag." },
-    { skill: "NGHE", title: "Nhân vật đang hỏi điều gì?", hint: "Nghe kỹ câu hỏi và chọn câu em vừa nghe.", audio: "Where is my red kite?", options: ["Where is my red kite?", "Where is my yellow bag?", "What is in the tree?"], answer: "Where is my red kite?" },
+    { skill: "NGHE", title: "Nhân vật đang nói về đồ vật nào?", hint: "Nghe kỹ và chọn cụm từ em vừa nghe.", audio: "little yellow bag", options: ["little yellow bag", "tall yellow boy", "little red bag"], answer: "little yellow bag" },
   ];
   const reviewSet = reviewSets[reviewStep];
   const reviewSkillStages = [

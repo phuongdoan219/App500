@@ -1,0 +1,144 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e51] [cursor=pointer]
+  - alert [ref=e55]
+  - main [ref=e375]:
+    - button "Lộ trình" [ref=e376] [cursor=pointer]
+    - generic [ref=e379]:
+      - generic [ref=e380]:
+        - generic [ref=e381]: E
+        - generic [ref=e382]:
+          - generic [ref=e383]: ENGLISH IN
+          - generic [ref=e384]: WONDERLAND
+      - generic [ref=e386]:
+        - generic [ref=e387]: Unit 1
+        - generic [ref=e388]: Lesson 1/4
+      - generic [ref=e391]:
+        - button "Năng lực" [ref=e392] [cursor=pointer]
+        - button "Bạn đồng hành đầu tiên Đồng hành Mây" [ref=e396] [cursor=pointer]:
+          - img "Bạn đồng hành đầu tiên" [ref=e397]
+          - generic [ref=e398]:
+            - generic [ref=e399]: Đồng hành
+            - generic [ref=e400]: Mây
+        - button "0 Xu" [ref=e401] [cursor=pointer]:
+          - generic [ref=e407]: "0"
+          - text: Xu
+        - button "AN" [ref=e408] [cursor=pointer]
+    - generic [ref=e409]:
+      - complementary [ref=e410]:
+        - generic [ref=e411]:
+          - button "Thu gọn menu" [expanded] [ref=e412] [cursor=pointer]
+          - generic [ref=e415]:
+            - generic [ref=e416]: LEVEL 2 · A1
+            - heading "Rừng Thì Thầm" [level=2] [ref=e417]
+        - generic [ref=e418]:
+          - generic [ref=e419]:
+            - generic [ref=e420]: Unit 1/5
+            - generic [ref=e421]: 0/4 Lesson
+          - generic [ref=e422]:
+            - emphasis
+        - paragraph [ref=e423]: CÁC UNIT
+        - generic [ref=e424]:
+          - button "1 Làng Gương Mặt Mọi người quanh em 0/4" [ref=e425] [cursor=pointer]:
+            - generic [ref=e426]: "1"
+            - generic [ref=e427]:
+              - generic [ref=e428]: Làng Gương Mặt
+              - generic [ref=e429]: Mọi người quanh em
+            - generic [ref=e430]: 0/4
+          - button "Hang Kho Báu Đồ vật quanh em 🔒" [disabled] [ref=e431]:
+            - generic [ref=e437]:
+              - generic [ref=e438]: Hang Kho Báu
+              - generic [ref=e439]: Đồ vật quanh em
+            - generic [ref=e440]: 🔒
+          - button "Chợ Nấm Ngọt Đồ ăn & thức uống 🔒" [disabled] [ref=e441]:
+            - generic [ref=e447]:
+              - generic [ref=e448]: Chợ Nấm Ngọt
+              - generic [ref=e449]: Đồ ăn & thức uống
+            - generic [ref=e450]: 🔒
+          - button "Hồ La Bàn Địa điểm & vị trí 🔒" [disabled] [ref=e451]:
+            - generic [ref=e457]:
+              - generic [ref=e458]: Hồ La Bàn
+              - generic [ref=e459]: Địa điểm & vị trí
+            - generic [ref=e460]: 🔒
+          - button "Sân Rừng Vận Động Hành động & khả năng 🔒" [disabled] [ref=e461]:
+            - generic [ref=e467]:
+              - generic [ref=e468]: Sân Rừng Vận Động
+              - generic [ref=e469]: Hành động & khả năng
+            - generic [ref=e470]: 🔒
+        - generic [ref=e471]: Đang đọc khung chương trình từ Google Sheets
+      - generic [ref=e473]:
+        - generic [ref=e474]:
+          - text: ★
+          - generic [ref=e475]:
+            - generic [ref=e476]: UNIT 1 · MỌI NGƯỜI QUANH EM
+            - heading "Làng Gương Mặt" [level=1] [ref=e477]
+            - paragraph [ref=e478]: Mỗi Lesson trao 1 Mảnh Chìa Khóa để mở Túi Kỳ Vật cuối Unit.
+          - generic [ref=e479]:
+            - generic [ref=e480]: MẢNH CHÌA KHÓA
+            - generic [ref=e484]: 0/4 mảnh
+            - generic [ref=e485]: Đủ mảnh để mở Túi Kỳ Vật
+          - generic [ref=e486]: A1
+          - text: ✦
+        - navigation [ref=e487]:
+          - button "LESSON 1 Khám phá" [ref=e488] [cursor=pointer]:
+            - generic [ref=e492]:
+              - generic [ref=e493]: LESSON 1
+              - generic [ref=e494]: Khám phá
+          - button "LESSON 2 Hiểu sâu" [disabled] [ref=e495]:
+            - generic [ref=e501]:
+              - generic [ref=e502]: LESSON 2
+              - generic [ref=e503]: Hiểu sâu
+          - button "LESSON 3 Nghe · Viết" [disabled] [ref=e504]:
+            - generic [ref=e510]:
+              - generic [ref=e511]: LESSON 3
+              - generic [ref=e512]: Nghe · Viết
+          - button "LESSON 4 Lồng tiếng" [disabled] [ref=e513]:
+            - generic [ref=e519]:
+              - generic [ref=e520]: LESSON 4
+              - generic [ref=e521]: Lồng tiếng
+        - generic [ref=e522]:
+          - generic [ref=e523]:
+            - generic [ref=e524]:
+              - generic [ref=e525]: LESSON 1 · TỪ VỰNG
+              - heading "The Wrong Bag · Phần 1" [level=2] [ref=e529]
+              - paragraph [ref=e530]: Xem câu chuyện, tìm manh mối và làm chủ bốn từ khóa đầu tiên.
+            - generic [ref=e531]: 1 video · 4 từ · 3 bài luyện
+          - list [ref=e534]:
+            - listitem [ref=e535]:
+              - generic [ref=e537]: Video
+            - listitem [ref=e538]:
+              - generic [ref=e540]: Câu hỏi
+            - listitem [ref=e541]:
+              - generic [ref=e542]: "3"
+              - generic [ref=e543]: Từ vựng
+            - listitem [ref=e544]:
+              - generic [ref=e545]: "4"
+              - generic [ref=e546]: Luyện 1
+            - listitem [ref=e547]:
+              - generic [ref=e548]: "5"
+              - generic [ref=e549]: Luyện 2
+            - listitem [ref=e550]:
+              - generic [ref=e551]: "6"
+              - generic [ref=e552]: Luyện 3
+          - generic [ref=e585]:
+            - generic [ref=e586]:
+              - text: BƯỚC 3/6 · BẢNG TỪ VỰNG
+              - heading "Bốn từ khóa trong câu chuyện" [level=3] [ref=e587]
+              - paragraph [ref=e588]: Chạm vào từng thẻ để nghe phát âm.
+            - generic [ref=e589]:
+              - button "🎒 bag chiếc túi" [ref=e590] [cursor=pointer]:
+                - generic [ref=e591]: 🎒
+                - generic [ref=e592]: bag
+                - generic [ref=e593]: chiếc túi
+              - button "🟡 yellow màu vàng" [ref=e598] [cursor=pointer]:
+                - generic [ref=e599]: 🟡
+                - generic [ref=e600]: yellow
+                - generic [ref=e601]: màu vàng
+              - button "🤏 little nhỏ" [ref=e606] [cursor=pointer]:
+                - generic [ref=e607]: 🤏
+                - generic [ref=e608]: little
+                - generic [ref=e609]: nhỏ
+              - button "📏 tall cao" [ref=e614] [cursor=pointer]:
+                - generic [ref=e615]: 📏
+                - generic [ref=e616]: tall
+                - generic [ref=e617]: cao
+            - button "Bắt đầu luyện tập" [ref=e622] [cursor=pointer]

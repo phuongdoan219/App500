@@ -6,9 +6,9 @@ import { useState } from "react";
 type Props = { levelNumber: number; levelName: string; onBack: () => void; onComplete: (score: number) => void };
 
 const questions = [
-  { skill: "Nghe hiểu", icon: Headphones, prompt: "Ben đang tìm đồ vật nào?", choices: ["A yellow bag", "A red kite", "A blue book"], correct: "A red kite" },
-  { skill: "Từ & câu", icon: ClipboardCheck, prompt: "Chọn câu đúng với tranh trong câu chuyện.", choices: ["It is in the tree.", "It are in the tree.", "It is on tree."], correct: "It is in the tree." },
-  { skill: "Giao tiếp", icon: Mic, prompt: "Câu nào phù hợp để nhờ bạn giúp đỡ?", choices: ["Can we get it down?", "Where you go?", "I kite red."], correct: "Can we get it down?" },
+  { skill: "Nghe hiểu", icon: Headphones, prompt: "Tom có chiếc túi như thế nào?", choices: ["A little yellow bag", "A tall red bag", "A little blue book"], correct: "A little yellow bag" },
+  { skill: "Từ & câu", icon: ClipboardCheck, prompt: "Chọn câu đúng với câu chuyện.", choices: ["Tom has a little yellow bag.", "Tom have a yellow little bag.", "Tom is little yellow bag."], correct: "Tom has a little yellow bag." },
+  { skill: "Giao tiếp", icon: Mic, prompt: "Câu nào miêu tả đúng hành động trong video?", choices: ["The boy is carrying a yellow bag.", "The boy are carry a bag.", "The bag carrying the boy."], correct: "The boy is carrying a yellow bag." },
 ] as const;
 
 export default function LevelAssessment({ levelNumber, levelName, onBack, onComplete }: Props) {

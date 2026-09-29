@@ -1,10 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Check, Settings, Sparkles, Volume2, Waves, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  Check,
+  Play,
+  Sparkles,
+  Volume2,
+} from "lucide-react";
 import { WRONG_BAG_VIDEO_URL } from "@/lib/lesson-content";
 
-function speak(text: string, rate: number) {
+const vocabulary = [
+  { word: "bag", meaning: "chiếc túi", icon: "🎒" },
+  { word: "yellow", meaning: "màu vàng", icon: "🟡" },
+  { word: "little", meaning: "nhỏ", icon: "🤏" },
+  { word: "tall", meaning: "cao", icon: "📏" },
+];
+
+function speak(text: string, rate = 0.78) {
   window.speechSynthesis.cancel();
   const voice = new SpeechSynthesisUtterance(text);
   voice.lang = "en-US";
@@ -12,28 +26,272 @@ function speak(text: string, rate: number) {
   window.speechSynthesis.speak(voice);
 }
 
-export default function LessonOneVideo({ storyStep, setStoryStep, answer, setAnswer, checked, setChecked, finish, rewardLabel = "Hoàn thành và nhận 1 Cá" }: any) {
-  const [secondAnswer, setSecondAnswer] = useState("");
-  const [heardWords, setHeardWords] = useState<string[]>([]);
-  const firstCorrect = answer === "D. The boy opened the bag and found it was not his.";
-  const secondCorrect = secondAnswer === "A boy with a similar yellow bag.";
-  const practiceDone = ["little", "tall", "young", "graceful"].every(word => heardWords.includes(word));
-  return <div className="lesson-layout">
-    <div className="main-card story-card">
-      <div className="card-top"><div><span className="pill pill-coral"><Sparkles size={13} /> Câu chuyện</span><h2>The Wrong Bag</h2><p>Xem video và tìm các manh mối miêu tả người, đồ vật.</p></div><button className="icon-button"><Settings size={18} /></button></div>
-      <div className="story-stage real-video-stage">
-        <video src={WRONG_BAG_VIDEO_URL} controls playsInline preload="metadata" crossOrigin="anonymous" />
-        <span className="video-empty">VIDEO TIẾNG ANH</span>
-      </div>
-      <div className="micro-actions"><button onClick={() => speak("little, tall, young, graceful", .72)}><Volume2 size={17} /> Nghe từ khóa</button><button onClick={() => speak("The boy opened the bag and found it was not his.", .9)}><Waves size={17} /> Nghe manh mối</button></div>
+export default function LessonOneVideo({
+  finish,
+  rewardLabel = "Hoàn thành Lesson 1",
+}: {
+  finish: () => void;
+  rewardLabel?: string;
+}) {
+  const [step, setStep] = useState(1);
+  const [choice, setChoice] = useState("");
+  const [checked, setChecked] = useState(false);
+  const answers: Record<number, string> = {
+    2: "yellow",
+    4: "chiếc túi",
+    5: "yellow",
+    6: "little yellow bag",
+  };
+  const correct = choice === answers[step];
+  const labels = [
+    "Video",
+    "Câu hỏi",
+    "Từ vựng",
+    "Luyện 1",
+    "Luyện 2",
+    "Luyện 3",
+  ];
+  const choose = (value: string) => {
+    setChoice(value);
+    setChecked(false);
+  };
+  const next = () => {
+    setStep((current) => current + 1);
+    setChoice("");
+    setChecked(false);
+  };
+
+  return (
+    <section className="structured-lesson structured-vocab">
+      <header className="structured-head">
+        <div>
+          <span className="pill pill-coral">
+            <Sparkles size={13} /> LESSON 1 · TỪ VỰNG
+          </span>
+          <h2>The Wrong Bag · Phần 1</h2>
+          <p>Xem câu chuyện, tìm manh mối và làm chủ bốn từ khóa đầu tiên.</p>
+        </div>
+        <span className="structured-goal">
+          <BookOpen size={16} /> 1 video · 4 từ · 3 bài luyện
+        </span>
+      </header>
+      <Progress labels={labels} step={step} />
+      {step === 1 && (
+        <div className="structured-stage">
+          <StageCopy
+            eyebrow="BƯỚC 1/6"
+            title="Xem video phần 1"
+            description="Quan sát chiếc túi của Tom và chú ý màu sắc, kích thước."
+          />
+          <div className="structured-video">
+            <video
+              src={WRONG_BAG_VIDEO_URL}
+              controls
+              playsInline
+              preload="metadata"
+              crossOrigin="anonymous"
+            />
+            <span>THE WRONG BAG · PHẦN 1</span>
+          </div>
+          <button className="primary stage-next" onClick={next}>
+            Em đã xem xong <ArrowRight size={18} />
+          </button>
+        </div>
+      )}
+      {step === 2 && (
+        <Quiz
+          eyebrow="BƯỚC 2/6 · CÂU HỎI VIDEO"
+          title="What color is Tom’s bag?"
+          prompt="Chiếc túi của Tom có màu gì?"
+          options={["red", "yellow", "blue"]}
+          choice={choice}
+          checked={checked}
+          correct={correct}
+          choose={choose}
+          check={() => setChecked(true)}
+          next={next}
+        />
+      )}
+      {step === 3 && (
+        <div className="structured-stage">
+          <StageCopy
+            eyebrow="BƯỚC 3/6 · BẢNG TỪ VỰNG"
+            title="Bốn từ khóa trong câu chuyện"
+            description="Chạm vào từng thẻ để nghe phát âm."
+          />
+          <div className="vocab-board">
+            {vocabulary.map((item) => (
+              <button key={item.word} onClick={() => speak(item.word)}>
+                <i>{item.icon}</i>
+                <b>{item.word}</b>
+                <small>{item.meaning}</small>
+                <Volume2 size={15} />
+              </button>
+            ))}
+          </div>
+          <button className="primary stage-next" onClick={next}>
+            Bắt đầu luyện tập <ArrowRight size={18} />
+          </button>
+        </div>
+      )}
+      {step === 4 && (
+        <Quiz
+          eyebrow="BƯỚC 4/6 · EXERCISE 1"
+          title="Match the word"
+          prompt="Từ “bag” có nghĩa là gì?"
+          options={["chiếc túi", "cái cây", "quả bóng"]}
+          choice={choice}
+          checked={checked}
+          correct={correct}
+          choose={choose}
+          check={() => setChecked(true)}
+          next={next}
+        />
+      )}
+      {step === 5 && (
+        <Quiz
+          eyebrow="BƯỚC 5/6 · EXERCISE 2"
+          title="Choose the missing word"
+          prompt="Tom has a ___ bag."
+          options={["yellow", "green", "purple"]}
+          choice={choice}
+          checked={checked}
+          correct={correct}
+          choose={choose}
+          check={() => setChecked(true)}
+          next={next}
+        />
+      )}
+      {step === 6 && (
+        <Quiz
+          eyebrow="BƯỚC 6/6 · EXERCISE 3"
+          title="Listen and choose"
+          prompt="Bấm nghe rồi chọn cụm từ đúng."
+          audio="little yellow bag"
+          options={["tall yellow boy", "little yellow bag", "little red bag"]}
+          choice={choice}
+          checked={checked}
+          correct={correct}
+          choose={choose}
+          check={() => setChecked(true)}
+          finish={finish}
+          finishLabel={rewardLabel}
+        />
+      )}
+    </section>
+  );
+}
+
+function Progress({ labels, step }: { labels: string[]; step: number }) {
+  return (
+    <ol className="structured-progress">
+      {labels.map((label, index) => (
+        <li
+          key={label}
+          className={`${index + 1 === step ? "active" : ""} ${index + 1 < step ? "done" : ""}`}
+        >
+          <span>{index + 1 < step ? <Check size={13} /> : index + 1}</span>
+          <b>{label}</b>
+        </li>
+      ))}
+    </ol>
+  );
+}
+function StageCopy({
+  eyebrow,
+  title,
+  description,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="stage-copy">
+      <small>{eyebrow}</small>
+      <h3>{title}</h3>
+      <p>{description}</p>
     </div>
-    <aside className="activity-card">
-      <div className="activity-kicker">BƯỚC {storyStep}/4</div>
-      {storyStep === 1 && <><h3>Sẵn sàng khám phá?</h3><p>Hãy quan sát kỹ ngoại hình các nhân vật và chiếc túi màu vàng.</p><div className="tip"><Zap size={19} /><span><b>Mẹo nhỏ</b>Em có thể bật lại video và nghe bao nhiêu lần tùy thích.</span></div><button className="primary" onClick={() => setStoryStep(2)}>Đã xem phần 1 <ArrowRight size={18} /></button></>}
-      {storyStep === 2 && <><h3>Manh mối quyết định là gì?</h3><p>Which clue finally helped Tom identify the correct boy?</p><div className="answers">{["A. The boy was tall.", "B. The boy was slim.", "C. The boy had curly hair.", "D. The boy opened the bag and found it was not his."].map(item => <button key={item} className={(answer === item ? "selected " : "") + (checked && item.startsWith("D.") ? "correct" : "")} onClick={() => { setAnswer(item); setChecked(false); }}>{item}</button>)}</div>{checked && <div className={firstCorrect ? "success" : "feedback retry"}>{firstCorrect ? <><Check size={18} /><span><b>Chính xác!</b> Hành động mở nhầm túi là manh mối quyết định.</span></> : "Chưa đúng. Hãy xem lại hành động với chiếc túi."}</div>}<button disabled={!answer} className="primary" onClick={() => checked && firstCorrect ? setStoryStep(3) : setChecked(true)}>{checked && firstCorrect ? "Xem phần 2" : "Kiểm tra"} <ArrowRight size={18} /></button></>}
-      {storyStep === 3 && <><h3>Ai đã lấy nhầm túi?</h3><p>Who took Tom&apos;s bag by mistake?</p><div className="answers">{["A boy with a similar yellow bag.", "A tall woman at the fair.", "Tom's teacher."].map(item => <button key={item} className={(secondAnswer === item ? "selected " : "") + (secondAnswer && item === "A boy with a similar yellow bag." ? "correct" : "")} onClick={() => setSecondAnswer(item)}>{item}</button>)}</div><button disabled={!secondCorrect} className="primary" onClick={() => setStoryStep(4)}>Tiếp tục luyện tập <ArrowRight size={18} /></button></>}
-      {storyStep === 4 && <><h3>Nghe và chọn từ</h3><p>Chọn đủ bốn từ em nghe thấy.</p><button className="model-button" onClick={() => speak("little, tall, young, graceful", .68)}><span><Volume2 size={20} /></span><div><b>Nghe danh sách từ</b><small>Nghe chậm và rõ</small></div></button><div className="answers compact">{["little", "old", "tall", "young", "short", "graceful"].map(word => <button key={word} className={heardWords.includes(word) && ["little", "tall", "young", "graceful"].includes(word) ? "correct" : ""} onClick={() => setHeardWords(current => current.includes(word) ? current.filter(item => item !== word) : [...current, word])}>{word}</button>)}</div><button disabled={!practiceDone} className="primary" onClick={finish}>{rewardLabel} <ArrowRight size={18} /></button></>}
-      <div className="step-dots">{[1,2,3,4].map(i => <button key={i} className={i <= storyStep ? "on" : ""} onClick={() => setStoryStep(i)} />)}</div>
-    </aside>
-  </div>;
+  );
+}
+type QuizProps = {
+  eyebrow: string;
+  title: string;
+  prompt: string;
+  audio?: string;
+  options: string[];
+  choice: string;
+  checked: boolean;
+  correct: boolean;
+  choose: (value: string) => void;
+  check: () => void;
+  next?: () => void;
+  finish?: () => void;
+  finishLabel?: string;
+};
+function Quiz({
+  eyebrow,
+  title,
+  prompt,
+  audio,
+  options,
+  choice,
+  checked,
+  correct,
+  choose,
+  check,
+  next,
+  finish,
+  finishLabel,
+}: QuizProps) {
+  return (
+    <div className="structured-stage quiz-panel">
+      <StageCopy eyebrow={eyebrow} title={title} description={prompt} />
+      {audio && (
+        <button className="audio-prompt" onClick={() => speak(audio)}>
+          <Play size={18} fill="currentColor" /> Nghe câu
+        </button>
+      )}
+      <div className="structured-options">
+        {options.map((option) => (
+          <button
+            key={option}
+            className={`${choice === option ? "selected" : ""} ${checked && option === choice ? (correct ? "correct" : "wrong") : ""}`}
+            onClick={() => choose(option)}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+      {checked && (
+        <div className={`structured-feedback ${correct ? "correct" : "retry"}`}>
+          {correct ? (
+            <>
+              <Check size={18} />
+              <span>
+                <b>Chính xác!</b> Em đã sẵn sàng sang bước tiếp theo.
+              </span>
+            </>
+          ) : (
+            <span>
+              <b>Chưa đúng.</b> Hãy xem hoặc nghe lại manh mối nhé.
+            </span>
+          )}
+        </div>
+      )}
+      {checked && correct ? (
+        <button className="primary stage-next" onClick={finish ?? next}>
+          {finish ? finishLabel : "Tiếp tục"} <ArrowRight size={18} />
+        </button>
+      ) : (
+        <button
+          className="primary stage-next"
+          disabled={!choice}
+          onClick={check}
+        >
+          Kiểm tra <ArrowRight size={18} />
+        </button>
+      )}
+    </div>
+  );
 }

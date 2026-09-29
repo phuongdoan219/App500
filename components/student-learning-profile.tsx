@@ -10,10 +10,10 @@ type NotebookItem = { kind: "word" | "pattern"; text: string; meaning: string; s
 
 const lessonContent: Record<number, Array<Omit<NotebookItem, "sources" | "mastery">>> = {
   1: [
-    { kind: "word", text: "kite", meaning: "chiếc diều" },
-    { kind: "word", text: "tree", meaning: "cái cây" },
-    { kind: "word", text: "bench", meaning: "ghế dài" },
-    { kind: "pattern", text: "Where is my red kite?", meaning: "Chiếc diều đỏ của tớ đâu rồi?" },
+    { kind: "word", text: "bag", meaning: "chiếc túi" },
+    { kind: "word", text: "yellow", meaning: "màu vàng" },
+    { kind: "word", text: "little", meaning: "nhỏ" },
+    { kind: "word", text: "tall", meaning: "cao" },
   ],
   2: [
     { kind: "word", text: "little", meaning: "nhỏ" },
@@ -28,8 +28,8 @@ const lessonContent: Record<number, Array<Omit<NotebookItem, "sources" | "master
     { kind: "pattern", text: "The boy is carrying a yellow bag.", meaning: "Cậu bé đang mang một chiếc túi màu vàng." },
   ],
   4: [
-    { kind: "word", text: "get it down", meaning: "lấy nó xuống" },
-    { kind: "pattern", text: "Can we get it down?", meaning: "Chúng ta có thể lấy nó xuống không?" },
+    { kind: "word", text: "standing near", meaning: "đang đứng gần" },
+    { kind: "pattern", text: "The child is standing near the chair.", meaning: "Đứa trẻ đang đứng gần chiếc ghế." },
   ],
 };
 

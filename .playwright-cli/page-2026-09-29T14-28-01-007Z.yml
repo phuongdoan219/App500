@@ -1,0 +1,44 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: E
+        - generic [ref=e6]:
+          - generic [ref=e7]: ENGLISH IN
+          - generic [ref=e8]: WONDERLAND
+      - generic [ref=e9]:
+        - generic [ref=e10]: BƯỚC 5/6 · KHỞI TẠO HÀNH TRÌNH
+        - emphasis [ref=e12]
+    - generic [ref=e157]:
+      - button "Quay lại" [ref=e158] [cursor=pointer]
+      - generic [ref=e161]:
+        - generic [ref=e162]: CHƯƠNG 3 · CHÌA KHÓA KỲ VẬT
+        - heading "Học đủ bài, mở quà lớn!" [level=1] [ref=e166]
+        - paragraph [ref=e167]: Mỗi Unit có 4 Lesson. Hoàn thành từng Lesson để ghép đủ chìa khóa và mở Túi Kỳ Vật cuối Unit.
+        - generic [ref=e168]:
+          - generic [ref=e169]:
+            - generic [ref=e174]: Lesson 1
+            - generic [ref=e175]: 1 mảnh chìa khóa
+          - generic [ref=e176]:
+            - generic [ref=e181]: Lesson 2
+            - generic [ref=e182]: 1 mảnh chìa khóa
+          - generic [ref=e183]:
+            - generic [ref=e188]: Lesson 3
+            - generic [ref=e189]: 1 mảnh chìa khóa
+          - generic [ref=e190]:
+            - generic [ref=e195]: Lesson 4
+            - generic [ref=e196]: 1 mảnh chìa khóa
+        - generic [ref=e197]:
+          - generic [ref=e198]: 4 mảnh
+          - generic [ref=e201]: 🎁
+          - generic [ref=e202]:
+            - generic [ref=e203]: Mở Túi Kỳ Vật
+            - generic [ref=e204]: Nhận đồ ăn, đồ chơi hoặc phụ kiện cho thú
+        - generic [ref=e205]:
+          - img "Rương linh vật" [ref=e206]
+          - generic [ref=e207]:
+            - generic [ref=e208]: Cuối Level còn có Rương Linh Vật
+            - generic [ref=e209]: Hoàn thành hành trình để mở khóa một người bạn mới.
+        - button "Hiểu rồi, tiếp tục" [ref=e210] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e51] [cursor=pointer]
+  - alert [ref=e55]

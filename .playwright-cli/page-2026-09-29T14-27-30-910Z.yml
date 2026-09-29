@@ -1,0 +1,40 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: E
+        - generic [ref=e6]:
+          - generic [ref=e7]: ENGLISH IN
+          - generic [ref=e8]: WONDERLAND
+      - generic [ref=e9]:
+        - generic [ref=e10]: BƯỚC 3/6 · KHỞI TẠO HÀNH TRÌNH
+        - emphasis [ref=e12]
+    - generic [ref=e85]:
+      - button "Quay lại" [ref=e86] [cursor=pointer]
+      - generic [ref=e89]:
+        - img "Bản đồ Rừng Thì Thầm" [ref=e90]
+        - generic [ref=e92]: A1 · Lớp 4
+        - generic [ref=e97]:
+          - generic [ref=e98]:
+            - generic [ref=e99]: "1"
+            - generic [ref=e100]: Làng Gương Mặt
+          - generic [ref=e101]:
+            - generic [ref=e102]: "2"
+            - generic [ref=e103]: Hang Kho Báu
+          - generic [ref=e104]:
+            - generic [ref=e105]: "3"
+            - generic [ref=e106]: Cây Trí Nhớ
+      - generic [ref=e107]:
+        - generic [ref=e108]: CHƯƠNG 1 · LỜI MỜI PHIÊU LƯU
+        - heading "An ơi, một thế giới đang chờ em!" [level=1] [ref=e112]
+        - paragraph [ref=e113]: Ở Rừng Thì Thầm, mỗi bài tiếng Anh là một thử thách giúp em băng qua địa điểm mới và giao tiếp trong những tình huống quen thuộc.
+        - generic [ref=e114]:
+          - generic [ref=e115]:
+            - generic [ref=e118]: Học một bài ngắn
+            - generic [ref=e119]: Khám phá từ, câu, nghe và nói
+          - generic [ref=e120]:
+            - generic [ref=e123]: Tiến thêm trên bản đồ
+            - generic [ref=e124]: Mỗi Unit mở một vùng đất mới
+        - button "Nhận lời phiêu lưu" [ref=e125] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e51] [cursor=pointer]
+  - alert [ref=e55]
