@@ -4,6 +4,8 @@ import Image from "next/image";
 import { ArrowLeft, ArrowRight, BookOpen, Check, Headphones, Map, Mic, Trophy } from "lucide-react";
 
 type Props = {
+  levelNumber: number;
+  levelName: string;
   onMap: () => void;
   onOpenChest: () => void;
   score: number;
@@ -15,7 +17,7 @@ const learningProof = [
   { label: "Speaking", Icon: Mic, tone: "violet" },
 ];
 
-export default function LessonResult({ onMap, onOpenChest, score }: Props) {
+export default function LessonResult({ levelNumber, levelName, onMap, onOpenChest, score }: Props) {
   return <main className="result-screen level-result-screen">
     <header className="result-topbar level-result-topbar">
       <div className="road-brand"><span>E</span><div><b>ENGLISH IN</b><small>WONDERLAND</small></div></div>
@@ -27,8 +29,8 @@ export default function LessonResult({ onMap, onOpenChest, score }: Props) {
         <span><Trophy size={15}/> ĐÃ HOÀN THÀNH</span>
         <strong>{score} ĐIỂM</strong>
       </div>
-      <h1>Hoàn thành Level 1!</h1>
-      <p className="completion-lead">Em đã sẵn sàng gặp người bạn sẽ đồng hành ở Level tiếp theo.</p>
+      <h1>Hoàn thành Level {levelNumber}!</h1>
+      <p className="completion-lead">Em đã hoàn thành chặng {levelName} và sẵn sàng gặp người bạn đồng hành mới.</p>
 
       <div className="learning-proof" aria-label="Các kỹ năng đã hoàn thành">
         {learningProof.map(({ label, Icon, tone }) => <div key={label}>

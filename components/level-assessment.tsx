@@ -3,7 +3,7 @@
 import { ArrowLeft, ArrowRight, Check, ClipboardCheck, Headphones, Mic, ShieldCheck, Sparkles } from "lucide-react";
 import { useState } from "react";
 
-type Props = { onBack: () => void; onComplete: (score: number) => void };
+type Props = { levelNumber: number; levelName: string; onBack: () => void; onComplete: (score: number) => void };
 
 const questions = [
   { skill: "Nghe hiểu", icon: Headphones, prompt: "Ben đang tìm đồ vật nào?", choices: ["A yellow bag", "A red kite", "A blue book"], correct: "A red kite" },
@@ -11,7 +11,7 @@ const questions = [
   { skill: "Giao tiếp", icon: Mic, prompt: "Câu nào phù hợp để nhờ bạn giúp đỡ?", choices: ["Can we get it down?", "Where you go?", "I kite red."], correct: "Can we get it down?" },
 ] as const;
 
-export default function LevelAssessment({ onBack, onComplete }: Props) {
+export default function LevelAssessment({ levelNumber, levelName, onBack, onComplete }: Props) {
   const [answers, setAnswers] = useState<string[]>(["", "", ""]);
   const [submitted, setSubmitted] = useState(false);
   const correctCount = questions.filter((q, i) => answers[i] === q.correct).length;
@@ -19,7 +19,7 @@ export default function LevelAssessment({ onBack, onComplete }: Props) {
   const score = correctCount === 3 ? 100 : correctCount === 2 ? 82 : correctCount * 30;
 
   return <main className="assessment-screen">
-    <header className="assessment-topbar"><button onClick={onBack}><ArrowLeft size={18}/> Về bản đồ</button><div><span>MỐC CUỐI LEVEL 1</span><b>Đánh giá năng lực</b></div><strong><ShieldCheck size={19}/> Cần đạt 70 điểm</strong></header>
+    <header className="assessment-topbar"><button onClick={onBack}><ArrowLeft size={18}/> Về bản đồ</button><div><span>MỐC CUỐI LEVEL {levelNumber} · {levelName}</span><b>Đánh giá năng lực</b></div><strong><ShieldCheck size={19}/> Cần đạt 70 điểm</strong></header>
     <section className="assessment-wrap">
       <div className="assessment-heading"><span className="assessment-icon"><ClipboardCheck size={35}/></span><div><span><Sparkles size={14}/> MỐC 6 · ĐIỂM CUỐI HÀNH TRÌNH</span><h1>Thử thách tổng hợp</h1><p>Vượt qua 3 câu hỏi để hoàn thành bản đồ và mở rương linh vật.</p></div></div>
       <div className="assessment-questions">{questions.map((question, index) => { const Icon = question.icon; return <section key={question.prompt} className={submitted ? (answers[index] === question.correct ? "question-correct" : "question-wrong") : ""}>

@@ -110,6 +110,10 @@
 .access-panel-mode .option-list b,.access-panel-mode .level-options b{font-size:14px}.access-panel-mode .option-list small,.access-panel-mode .level-options small{font-size:12px}
 .access-panel-mode .access-primary{min-height:48px;background:linear-gradient(135deg,#705ff2,#4f54d8 55%,#327fcf);box-shadow:inset 0 -4px 0 #363aa9,0 12px 25px #4a4ed343}
 .access-panel-mode .google-demo{height:50px;background:#f9faff}.access-panel-mode .recommend-card{box-shadow:0 12px 28px #5d55d51e}
+.grade-grid{grid-template-columns:repeat(3,1fr)}
+.grade-grid button{min-height:46px;padding:10px}
+.grade-grid button.selected{padding:9px}
+.access-primary:disabled{cursor:not-allowed;opacity:.48;box-shadow:none}
 @keyframes panelQuestIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
 .app-shell.lesson-theme{position:relative;isolation:isolate;min-height:100vh;background:radial-gradient(circle at 64% 0,#444bce 0,#171d64 40%,#0c1245 100%);color:#fff}
@@ -162,7 +166,12 @@
 .journey-select-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
 .journey-select-card{position:relative;min-height:270px;overflow:hidden;border:4px solid #fff;border-radius:28px;padding:28px 22px 22px;color:#fff;text-align:left;display:flex;flex-direction:column;align-items:flex-start;box-shadow:inset 0 -9px 0 #20276c42,0 20px 45px #070b3975;transition:.2s}
 .journey-select-card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-65px;top:-55px;background:#ffffff18}
-.journey-select-card:hover{transform:translateY(-7px) rotate(-1deg);filter:saturate(1.08)}
+.journey-select-card:not(.locked):hover{transform:translateY(-7px) rotate(-1deg);filter:saturate(1.08)}
+.journey-select-card.unlocked{z-index:1;box-shadow:inset 0 -9px 0 #20276c42,0 20px 45px #070b3975,0 0 0 6px #8eeaff42,0 0 42px #6be9ff85}
+.journey-select-card.locked{cursor:not-allowed;opacity:.38;filter:grayscale(.82) saturate(.2);border-color:#d8dce8;box-shadow:inset 0 -9px 0 #20276c20,0 10px 24px #070b3935}
+.journey-select-card.locked .journey-card-go{background:#dfe2ec;color:#777d92;box-shadow:inset 0 -4px 0 #bdc2d0}
+.journey-card-match{position:absolute;left:18px;bottom:18px;display:flex;align-items:center;gap:5px;padding:7px 10px;border-radius:18px;background:#152268d9;border:1px solid #8cecff;color:#9cf2ff;font-size:9px;font-weight:1000;letter-spacing:.6px}
+@media(max-width:760px){.journey-card-match{display:none}}
 .journey-select-card.school{background:linear-gradient(145deg,#ff8a79,#e95575)}
 .journey-select-card.forest{background:linear-gradient(145deg,#54d9a0,#229a78)}
 .journey-select-card.city{background:linear-gradient(145deg,#55cdea,#397ad7)}
@@ -318,3 +327,30 @@
 .open-chest-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px #4f49c852}.open-chest-primary:focus-visible{outline:3px solid #aaa4ff;outline-offset:3px}
 .quiet-map-link{margin:13px auto 0;border:0;background:transparent;color:#6f7495;display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800}
 @media(max-width:680px){.level-result-topbar{height:58px;padding:0 12px}.level-result-topbar .road-brand small{display:none}.level-result-topbar .road-brand b{font-size:11px}.level-result-topbar>button{padding:8px;font-size:10px}.level-complete-wrap{width:calc(100% - 20px);padding:25px 0 22px}.level-complete-wrap>h1{font-size:31px}.completion-lead{font-size:12px;line-height:1.45;padding:0 12px}.learning-proof{width:100%;margin:17px auto 14px}.learning-proof>div{min-width:0;flex:1;justify-content:center;padding:3px 5px;gap:5px}.learning-proof b{font-size:9px}.learning-proof>div>svg{display:none}.proof-icon{width:29px;height:29px}.proof-icon svg{width:16px}.chest-focus{padding:10px 14px 16px;border-radius:24px}.reward-chest-image{width:100%;margin:-33px auto -42px}.open-chest-primary{width:100%;min-width:0}.quiet-map-link{margin-top:11px}}
+
+/* Large draggable curriculum map */
+.zoomable-map{cursor:grab;touch-action:none;user-select:none;isolation:isolate;background:#171e68}
+.zoomable-map.is-dragging{cursor:grabbing}
+.zoomable-map .map-title{z-index:14;pointer-events:none}
+.map-canvas{position:absolute;z-index:1;left:0;top:0;transform-origin:0 0;will-change:transform;overflow:hidden;background:#26339a}
+.map-canvas>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.08) contrast(1.02);pointer-events:none}
+.map-canvas:after{content:"";position:absolute;z-index:2;inset:0;background:linear-gradient(180deg,#121a5840 0,transparent 22%,transparent 75%,#0b12476b 100%);pointer-events:none}
+.map-canvas .journey-node,.map-canvas .map-companion{z-index:4}
+.map-canvas .journey-node:disabled{pointer-events:none;cursor:not-allowed}
+.map-zone-label{position:absolute;z-index:4;transform:translateY(-50%);padding:7px 13px;border:2px solid #75e7ff;border-radius:999px;background:#111852e8;box-shadow:0 5px 18px #080d3f80;color:#bff6ff;font-size:12px;font-weight:1000;letter-spacing:.08em;pointer-events:none}
+.next-unit-badge{position:absolute;left:50%;top:-29px;transform:translateX(-50%);padding:5px 10px;border:2px solid #fff4a8;border-radius:999px;background:#ffe15b;box-shadow:0 4px 0 #bb781e,0 0 18px #ffe15b;color:#32210a;font-size:10px;font-style:normal;font-weight:1000;letter-spacing:.08em;white-space:nowrap;animation:next-unit-pulse 1.5s ease-in-out infinite}
+@keyframes next-unit-pulse{50%{transform:translateX(-50%) translateY(-4px);box-shadow:0 4px 0 #bb781e,0 0 28px #ffe15b}}
+.map-route-guide{position:absolute;z-index:15;left:17px;bottom:16px;display:flex;flex-direction:column;gap:2px;padding:9px 13px;border:1px solid #ffe36b99;border-radius:13px;background:#111852e8;box-shadow:0 8px 24px #080b3470;pointer-events:none}.map-route-guide b{color:#ffe36b;font-size:11px}.map-route-guide small{color:#e2e6ff;font-size:9px}
+.map-control-dock{position:absolute;z-index:16;right:14px;bottom:13px;display:flex;align-items:center;gap:4px;padding:4px 5px 4px 9px;border:1px solid #a4b2e84d;border-radius:13px;background:#111852ad;box-shadow:0 6px 18px #080b344d;opacity:.68;backdrop-filter:blur(8px);transition:opacity .18s;cursor:default}.map-control-dock:hover,.map-control-dock:focus-within{opacity:.96}.map-control-dock button{width:27px;height:27px;border:1px solid #aab4e43d;border-radius:8px;background:#34408a99;color:#eef2ff;display:grid;place-items:center}.map-control-dock button:hover{background:#4654a4;border-color:#9feaff}.map-control-dock .map-drag-hint{display:flex;align-items:center;gap:4px;margin-right:3px;color:#dce3ff;font-size:9px;font-weight:800;white-space:nowrap;pointer-events:none}.map-zoom-value{min-width:31px;text-align:center;color:#b8efff;font-size:9px;font-weight:900}
+.dense-map .journey-node{width:54px;height:64px;transform:translate(-50%,-100%);filter:drop-shadow(0 6px 7px #080b3c99);justify-content:flex-end;overflow:visible}
+.dense-map .journey-node:hover:not(:disabled){transform:translate(-50%,calc(-100% - 4px)) scale(1.05)}
+.dense-map .node-medal{position:relative;width:44px;height:44px;border-width:3px;font-size:16px;box-shadow:inset 0 -4px 0 #da6541,0 0 0 3px #5f45b68c;z-index:2}
+.dense-map .node-medal:after{content:"";position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:12px solid #fff0a8;filter:drop-shadow(0 3px 2px #25235a88)}
+.dense-map .journey-node>b{position:absolute;left:50%;top:55px;transform:translateX(-50%) translateY(4px);width:136px;margin:0;padding:6px 7px;opacity:0;visibility:hidden;transition:.18s;white-space:normal;pointer-events:none}
+.dense-map .journey-node>small{display:none}
+.dense-map .journey-node>em{position:absolute;left:50%;top:89px;transform:translateX(-50%);white-space:nowrap;opacity:0;visibility:hidden;transition:.18s}
+.dense-map .journey-node:hover>b,.dense-map .journey-node:hover>em,.dense-map .journey-node.selected>b,.dense-map .journey-node.selected>em{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.dense-map .journey-node.selected{z-index:7}
+.dense-map .node-lock-mark{position:absolute;right:-5px;bottom:-3px;width:18px;height:18px;border:2px solid #fff;border-radius:50%;background:#59617b;color:#fff;display:grid;place-items:center;z-index:3}
+.dense-map .next-unit-badge{top:-30px}
+@media(max-width:760px){.map-control-dock{right:8px;bottom:8px;padding-left:5px}.map-control-dock .map-drag-hint,.map-control-dock .map-zoom-value{display:none}.map-route-guide{left:10px;bottom:8px}.zoomable-map .map-title{left:12px;transform:none;text-align:left;max-width:58%;min-width:0}}
