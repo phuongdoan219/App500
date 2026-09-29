@@ -69,6 +69,7 @@ export type UnitProgress = Record<number, number[]>;
 type Props = {
   activeJourneyId: (typeof journeys)[number]["id"];
   onChangeJourney: () => void;
+  onUnlock: () => void;
   onStart: (unit: number, lesson: number) => void;
   onCompanion: () => void;
   onAssessment: () => void;
@@ -103,7 +104,7 @@ export function JourneySelection({ assignedJourneyId, onSelect, onCompanion, onP
   </main>;
 }
 
-export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onStart, onCompanion, onAssessment, progress, claimedUnits, coins, companionId, companionName, studentName, reviewedUnits, reviewReward, onReviewComplete, onProfile }: Props) {
+export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onUnlock, onStart, onCompanion, onAssessment, progress, claimedUnits, coins, companionId, companionName, studentName, reviewedUnits, reviewReward, onReviewComplete, onProfile }: Props) {
   const activeJourney = journeys.find(journey => journey.id === activeJourneyId) ?? journeys[0];
   const activeLevelNumber = journeys.findIndex(journey => journey.id === activeJourney.id) + 1;
   const mapViewportRef = useRef<HTMLElement>(null);
@@ -261,7 +262,7 @@ export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onSt
   ];
 
   return <main className="roadmap-screen"><header className="road-topbar"><div className="road-brand"><span>E</span><div><b>ENGLISH IN</b><small>WONDERLAND</small></div></div><ProfileActions coins={coins} companionId={companionId} companionName={companionName} studentName={studentName} onCompanion={onCompanion} onProfile={onProfile}/></header>
-    <section className="road-heading"><div><span className="road-kicker"><Map size={15}/> LEVEL {activeLevelNumber} · {activeJourney.grades.toUpperCase()} · {activeJourney.level}</span><h1>{activeJourney.theme}</h1><p>Lộ trình {activeJourney.curriculumUnits} Units · kéo bản đồ và dùng con lăn để khám phá.</p><button className="change-journey" onClick={onChangeJourney}>Đổi bản đồ</button></div><div className="level-progress"><span><b>{completedUnits}</b>/{activeJourney.units.length} Unit đã hoàn thành</span><i><em style={{ width: `${overallProgress}%` }}/></i><small>{assessmentReady ? "Mốc đánh giá năng lực đã mở" : `Đang khám phá Unit ${currentUnitIndex + 1}`}</small></div></section>
+    <section className="road-heading"><div><span className="road-kicker"><Map size={15}/> LEVEL {activeLevelNumber} · {activeJourney.grades.toUpperCase()} · {activeJourney.level}</span><h1>{activeJourney.theme}</h1><p>Lộ trình {activeJourney.curriculumUnits} Units · 2 Unit đầu được học miễn phí.</p><div className="road-heading-actions"><button className="change-journey" onClick={onChangeJourney}>Đổi bản đồ</button><button className="unlock-learning" onClick={onUnlock}><LockKeyhole size={14}/> Xem gói mở khóa</button></div></div><div className="level-progress"><span><b>{completedUnits}</b>/{activeJourney.units.length} Unit đã hoàn thành</span><i><em style={{ width: `${overallProgress}%` }}/></i><small>{assessmentReady ? "Mốc đánh giá năng lực đã mở" : `Đang khám phá Unit ${currentUnitIndex + 1}`}</small></div></section>
     <div className="road-layout road-layout-focused map-only-layout"><section ref={mapViewportRef} onWheel={handleMapWheel} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={handlePointerEnd} onPointerCancel={handlePointerEnd} className={`island-map zoomable-map map-theme-${activeJourney.accent} ${activeJourney.units.length >= 20 ? "dense-map" : ""}`} aria-label={`Bản đồ tương tác ${activeJourney.theme}`}>
       <div className="map-title"><span>LEVEL {activeLevelNumber} · {activeJourney.level} · BẢN ĐỒ HỌC TẬP</span><b>{activeJourney.theme}</b><small>Kéo để di chuyển · cuộn để thu phóng</small></div>
       <div className="map-route-guide"><b>TIẾP THEO: UNIT {currentUnitIndex + 1}</b><small>Đi theo dải sáng · Unit 1 → {activeJourney.units.length}</small></div>
