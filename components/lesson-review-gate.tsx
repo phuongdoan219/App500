@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ArrowRight, Check, RotateCcw, Sparkles, Volume2 } from "lucide-react";
+import "./lesson-review-gate.css";
 
 type ReviewGateProps = {
   lesson: 2 | 3 | 4;
