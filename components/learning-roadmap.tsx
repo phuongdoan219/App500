@@ -83,6 +83,9 @@ type Props = {
   reviewReward: number;
   onReviewComplete: (unitId: number) => void;
   onProfile: () => void;
+  hasPaidAccess: boolean;
+  autoReviewUnit?: number | null;
+  onAutoReviewOpened?: () => void;
 };
 
 type SelectionProps = Pick<Props, "coins" | "companionId" | "companionName" | "studentName" | "onCompanion" | "onProfile"> & { assignedJourneyId: (typeof journeys)[number]["id"]; onSelect: (journeyId: (typeof journeys)[number]["id"]) => void };
@@ -104,7 +107,7 @@ export function JourneySelection({ assignedJourneyId, onSelect, onCompanion, onP
   </main>;
 }
 
-export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onUnlock, onStart, onCompanion, onAssessment, progress, claimedUnits, coins, companionId, companionName, studentName, reviewedUnits, reviewReward, onReviewComplete, onProfile }: Props) {
+export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onUnlock, onStart, onCompanion, onAssessment, progress, claimedUnits, coins, companionId, companionName, studentName, reviewedUnits, reviewReward, onReviewComplete, onProfile, hasPaidAccess, autoReviewUnit = null, onAutoReviewOpened }: Props) {
   const activeJourney = journeys.find(journey => journey.id === activeJourneyId) ?? journeys[0];
   const activeLevelNumber = journeys.findIndex(journey => journey.id === activeJourney.id) + 1;
   const mapViewportRef = useRef<HTMLElement>(null);
@@ -116,6 +119,7 @@ export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onUn
   const [reviewChecked, setReviewChecked] = useState(false);
   const [reviewFinished, setReviewFinished] = useState(false);
   const [reviewStep, setReviewStep] = useState(0);
+  const [lockedUnit, setLockedUnit] = useState<number | null>(null);
   const completedUnits = activeJourney.units.filter((unit, index) => (progress[index + 1]?.length ?? 0) >= unit.lessonCount && claimedUnits.includes(index + 1)).length;
   const assessmentReady = completedUnits === activeJourney.units.length;
   const currentUnitIndex = Math.min(completedUnits, activeJourney.units.length - 1);
@@ -254,6 +258,12 @@ export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onUn
     return () => window.cancelAnimationFrame(frame);
   }, [activeJourneyId]);
 
+  useEffect(() => {
+    if (autoReviewUnit === null) return;
+    openReview(autoReviewUnit);
+    onAutoReviewOpened?.();
+  }, [autoReviewUnit]);
+
   const routeStages = [
     { label: "CHẶNG 1 · UNIT 1–5", left: 12, top: 84 },
     { label: "CHẶNG 2 · UNIT 6–10", left: 35, top: 64 },
@@ -270,7 +280,7 @@ export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onUn
       <div className="map-canvas" style={{ width: mapCanvas.width, height: mapCanvas.height, transform: `translate3d(${mapOffset.x}px, ${mapOffset.y}px, 0) scale(${mapScale})` }}>
         <Image src={activeJourney.image} alt={`Bản đồ chủ đề ${activeJourney.theme}`} fill sizes={`${mapCanvas.width}px`} priority/>
         {activeJourney.units.length >= 20 && routeStages.map((stage) => <span key={stage.label} className="map-zone-label" style={{ left: `${stage.left}%`, top: `${stage.top}%` }}>{stage.label}</span>)}
-        {activeJourney.units.map((unit, index) => { const unitId = index + 1; const completed = (progress[unitId]?.length ?? 0) >= unit.lessonCount && claimedUnits.includes(unitId); const unlocked = index === 0 || index <= completedUnits; const doneLessons = progress[unitId]?.length ?? 0; const nextLesson = Math.min(doneLessons + 1, unit.lessonCount); const reviewedToday = reviewedUnits.includes(unitId); return <button key={unit.landmark} disabled={!unlocked} style={{ left: `${unit.position[0]}%`, top: `${unit.position[1]}%` }} onClick={() => completed ? openReview(unitId) : onStart(unitId, nextLesson)} className={`journey-node node-${unitId} ${unlocked ? "open" : "locked"} ${index === currentUnitIndex ? "selected" : ""} ${completed ? "unit-completed review-ready" : ""}`}>{index === currentUnitIndex && !completed && <span className="next-unit-badge">TIẾP THEO</span>}<span className="node-medal">{completed ? <Gift size={23}/> : unitId}{!unlocked && <small className="node-lock-mark"><LockKeyhole size={10}/></small>}</span><b><small>UNIT {unitId}</small>{unit.landmark}</b><small>{unit.topic}</small>{completed ? <em className={reviewedToday ? "review-done" : "review-available"}>{reviewedToday ? <><Check size={10}/> ĐÃ ÔN HÔM NAY</> : <><Coins size={10}/> ÔN +{reviewReward} XU</>}</em> : unlocked && <em><KeyRound size={10}/> {doneLessons}/{unit.lessonCount} mảnh chìa khóa</em>}</button>; })}
+        {activeJourney.units.map((unit, index) => { const unitId = index + 1; const completed = (progress[unitId]?.length ?? 0) >= unit.lessonCount && claimedUnits.includes(unitId); const reached = index === 0 || index <= completedUnits; const includedInTrial = unitId <= 2; const unlocked = reached && (includedInTrial || hasPaidAccess); const doneLessons = progress[unitId]?.length ?? 0; const nextLesson = Math.min(doneLessons + 1, unit.lessonCount); const reviewedToday = reviewedUnits.includes(unitId); return <button key={unit.landmark} aria-label={!unlocked ? `Unit ${unitId} đang khóa. Bấm để xem điều kiện mở.` : undefined} style={{ left: `${unit.position[0]}%`, top: `${unit.position[1]}%` }} onClick={() => unlocked ? (completed ? openReview(unitId) : onStart(unitId, nextLesson)) : setLockedUnit(unitId)} className={`journey-node node-${unitId} ${unlocked ? "open" : "locked"} ${index === currentUnitIndex ? "selected" : ""} ${completed ? "unit-completed review-ready" : ""}`}>{index === currentUnitIndex && !completed && unlocked && <span className="next-unit-badge">TIẾP THEO</span>}<span className="node-medal">{completed ? <Gift size={23}/> : unitId}{!unlocked && <small className="node-lock-mark"><LockKeyhole size={10}/></small>}</span><b><small>UNIT {unitId}</small>{unit.landmark}</b><small>{unit.topic}</small>{completed ? <em className={reviewedToday ? "review-done" : "review-available"}>{reviewedToday ? <><Check size={10}/> ĐÃ ÔN HÔM NAY</> : <><Coins size={10}/> ÔN +{reviewReward} XU</>}</em> : unlocked && <em><KeyRound size={10}/> {doneLessons}/{unit.lessonCount} mảnh chìa khóa</em>}</button>; })}
         <button disabled={!assessmentReady} style={{ left: `${activeJourney.assessment.position[0]}%`, top: `${activeJourney.assessment.position[1]}%` }} onClick={onAssessment} className={`journey-node assessment-node node-${activeJourney.units.length + 1} ${assessmentReady ? "open selected" : "locked"}`}><span className="node-medal"><strong>{activeJourney.units.length + 1}</strong><ClipboardCheck size={14}/></span><b><small>MỐC CUỐI</small>{activeJourney.assessment.landmark}</b><small>Đánh giá năng lực cuối Level</small><em>{assessmentReady ? "Rương Linh Vật đang chờ" : `Cần hoàn thành ${activeJourney.units.length - completedUnits} Unit nữa`}</em></button>
         <div className="map-companion"><MascotPortrait id={companionId} className="map-wolf"/><span><b>{companionId === "wolf" ? companionName : companions[companionId].name}</b><small>{assessmentReady ? "Mình cùng mở rương nhé!" : "Mình đang chờ học cùng bạn!"}</small></span></div>
       </div>
@@ -291,6 +301,14 @@ export default function LearningRoadmap({ activeJourneyId, onChangeJourney, onUn
       {(!reviewChecked || reviewAnswer !== reviewSet.answer) ? <button className="map-review-submit" disabled={!reviewAnswer} onClick={() => setReviewChecked(true)}>Kiểm tra {reviewSet.skill.toLowerCase()}</button> : <button className="map-review-submit" onClick={continueReview}>{reviewStep < reviewSets.length - 1 ? <>{reviewSets[reviewStep + 1].skill === reviewSet.skill ? "Câu tiếp theo" : `Tiếp tục: ${reviewSets[reviewStep + 1].skill.toLowerCase()}`} <ArrowRight size={17}/></> : alreadyReviewed || reviewFinished ? "Hoàn thành lượt ôn" : `Nhận ${reviewReward} Xu`}</button>}
       <button className="map-review-lessons" onClick={() => { const unit = reviewUnit; closeReview(); onStart(unit, 1); }}>Xem lại bài học của Unit {reviewUnit}</button>
       <small className="map-review-rule">Hoàn thành 6 câu gồm từ vựng, ngữ pháp và nghe để nhận thưởng. Mỗi Unit nhận Xu 1 lần/ngày.</small>
+    </section></div>}
+    {lockedUnit !== null && <div className="unit-lock-modal" role="dialog" aria-modal="true" aria-labelledby="unit-lock-title"><section>
+      <button className="unit-lock-close" onClick={() => setLockedUnit(null)} aria-label="Đóng"><X size={18}/></button>
+      <span className="unit-lock-icon"><LockKeyhole size={27}/></span>
+      <small>UNIT {lockedUnit} · CHƯA MỞ</small>
+      <h2 id="unit-lock-title">{lockedUnit >= 3 && !hasPaidAccess && completedUnits >= 2 ? "Bé đã đi hết chặng học thử" : "Hoàn thành chặng trước để đi tiếp"}</h2>
+      <p>{lockedUnit >= 3 && !hasPaidAccess && completedUnits >= 2 ? "Hai Unit trải nghiệm đã giúp bé làm quen đủ 4 kiểu bài học. Gia đình có thể mở khóa chặng tiếp theo, hoặc để bé ôn lại miễn phí những phần đã học." : `Unit ${lockedUnit} sẽ mở sau khi bé hoàn thành Unit ${Math.max(1, lockedUnit - 1)}.`}</p>
+      {lockedUnit >= 3 && !hasPaidAccess && completedUnits >= 2 ? <><button className="unit-lock-primary" onClick={() => { setLockedUnit(null); onUnlock(); }}>Xem các lựa chọn mở khóa <ArrowRight size={17}/></button><button className="unit-lock-review" onClick={() => { setLockedUnit(null); openReview(2); }}>Ôn lại Unit 2 miễn phí</button><span className="unit-lock-promise"><Check size={14}/> Tiến độ và phần thưởng đã nhận vẫn được giữ nguyên</span></> : <button className="unit-lock-primary" onClick={() => setLockedUnit(null)}>Tiếp tục học Unit hiện tại</button>}
     </section></div>}
   </main>;
 }
