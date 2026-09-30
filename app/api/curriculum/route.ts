@@ -1,5 +1,8 @@
 const SHEET_CSV = "https://docs.google.com/spreadsheets/d/1R371oll2MN5gykAteGHawcsTjpt4kJSmtRoyH4qaIhI/export?format=csv&gid=627794224";
 
+export const dynamic = "force-static";
+export const revalidate = 300;
+
 export async function GET() {
   try {
     const response = await fetch(SHEET_CSV, { next: { revalidate: 300 } });
