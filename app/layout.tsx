@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ReferralProgram from "@/components/referral-program";
 import "./globals.css";
+import "./referral.css";
 
 export const metadata: Metadata = {
   title: "English in Wonderland",
