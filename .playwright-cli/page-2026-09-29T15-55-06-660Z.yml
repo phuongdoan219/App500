@@ -1,0 +1,29 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: E
+        - generic [ref=e6]:
+          - generic [ref=e7]: ENGLISH IN
+          - generic [ref=e8]: WONDERLAND
+      - generic [ref=e9]:
+        - generic [ref=e10]: BƯỚC 1/6 · KHỞI TẠO HÀNH TRÌNH
+        - emphasis [ref=e12]
+    - generic [ref=e13]:
+      - button "Quay lại" [ref=e14] [cursor=pointer]
+      - heading "Chào mừng trở lại!" [level=1] [ref=e21]
+      - paragraph [ref=e22]: Phụ huynh đăng nhập để thiết lập lộ trình phù hợp cho bé.
+      - generic [ref=e23]:
+        - generic [ref=e24]: Email hoặc số điện thoại
+        - textbox "Email hoặc số điện thoại" [ref=e29]:
+          - /placeholder: phuhuynh@example.com
+      - generic [ref=e30]:
+        - generic [ref=e31]: Mật khẩu
+        - textbox "Mật khẩu" [ref=e37]:
+          - /placeholder: ••••••••
+      - button "Quên mật khẩu?" [ref=e38] [cursor=pointer]
+      - button "Đăng nhập" [ref=e39] [cursor=pointer]
+      - generic [ref=e42]: hoặc
+      - button "G Tiếp tục với Google" [ref=e44] [cursor=pointer]
+      - generic [ref=e45]: Bản demo không gửi hay lưu thông tin đăng nhập.
+  - button "Open Next.js Dev Tools" [ref=e51] [cursor=pointer]

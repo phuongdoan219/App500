@@ -1,0 +1,131 @@
+- generic [active] [ref=f2e1]:
+  - button "Open Next.js Dev Tools" [ref=f2e68] [cursor=pointer]
+  - alert [ref=f2e72]
+  - main [ref=f2e183]:
+    - button "Lộ trình" [ref=f2e184] [cursor=pointer]
+    - generic [ref=f2e187]:
+      - generic [ref=f2e188]:
+        - generic [ref=f2e189]: E
+        - generic [ref=f2e190]:
+          - generic [ref=f2e191]: ENGLISH IN
+          - generic [ref=f2e192]: WONDERLAND
+      - generic [ref=f2e194]:
+        - generic [ref=f2e195]: Unit 1
+        - generic [ref=f2e196]: Lesson 3/4
+      - generic [ref=f2e199]:
+        - button "Năng lực" [ref=f2e200] [cursor=pointer]
+        - button "Bạn đồng hành đầu tiên Đồng hành Mây" [ref=f2e204] [cursor=pointer]:
+          - img "Bạn đồng hành đầu tiên" [ref=f2e205]
+          - generic [ref=f2e206]:
+            - generic [ref=f2e207]: Đồng hành
+            - generic [ref=f2e208]: Mây
+        - button "0 Xu" [ref=f2e209] [cursor=pointer]:
+          - generic [ref=f2e215]: "0"
+          - text: Xu
+        - button "AN" [ref=f2e216] [cursor=pointer]
+    - generic [ref=f2e217]:
+      - complementary [ref=f2e218]:
+        - generic [ref=f2e219]:
+          - button "Thu gọn menu" [expanded] [ref=f2e220] [cursor=pointer]
+          - generic [ref=f2e223]:
+            - generic [ref=f2e224]: LEVEL 2 · A1
+            - heading "Rừng Thì Thầm" [level=2] [ref=f2e225]
+        - generic [ref=f2e226]:
+          - generic [ref=f2e227]:
+            - generic [ref=f2e228]: Unit 1/5
+            - generic [ref=f2e229]: 2/4 Lesson
+          - emphasis [ref=f2e231]
+        - paragraph [ref=f2e232]: CÁC UNIT
+        - generic [ref=f2e233]:
+          - button "1 Làng Gương Mặt Mọi người quanh em 2/4" [ref=f2e478] [cursor=pointer]:
+            - generic [ref=f2e235]: "1"
+            - generic [ref=f2e236]:
+              - generic [ref=f2e237]: Làng Gương Mặt
+              - generic [ref=f2e238]: Mọi người quanh em
+            - generic [ref=f2e239]: 2/4
+          - button "Hang Kho Báu Đồ vật quanh em 🔒" [disabled] [ref=f2e240]:
+            - generic [ref=f2e246]:
+              - generic [ref=f2e247]: Hang Kho Báu
+              - generic [ref=f2e248]: Đồ vật quanh em
+            - generic [ref=f2e249]: 🔒
+          - button "Chợ Nấm Ngọt Đồ ăn & thức uống 🔒" [disabled] [ref=f2e250]:
+            - generic [ref=f2e256]:
+              - generic [ref=f2e257]: Chợ Nấm Ngọt
+              - generic [ref=f2e258]: Đồ ăn & thức uống
+            - generic [ref=f2e259]: 🔒
+          - button "Hồ La Bàn Địa điểm & vị trí 🔒" [disabled] [ref=f2e260]:
+            - generic [ref=f2e266]:
+              - generic [ref=f2e267]: Hồ La Bàn
+              - generic [ref=f2e268]: Địa điểm & vị trí
+            - generic [ref=f2e269]: 🔒
+          - button "Sân Rừng Vận Động Hành động & khả năng 🔒" [disabled] [ref=f2e270]:
+            - generic [ref=f2e276]:
+              - generic [ref=f2e277]: Sân Rừng Vận Động
+              - generic [ref=f2e278]: Hành động & khả năng
+            - generic [ref=f2e279]: 🔒
+        - generic [ref=f2e280]: Đang đọc khung chương trình từ Google Sheets
+      - generic [ref=f2e282]:
+        - generic [ref=f2e283]:
+          - text: ★
+          - generic [ref=f2e284]:
+            - generic [ref=f2e285]: UNIT 1 · MỌI NGƯỜI QUANH EM
+            - heading "Làng Gương Mặt" [level=1] [ref=f2e286]
+            - paragraph [ref=f2e287]: Mỗi Lesson trao 1 Mảnh Chìa Khóa để mở Túi Kỳ Vật cuối Unit.
+          - generic [ref=f2e288]:
+            - generic [ref=f2e289]: MẢNH CHÌA KHÓA
+            - generic [ref=f2e293]: 2/4 mảnh
+            - generic [ref=f2e294]: Đủ mảnh để mở Túi Kỳ Vật
+          - generic [ref=f2e295]: A1
+          - text: ✦
+        - navigation [ref=f2e296]:
+          - button "Đã hoàn thành LESSON 1 Khám phá Đã có mảnh chìa khóa" [ref=f2e297] [cursor=pointer]:
+            - generic "Đã hoàn thành" [ref=f2e301]
+            - generic [ref=f2e304]:
+              - generic [ref=f2e305]: LESSON 1
+              - generic [ref=f2e306]: Khám phá
+            - emphasis [ref=f2e307]: Đã có mảnh chìa khóa
+          - button "Đã hoàn thành LESSON 2 Hiểu sâu Đã có mảnh chìa khóa" [ref=f2e479] [cursor=pointer]:
+            - generic "Đã hoàn thành" [ref=f2e480]
+            - generic [ref=f2e313]:
+              - generic [ref=f2e314]: LESSON 2
+              - generic [ref=f2e315]: Hiểu sâu
+            - emphasis [ref=f2e316]: Đã có mảnh chìa khóa
+          - button "LESSON 3 Nghe · Viết Bắt âm" [ref=f2e483] [cursor=pointer]:
+            - generic [ref=f2e323]:
+              - generic [ref=f2e324]: LESSON 3
+              - generic [ref=f2e325]: Nghe · Viết
+            - emphasis [ref=f2e326]: Bắt âm
+          - button "LESSON 4 Lồng tiếng Hoàn thành bước trước" [disabled] [ref=f2e327]:
+            - generic [ref=f2e333]:
+              - generic [ref=f2e334]: LESSON 4
+              - generic [ref=f2e335]: Lồng tiếng
+            - emphasis [ref=f2e336]: Hoàn thành bước trước
+        - region [ref=f2e486]:
+          - generic [ref=f2e487]:
+            - generic [ref=f2e492]:
+              - generic [ref=f2e493]: ÔN NHANH · TRƯỚC LESSON 3
+              - heading "Nối từ với đúng nghĩa" [level=2] [ref=f2e494]
+              - paragraph [ref=f2e495]: Chỉ mất khoảng 1 phút. Ôn xong, cánh cửa bài mới sẽ mở!
+            - strong [ref=f2e496]: 0/4 cặp
+          - generic [ref=f2e497]:
+            - generic [ref=f2e498]:
+              - generic [ref=f2e499]: TỪ TIẾNG ANH
+              - button "little" [ref=f2e500] [cursor=pointer]
+              - button "tall" [ref=f2e505] [cursor=pointer]
+              - button "young" [ref=f2e510] [cursor=pointer]
+              - button "graceful" [ref=f2e515] [cursor=pointer]
+            - generic [ref=f2e520]:
+              - generic [ref=f2e521]: CHỌN 1 TỪ
+              - generic [ref=f2e522]: →
+              - generic [ref=f2e523]: CHỌN 1 NGHĨA
+            - generic [ref=f2e524]:
+              - generic [ref=f2e525]: NGHĨA TIẾNG VIỆT
+              - button "trẻ" [ref=f2e526] [cursor=pointer]
+              - button "nhỏ" [ref=f2e527] [cursor=pointer]
+              - button "duyên dáng" [ref=f2e528] [cursor=pointer]
+              - button "cao" [ref=f2e529] [cursor=pointer]
+          - generic [ref=f2e530]:
+            - paragraph [ref=f2e535]:
+              - generic [ref=f2e536]: Gọi lại kiến thức cũ
+              - generic [ref=f2e537]: Không tính điểm, làm sai có thể thử lại ngay.
+            - button "Mở bài học mới" [disabled] [ref=f2e538]

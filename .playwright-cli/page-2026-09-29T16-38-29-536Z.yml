@@ -1,0 +1,42 @@
+- generic [active] [ref=f1e1]:
+  - main [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - generic [ref=f1e4]:
+        - generic [ref=f1e5]: E
+        - generic [ref=f1e6]:
+          - generic [ref=f1e7]: ENGLISH IN
+          - generic [ref=f1e8]: WONDERLAND
+      - generic [ref=f1e9]:
+        - generic [ref=f1e10]: BƯỚC 6/6 · KHỞI TẠO HÀNH TRÌNH
+        - emphasis [ref=f1e12]
+    - generic [ref=f1e230]:
+      - button "Quay lại" [ref=f1e231] [cursor=pointer]
+      - generic [ref=f1e234]:
+        - generic [ref=f1e235]: CHƯƠNG 4 · CÙNG NHAU TRƯỞNG THÀNH
+        - heading "Học, ôn và chăm sóc bạn đồng hành" [level=1] [ref=f1e241]
+        - paragraph [ref=f1e242]: Sau khi học xong Unit, em có thể quay lại trạm ôn tập để luyện từ vựng, ngữ pháp, nghe và nhận Xu chăm sóc.
+        - generic [ref=f1e243]:
+          - generic [ref=f1e244]:
+            - generic [ref=f1e245]: 📚
+            - generic [ref=f1e246]: Học Unit
+            - generic [ref=f1e247]: Thu thập chìa khóa
+          - generic [ref=f1e250]:
+            - generic [ref=f1e251]: 🧠
+            - generic [ref=f1e252]: Ôn tập
+            - generic [ref=f1e253]: Nhận Xu
+          - generic [ref=f1e256]:
+            - generic [ref=f1e257]: 🐺
+            - generic [ref=f1e258]: Vào Khu Vườn
+            - generic [ref=f1e259]: Cho ăn, chơi và trang trí
+        - generic [ref=f1e265]:
+          - generic [ref=f1e266]: Càng học, đội của em càng lớn mạnh
+          - generic [ref=f1e267]: Mỗi linh vật mới sẽ có hoạt động và bộ sưu tập riêng.
+        - button "Thẳng tiến tới Rừng Thì Thầm" [ref=f1e268] [cursor=pointer]
+      - generic [ref=f1e271]:
+        - img "Mây" [ref=f1e272]
+        - generic [ref=f1e273]: Xu chăm sóc
+        - generic [ref=f1e280]:
+          - generic [ref=f1e281]: Mây đã sẵn sàng!
+          - generic [ref=f1e282]: Cùng bắt đầu Unit đầu tiên thôi!
+  - button "Open Next.js Dev Tools" [ref=f1e68] [cursor=pointer]
+  - alert [ref=f1e72]

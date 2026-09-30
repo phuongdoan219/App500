@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, BookOpen, Check, Coins, Crown, Gift, Heart, KeyRound, LockKeyhole, Mail, Map, ShieldCheck, Sparkles, Star, UserRound, X } from "lucide-react";
+import ReferralProgram from "@/components/referral-program";
 import "./onboarding-story.css";
 
 type Step = "welcome" | "login" | "forgot" | "profile" | "world" | "companion" | "keys" | "rewards" | "pricing" | "checkout" | "success";
@@ -96,6 +97,7 @@ export default function AccessFlow({ initial = "welcome", initialJourneyId, canE
         <div className="pricing-world"><Image src={story.image} alt={`Bản đồ ${story.title}`} fill sizes="440px"/><span><small>HÀNH TRÌNH ĐANG HỌC</small><b>{story.title}</b><em>{assignedLevel.level} · {assignedLevel.units} Unit</em></span></div>
       </div>
       <div className="plan-grid">{plans.map(item => { const Icon = item.Icon; return <button key={item.id} className={`plan-card plan-${item.id} ${plan === item.id ? "selected" : ""}`} onClick={() => setPlan(item.id)}><span className="plan-badge">{item.badge}</span><span className="plan-icon"><Icon size={24}/></span><h2>{item.name}</h2><b>{item.price}</b><small>{item.note}</small><p>{item.detail}</p><span className="plan-benefit"><Check size={15}/>{item.benefit}</span><em>{plan === item.id ? <><Check size={15}/> Đang chọn</> : "Chọn gói"}</em></button>})}</div>
+      <ReferralProgram variant="pricing" />
       <div className="pricing-footer"><div className="upgrade-credit"><Sparkles size={20}/><span><b>Nâng cấp sau không bị tính lại</b><small>Số tiền đã mua nội dung được trừ khi gia đình nâng lên gói lớn hơn.</small></span></div><div className="pricing-trust"><span><ShieldCheck/> Phụ huynh xác nhận</span><span><Coins/> Không bán vật phẩm</span><span><Check/> Lưu theo tài khoản</span></div><button className="access-primary pricing-next" onClick={() => setStep("checkout")}>Tiếp tục với {selectedPlan.name} · {selectedPlan.price} <ArrowRight size={18}/></button><button className="pricing-later" onClick={canExit ? onExit : back}>Để sau, bé ôn lại bài đã học</button></div>
     </section>}
 

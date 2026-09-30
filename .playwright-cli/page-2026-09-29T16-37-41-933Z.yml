@@ -1,0 +1,44 @@
+- generic [ref=f1e1]:
+  - main [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - generic [ref=f1e4]:
+        - generic [ref=f1e5]: E
+        - generic [ref=f1e6]:
+          - generic [ref=f1e7]: ENGLISH IN
+          - generic [ref=f1e8]: WONDERLAND
+      - generic [ref=f1e9]:
+        - generic [ref=f1e10]: BƯỚC 2/6 · KHỞI TẠO HÀNH TRÌNH
+        - emphasis [ref=f1e12]
+    - complementary [aria-hidden] [ref=f1e13]:
+      - generic [ref=f1e15]:
+        - generic [ref=f1e16]: CHẶNG 1 · NHÀ THÁM HIỂM
+        - heading [level=2] [ref=f1e19]: Làm quen với em
+        - paragraph [ref=f1e20]: Tên và khối lớp giúp hệ thống tự động xếp đúng lộ trình học.
+        - generic [ref=f1e21]: "1"
+      - generic [ref=f1e27]:
+        - generic [ref=f1e28]: Hành trình đang được mở
+        - generic [ref=f1e29]: Chỉ còn một bước để vào bản đồ
+    - generic [ref=f1e73]:
+      - button "Quay lại" [ref=f1e74] [cursor=pointer]
+      - heading "Bé nào sẽ bắt đầu hành trình?" [level=1] [ref=f1e81]
+      - paragraph [ref=f1e82]: Nhập tên và khối lớp hiện tại để hệ thống tự động xếp đúng level.
+      - generic [ref=f1e83]:
+        - generic [ref=f1e84]: Tên bé muốn hiển thị
+        - textbox "Tên bé muốn hiển thị" [active] [ref=f1e86]:
+          - /placeholder: "Ví dụ: An"
+          - text: An
+      - generic [ref=f1e87]:
+        - generic [ref=f1e88]: Khối lớp hiện tại
+        - generic [ref=f1e89]:
+          - button "Lớp 1" [ref=f1e90] [cursor=pointer]
+          - button "Lớp 2" [ref=f1e91] [cursor=pointer]
+          - button "Lớp 3" [ref=f1e92] [cursor=pointer]
+          - button "Lớp 4" [ref=f1e93] [cursor=pointer]
+          - button "Lớp 5" [ref=f1e94] [cursor=pointer]
+          - button "Lớp 6" [ref=f1e95] [cursor=pointer]
+          - button "Lớp 7" [ref=f1e96] [cursor=pointer]
+          - button "Lớp 8" [ref=f1e97] [cursor=pointer]
+          - button "Lớp 9" [ref=f1e98] [cursor=pointer]
+      - button "Bắt đầu câu chuyện" [ref=f1e99] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=f1e68] [cursor=pointer]
+  - alert [ref=f1e72]

@@ -1,0 +1,191 @@
+- generic [active] [ref=f2e1]:
+  - button "Open Next.js Dev Tools" [ref=f2e68] [cursor=pointer]
+  - alert [ref=f2e72]
+  - main [ref=f2e183]:
+    - button "Lộ trình" [ref=f2e184] [cursor=pointer]
+    - generic [ref=f2e187]:
+      - generic [ref=f2e188]:
+        - generic [ref=f2e189]: E
+        - generic [ref=f2e190]:
+          - generic [ref=f2e191]: ENGLISH IN
+          - generic [ref=f2e192]: WONDERLAND
+      - generic [ref=f2e194]:
+        - generic [ref=f2e195]: Unit 1
+        - generic [ref=f2e196]: Lesson 2/4
+      - generic [ref=f2e199]:
+        - button "Năng lực" [ref=f2e200] [cursor=pointer]
+        - button "Bạn đồng hành đầu tiên Đồng hành Mây" [ref=f2e204] [cursor=pointer]:
+          - img "Bạn đồng hành đầu tiên" [ref=f2e205]
+          - generic [ref=f2e206]:
+            - generic [ref=f2e207]: Đồng hành
+            - generic [ref=f2e208]: Mây
+        - button "0 Xu" [ref=f2e209] [cursor=pointer]:
+          - generic [ref=f2e215]: "0"
+          - text: Xu
+        - button "AN" [ref=f2e216] [cursor=pointer]
+    - generic [ref=f2e217]:
+      - complementary [ref=f2e218]:
+        - generic [ref=f2e219]:
+          - button "Thu gọn menu" [expanded] [ref=f2e220] [cursor=pointer]
+          - generic [ref=f2e223]:
+            - generic [ref=f2e224]: LEVEL 2 · A1
+            - heading "Rừng Thì Thầm" [level=2] [ref=f2e225]
+        - generic [ref=f2e226]:
+          - generic [ref=f2e227]:
+            - generic [ref=f2e228]: Unit 1/5
+            - generic [ref=f2e229]: 1/4 Lesson
+          - emphasis [ref=f2e231]
+        - paragraph [ref=f2e232]: CÁC UNIT
+        - generic [ref=f2e233]:
+          - button "1 Làng Gương Mặt Mọi người quanh em 1/4" [ref=f2e234] [cursor=pointer]:
+            - generic [ref=f2e235]: "1"
+            - generic [ref=f2e236]:
+              - generic [ref=f2e237]: Làng Gương Mặt
+              - generic [ref=f2e238]: Mọi người quanh em
+            - generic [ref=f2e239]: 1/4
+          - button "Hang Kho Báu Đồ vật quanh em 🔒" [disabled] [ref=f2e240]:
+            - generic [ref=f2e246]:
+              - generic [ref=f2e247]: Hang Kho Báu
+              - generic [ref=f2e248]: Đồ vật quanh em
+            - generic [ref=f2e249]: 🔒
+          - button "Chợ Nấm Ngọt Đồ ăn & thức uống 🔒" [disabled] [ref=f2e250]:
+            - generic [ref=f2e256]:
+              - generic [ref=f2e257]: Chợ Nấm Ngọt
+              - generic [ref=f2e258]: Đồ ăn & thức uống
+            - generic [ref=f2e259]: 🔒
+          - button "Hồ La Bàn Địa điểm & vị trí 🔒" [disabled] [ref=f2e260]:
+            - generic [ref=f2e266]:
+              - generic [ref=f2e267]: Hồ La Bàn
+              - generic [ref=f2e268]: Địa điểm & vị trí
+            - generic [ref=f2e269]: 🔒
+          - button "Sân Rừng Vận Động Hành động & khả năng 🔒" [disabled] [ref=f2e270]:
+            - generic [ref=f2e276]:
+              - generic [ref=f2e277]: Sân Rừng Vận Động
+              - generic [ref=f2e278]: Hành động & khả năng
+            - generic [ref=f2e279]: 🔒
+        - generic [ref=f2e280]: Đang đọc khung chương trình từ Google Sheets
+      - generic [ref=f2e282]:
+        - generic [ref=f2e283]:
+          - text: ★
+          - generic [ref=f2e284]:
+            - generic [ref=f2e285]: UNIT 1 · MỌI NGƯỜI QUANH EM
+            - heading "Làng Gương Mặt" [level=1] [ref=f2e286]
+            - paragraph [ref=f2e287]: Mỗi Lesson trao 1 Mảnh Chìa Khóa để mở Túi Kỳ Vật cuối Unit.
+          - generic [ref=f2e288]:
+            - generic [ref=f2e289]: MẢNH CHÌA KHÓA
+            - generic [ref=f2e293]: 1/4 mảnh
+            - generic [ref=f2e294]: Đủ mảnh để mở Túi Kỳ Vật
+          - generic [ref=f2e295]: A1
+          - text: ✦
+        - navigation [ref=f2e296]:
+          - button "Đã hoàn thành LESSON 1 Khám phá Đã có mảnh chìa khóa" [ref=f2e297] [cursor=pointer]:
+            - generic "Đã hoàn thành" [ref=f2e301]
+            - generic [ref=f2e304]:
+              - generic [ref=f2e305]: LESSON 1
+              - generic [ref=f2e306]: Khám phá
+            - emphasis [ref=f2e307]: Đã có mảnh chìa khóa
+          - button "LESSON 2 Hiểu sâu Từ & câu" [ref=f2e308] [cursor=pointer]:
+            - generic [ref=f2e313]:
+              - generic [ref=f2e314]: LESSON 2
+              - generic [ref=f2e315]: Hiểu sâu
+            - emphasis [ref=f2e316]: Từ & câu
+          - button "LESSON 3 Nghe · Viết Hoàn thành bước trước" [disabled] [ref=f2e317]:
+            - generic [ref=f2e323]:
+              - generic [ref=f2e324]: LESSON 3
+              - generic [ref=f2e325]: Nghe · Viết
+            - emphasis [ref=f2e326]: Hoàn thành bước trước
+          - button "LESSON 4 Lồng tiếng Hoàn thành bước trước" [disabled] [ref=f2e327]:
+            - generic [ref=f2e333]:
+              - generic [ref=f2e334]: LESSON 4
+              - generic [ref=f2e335]: Lồng tiếng
+            - emphasis [ref=f2e336]: Hoàn thành bước trước
+        - region [ref=f2e337]:
+          - generic [ref=f2e338]:
+            - generic [ref=f2e343]:
+              - generic [ref=f2e344]: ÔN NHANH · TRƯỚC LESSON 2
+              - heading "Tìm cặp thẻ bí mật" [level=2] [ref=f2e345]
+              - paragraph [ref=f2e346]: Chỉ mất khoảng 1 phút. Ôn xong, cánh cửa bài mới sẽ mở!
+            - strong [ref=f2e347]: 0/4 cặp
+          - generic [ref=f2e348]:
+            - button "Lật thẻ số 1" [ref=f2e349] [cursor=pointer]:
+              - generic [ref=f2e350]:
+                - generic [ref=f2e351]:
+                  - text: ✦
+                  - emphasis [ref=f2e352]: "?"
+                  - generic [ref=f2e353]: THẺ 1
+                - generic [ref=f2e354]:
+                  - generic [ref=f2e355]: little
+                  - generic [ref=f2e356]: TỪ TIẾNG ANH
+            - button "Lật thẻ số 2" [ref=f2e357] [cursor=pointer]:
+              - generic [ref=f2e358]:
+                - generic [ref=f2e359]:
+                  - text: ✦
+                  - emphasis [ref=f2e360]: "?"
+                  - generic [ref=f2e361]: THẺ 2
+                - generic [ref=f2e362]:
+                  - emphasis [ref=f2e363]: 🧒
+                  - generic [ref=f2e364]: trẻ
+                  - generic [ref=f2e365]: NGHĨA TIẾNG VIỆT
+            - button "Lật thẻ số 3" [ref=f2e366] [cursor=pointer]:
+              - generic [ref=f2e367]:
+                - generic [ref=f2e368]:
+                  - text: ✦
+                  - emphasis [ref=f2e369]: "?"
+                  - generic [ref=f2e370]: THẺ 3
+                - generic [ref=f2e371]:
+                  - generic [ref=f2e372]: graceful
+                  - generic [ref=f2e373]: TỪ TIẾNG ANH
+            - button "Lật thẻ số 4" [ref=f2e374] [cursor=pointer]:
+              - generic [ref=f2e375]:
+                - generic [ref=f2e376]:
+                  - text: ✦
+                  - emphasis [ref=f2e377]: "?"
+                  - generic [ref=f2e378]: THẺ 4
+                - generic [ref=f2e379]:
+                  - emphasis [ref=f2e380]: 📏
+                  - generic [ref=f2e381]: cao
+                  - generic [ref=f2e382]: NGHĨA TIẾNG VIỆT
+            - button "Lật thẻ số 5" [ref=f2e383] [cursor=pointer]:
+              - generic [ref=f2e384]:
+                - generic [ref=f2e385]:
+                  - text: ✦
+                  - emphasis [ref=f2e386]: "?"
+                  - generic [ref=f2e387]: THẺ 5
+                - generic [ref=f2e388]:
+                  - generic [ref=f2e389]: young
+                  - generic [ref=f2e390]: TỪ TIẾNG ANH
+            - button "Lật thẻ số 6" [ref=f2e391] [cursor=pointer]:
+              - generic [ref=f2e392]:
+                - generic [ref=f2e393]:
+                  - text: ✦
+                  - emphasis [ref=f2e394]: "?"
+                  - generic [ref=f2e395]: THẺ 6
+                - generic [ref=f2e396]:
+                  - emphasis [ref=f2e397]: 🤏
+                  - generic [ref=f2e398]: nhỏ
+                  - generic [ref=f2e399]: NGHĨA TIẾNG VIỆT
+            - button "Lật thẻ số 7" [ref=f2e400] [cursor=pointer]:
+              - generic [ref=f2e401]:
+                - generic [ref=f2e402]:
+                  - text: ✦
+                  - emphasis [ref=f2e403]: "?"
+                  - generic [ref=f2e404]: THẺ 7
+                - generic [ref=f2e405]:
+                  - generic [ref=f2e406]: tall
+                  - generic [ref=f2e407]: TỪ TIẾNG ANH
+            - button "Lật thẻ số 8" [ref=f2e408] [cursor=pointer]:
+              - generic [ref=f2e409]:
+                - generic [ref=f2e410]:
+                  - text: ✦
+                  - emphasis [ref=f2e411]: "?"
+                  - generic [ref=f2e412]: THẺ 8
+                - generic [ref=f2e413]:
+                  - emphasis [ref=f2e414]: 🦢
+                  - generic [ref=f2e415]: duyên dáng
+                  - generic [ref=f2e416]: NGHĨA TIẾNG VIỆT
+          - paragraph [ref=f2e417]: Lật 2 thẻ mỗi lượt để tìm từ và nghĩa tương ứng.
+          - generic [ref=f2e418]:
+            - paragraph [ref=f2e423]:
+              - generic [ref=f2e424]: Gọi lại kiến thức cũ
+              - generic [ref=f2e425]: Không tính điểm, làm sai có thể thử lại ngay.
+            - button "Mở bài học mới" [disabled] [ref=f2e426]

@@ -1,0 +1,44 @@
+- generic [active] [ref=f1e1]:
+  - main [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - generic [ref=f1e4]:
+        - generic [ref=f1e5]: E
+        - generic [ref=f1e6]:
+          - generic [ref=f1e7]: ENGLISH IN
+          - generic [ref=f1e8]: WONDERLAND
+      - generic [ref=f1e9]:
+        - generic [ref=f1e10]: BƯỚC 5/6 · KHỞI TẠO HÀNH TRÌNH
+        - emphasis [ref=f1e12]
+    - generic [ref=f1e174]:
+      - button "Quay lại" [ref=f1e175] [cursor=pointer]
+      - generic [ref=f1e178]:
+        - generic [ref=f1e179]: CHƯƠNG 3 · CHÌA KHÓA KỲ VẬT
+        - heading "Học đủ bài, mở quà lớn!" [level=1] [ref=f1e183]
+        - paragraph [ref=f1e184]: Mỗi Unit có 4 Lesson. Hoàn thành từng Lesson để ghép đủ chìa khóa và mở Túi Kỳ Vật cuối Unit.
+        - generic [ref=f1e185]:
+          - generic [ref=f1e186]:
+            - generic [ref=f1e191]: Lesson 1
+            - generic [ref=f1e192]: 1 mảnh chìa khóa
+          - generic [ref=f1e193]:
+            - generic [ref=f1e198]: Lesson 2
+            - generic [ref=f1e199]: 1 mảnh chìa khóa
+          - generic [ref=f1e200]:
+            - generic [ref=f1e205]: Lesson 3
+            - generic [ref=f1e206]: 1 mảnh chìa khóa
+          - generic [ref=f1e207]:
+            - generic [ref=f1e212]: Lesson 4
+            - generic [ref=f1e213]: 1 mảnh chìa khóa
+        - generic [ref=f1e214]:
+          - generic [ref=f1e215]: 4 mảnh
+          - generic [ref=f1e218]: 🎁
+          - generic [ref=f1e219]:
+            - generic [ref=f1e220]: Mở Túi Kỳ Vật
+            - generic [ref=f1e221]: Nhận đồ ăn, đồ chơi hoặc phụ kiện cho thú
+        - generic [ref=f1e222]:
+          - img "Rương linh vật" [ref=f1e223]
+          - generic [ref=f1e224]:
+            - generic [ref=f1e225]: Cuối Level còn có Rương Linh Vật
+            - generic [ref=f1e226]: Hoàn thành hành trình để mở khóa một người bạn mới.
+        - button "Hiểu rồi, tiếp tục" [ref=f1e227] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=f1e68] [cursor=pointer]
+  - alert [ref=f1e72]

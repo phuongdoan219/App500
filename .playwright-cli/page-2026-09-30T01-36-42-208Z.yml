@@ -1,0 +1,73 @@
+- generic [active] [ref=f1e1]:
+  - button "Open Next.js Dev Tools" [ref=f1e7] [cursor=pointer]
+  - alert [ref=f1e11]
+  - main [ref=f1e310]:
+    - generic [ref=f1e311]:
+      - button "Về lộ trình" [ref=f1e312] [cursor=pointer]
+      - strong [ref=f1e315]: 0 Xu chăm sóc
+    - generic [ref=f1e321]:
+      - generic [ref=f1e322]:
+        - generic [ref=f1e323]:
+          - text: BẠN ĐANG ĐỒNG HÀNH
+          - heading "Mây" [level=1] [ref=f1e324]
+          - text: Bạn đồng hành đầu tiên
+          - paragraph [ref=f1e325]: Luôn đi cùng, nhắc em học và vui nhất khi em quay lại đúng hẹn.
+          - generic [ref=f1e329]:
+            - generic [ref=f1e330]: Đang vui
+            - generic [ref=f1e331]: Mức thân thiết 72%
+        - img "Bạn đồng hành đầu tiên" [ref=f1e334]
+        - generic [ref=f1e335]:
+          - generic [ref=f1e340]:
+            - generic [ref=f1e341]: Chơi cùng Mây
+            - generic [ref=f1e342]: Dùng Xu để chăm sóc và tăng mức thân thiết.
+          - generic [ref=f1e343]:
+            - button "🍓 Cho ăn 2 Xu" [ref=f1e344] [cursor=pointer]:
+              - generic [ref=f1e345]: 🍓
+              - generic [ref=f1e346]: Cho ăn
+              - generic [ref=f1e347]: 2 Xu
+            - button "🔮 Chơi bóng 1 Xu" [ref=f1e348] [cursor=pointer]:
+              - generic [ref=f1e349]: 🔮
+              - generic [ref=f1e350]: Chơi bóng
+              - generic [ref=f1e351]: 1 Xu
+            - button "💛 Vuốt ve Miễn phí" [ref=f1e352] [cursor=pointer]:
+              - generic [ref=f1e353]: 💛
+              - generic [ref=f1e354]: Vuốt ve
+              - generic [ref=f1e355]: Miễn phí
+          - paragraph [ref=f1e356]: Chọn một hoạt động để chơi cùng bạn nhé!
+          - generic [ref=f1e357]:
+            - generic [ref=f1e362]:
+              - generic [ref=f1e363]: Muốn kiếm thêm Xu?
+              - generic [ref=f1e364]: Quay lại các Unit đã hoàn thành trên bản đồ để ôn bài.
+            - button "Đến bản đồ" [ref=f1e365] [cursor=pointer]
+      - complementary [ref=f1e366]:
+        - generic [ref=f1e368]:
+          - generic [ref=f1e369]: BỘ SƯU TẬP
+          - heading "Chọn bạn đồng hành" [level=2] [ref=f1e370]
+        - button "Bạn đồng hành đầu tiên Mây Linh vật cơ bản" [ref=f1e376] [cursor=pointer]:
+          - img "Bạn đồng hành đầu tiên" [ref=f1e377]
+          - generic [ref=f1e378]:
+            - generic [ref=f1e379]: Mây
+            - generic [ref=f1e380]: Linh vật cơ bản
+        - generic [ref=f1e384]:
+          - generic [ref=f1e385]: CỬA HÀNG
+          - heading "Chăm bạn đồng hành" [level=2] [ref=f1e386]
+        - generic [ref=f1e390]:
+          - button "🍓 Bánh dâu Giúp bạn nhỏ hết đói 2" [disabled] [ref=f1e391]:
+            - generic [ref=f1e392]: 🍓
+            - generic [ref=f1e393]:
+              - generic [ref=f1e394]: Bánh dâu
+              - generic [ref=f1e395]: Giúp bạn nhỏ hết đói
+            - generic [ref=f1e396]: "2"
+          - button "✨ Áo choàng sao Trang phục lấp lánh 6" [disabled] [ref=f1e402]:
+            - generic [ref=f1e403]: ✨
+            - generic [ref=f1e404]:
+              - generic [ref=f1e405]: Áo choàng sao
+              - generic [ref=f1e406]: Trang phục lấp lánh
+            - generic [ref=f1e407]: "6"
+          - button "🎩 Mũ thám hiểm Sẵn sàng cho Unit mới 8" [disabled] [ref=f1e413]:
+            - generic [ref=f1e414]: 🎩
+            - generic [ref=f1e415]:
+              - generic [ref=f1e416]: Mũ thám hiểm
+              - generic [ref=f1e417]: Sẵn sàng cho Unit mới
+            - generic [ref=f1e418]: "8"
+        - paragraph [ref=f1e424]: Quà từ Túi Kỳ Vật và đồ mua bằng Xu đều được dùng để chăm sóc các linh vật trong vườn.

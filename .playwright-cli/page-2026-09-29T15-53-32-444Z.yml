@@ -1,0 +1,28 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: E
+      - generic [ref=e6]:
+        - generic [ref=e7]: ENGLISH IN
+        - generic [ref=e8]: WONDERLAND
+    - complementary [aria-hidden] [ref=e13]:
+      - generic [ref=e15]:
+        - generic [ref=e16]: TRỢ GIÚP PHỤ HUYNH
+        - heading [level=2] [ref=e19]: Tìm lại chìa khóa
+        - paragraph [ref=e20]: Khôi phục tài khoản để bé không mất hành trình đang học.
+        - generic [ref=e21]: "1"
+      - generic [ref=e27]:
+        - generic [ref=e28]: Hành trình đang được mở
+        - generic [ref=e29]: Chỉ còn một bước để vào bản đồ
+    - generic [ref=e73]:
+      - button "Về đăng nhập" [ref=e74] [cursor=pointer]
+      - heading "Lấy lại mật khẩu" [level=1] [ref=e81]
+      - paragraph [ref=e82]: Nhập email của phụ huynh. Sản phẩm thật sẽ gửi liên kết đặt lại mật khẩu.
+      - generic [ref=e83]:
+        - generic [ref=e84]: Email phụ huynh
+        - textbox "Email phụ huynh" [ref=e89]:
+          - /placeholder: phuhuynh@example.com
+      - button "Gửi liên kết bản demo" [ref=e90] [cursor=pointer]
+      - generic [ref=e93]: Không có email nào được gửi trong phiên bản demo.
+  - button "Open Next.js Dev Tools" [ref=e68] [cursor=pointer]
+  - alert [ref=e72]

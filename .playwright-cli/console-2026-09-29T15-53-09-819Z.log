@@ -1,0 +1,15 @@
+[     532ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:5173/:0
+[     868ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[     949ms] [LOG] [HMR] connected @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    1145ms] [WARNING] Image with src "/map-magic-school.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    1478ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    4099ms] [LOG] [Fast Refresh] done in 2723ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   35034ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:5173/:0
+[   87468ms] [WARNING] Image with src "/pet-reward-chest.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  857826ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  858181ms] [LOG] [Fast Refresh] done in 469ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 3440819ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 3441104ms] [LOG] [Fast Refresh] done in 400ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 3442905ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 3443332ms] [LOG] [Fast Refresh] done in 538ms @ http://localhost:5173/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776

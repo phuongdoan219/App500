@@ -1,0 +1,39 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: E
+        - generic [ref=e6]:
+          - generic [ref=e7]: ENGLISH IN
+          - generic [ref=e8]: WONDERLAND
+      - generic [ref=e94]:
+        - generic [ref=e95]: BƯỚC 1/6 · KHỞI TẠO HÀNH TRÌNH
+        - emphasis [ref=e97]
+    - complementary [aria-hidden] [ref=e13]:
+      - generic [ref=e15]:
+        - generic [ref=e16]: CỔNG VÀO HÀNH TRÌNH
+        - heading [level=2] [ref=e19]: Mừng em quay lại!
+        - paragraph [ref=e20]: Đăng nhập để tiếp tục đúng chặng học, giữ nguyên linh vật và bộ sưu tập.
+        - generic [ref=e21]: "1"
+      - generic [ref=e27]:
+        - generic [ref=e28]: Hành trình đang được mở
+        - generic [ref=e29]: Chỉ còn một bước để vào bản đồ
+    - generic [ref=e98]:
+      - button "Quay lại" [ref=e99] [cursor=pointer]
+      - heading "Chào mừng trở lại!" [level=1] [ref=e106]
+      - paragraph [ref=e107]: Phụ huynh đăng nhập để thiết lập lộ trình phù hợp cho bé.
+      - generic [ref=e108]:
+        - generic [ref=e109]: Email hoặc số điện thoại
+        - textbox "Email hoặc số điện thoại" [ref=e114]:
+          - /placeholder: phuhuynh@example.com
+      - generic [ref=e115]:
+        - generic [ref=e116]: Mật khẩu
+        - textbox "Mật khẩu" [ref=e122]:
+          - /placeholder: ••••••••
+      - button "Quên mật khẩu?" [ref=e123] [cursor=pointer]
+      - button "Đăng nhập" [ref=e124] [cursor=pointer]
+      - generic [ref=e127]: hoặc
+      - button "G Tiếp tục với Google" [ref=e129] [cursor=pointer]
+      - generic [ref=e130]: Bản demo không gửi hay lưu thông tin đăng nhập.
+  - button "Open Next.js Dev Tools" [ref=e68] [cursor=pointer]
+  - alert [ref=e72]

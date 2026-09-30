@@ -1,0 +1,31 @@
+- generic [active] [ref=f1e1]:
+  - main [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - generic [ref=f1e4]:
+        - generic [ref=f1e5]: E
+        - generic [ref=f1e6]:
+          - generic [ref=f1e7]: ENGLISH IN
+          - generic [ref=f1e8]: WONDERLAND
+      - generic [ref=f1e9]:
+        - generic [ref=f1e10]: BƯỚC 4/6 · KHỞI TẠO HÀNH TRÌNH
+        - emphasis [ref=f1e12]
+    - generic [ref=f1e145]:
+      - button "Quay lại" [ref=f1e146] [cursor=pointer]
+      - generic [ref=f1e149]:
+        - generic [ref=f1e150]: CHƯƠNG 2 · NGƯỜI BẠN ĐẦU TIÊN
+        - heading "Không ai phải phiêu lưu một mình" [level=1] [ref=f1e153]
+        - paragraph [ref=f1e154]: Sói Con sẽ nhắc em học, cùng vượt thử thách và lớn lên sau mỗi chặng đường.
+        - generic [ref=f1e155]:
+          - generic [ref=f1e156]: Em muốn gọi bạn ấy là gì?
+          - textbox "Em muốn gọi bạn ấy là gì?" [ref=f1e158]: Mây
+        - button "Chào Mây!" [ref=f1e162] [cursor=pointer]
+      - generic [ref=f1e165]:
+        - img "Sói Con, người bạn đồng hành đầu tiên" [ref=f1e167]
+        - generic [ref=f1e168]:
+          - generic [ref=f1e169]: Xin chào An!
+          - generic [ref=f1e170]: Từ hôm nay, chúng mình là một đội nhé!
+        - generic [ref=f1e171]:
+          - generic [ref=f1e172]: NGƯỜI BẠN ĐỒNG HÀNH
+          - generic [ref=f1e173]: Mây
+  - button "Open Next.js Dev Tools" [ref=f1e68] [cursor=pointer]
+  - alert [ref=f1e72]

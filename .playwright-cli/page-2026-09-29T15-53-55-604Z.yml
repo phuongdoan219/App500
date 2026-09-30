@@ -1,0 +1,44 @@
+- generic [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: E
+        - generic [ref=e6]:
+          - generic [ref=e7]: ENGLISH IN
+          - generic [ref=e8]: WONDERLAND
+      - generic [ref=e94]:
+        - generic [ref=e95]: BƯỚC 2/6 · KHỞI TẠO HÀNH TRÌNH
+        - emphasis [ref=e97]
+    - complementary [aria-hidden] [ref=e13]:
+      - generic [ref=e15]:
+        - generic [ref=e16]: CHẶNG 1 · NHÀ THÁM HIỂM
+        - heading [level=2] [ref=e19]: Làm quen với em
+        - paragraph [ref=e20]: Tên và khối lớp giúp hệ thống tự động xếp đúng lộ trình học.
+        - generic [ref=e21]: "1"
+      - generic [ref=e27]:
+        - generic [ref=e28]: Hành trình đang được mở
+        - generic [ref=e29]: Chỉ còn một bước để vào bản đồ
+    - generic [ref=e131]:
+      - button "Quay lại" [ref=e132] [cursor=pointer]
+      - heading "Bé nào sẽ bắt đầu hành trình?" [level=1] [ref=e139]
+      - paragraph [ref=e140]: Nhập tên và khối lớp hiện tại để hệ thống tự động xếp đúng level.
+      - generic [ref=e141]:
+        - generic [ref=e142]: Tên bé muốn hiển thị
+        - textbox "Tên bé muốn hiển thị" [active] [ref=e144]:
+          - /placeholder: "Ví dụ: An"
+          - text: An
+      - generic [ref=e145]:
+        - generic [ref=e146]: Khối lớp hiện tại
+        - generic [ref=e147]:
+          - button "Lớp 1" [ref=e148] [cursor=pointer]
+          - button "Lớp 2" [ref=e149] [cursor=pointer]
+          - button "Lớp 3" [ref=e150] [cursor=pointer]
+          - button "Lớp 4" [ref=e151] [cursor=pointer]
+          - button "Lớp 5" [ref=e152] [cursor=pointer]
+          - button "Lớp 6" [ref=e153] [cursor=pointer]
+          - button "Lớp 7" [ref=e154] [cursor=pointer]
+          - button "Lớp 8" [ref=e155] [cursor=pointer]
+          - button "Lớp 9" [ref=e156] [cursor=pointer]
+      - button "Bắt đầu câu chuyện" [ref=e157] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e68] [cursor=pointer]
+  - alert [ref=e72]

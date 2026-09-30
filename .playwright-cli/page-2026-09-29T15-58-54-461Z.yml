@@ -1,0 +1,96 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e68] [cursor=pointer]
+  - alert [ref=e72]
+  - main [ref=e341]:
+    - generic [ref=e342]:
+      - generic [ref=e343]:
+        - generic [ref=e344]: E
+        - generic [ref=e345]:
+          - generic [ref=e346]: ENGLISH IN
+          - generic [ref=e347]: WONDERLAND
+      - generic [ref=e348]:
+        - button "Mở hồ sơ năng lực" [ref=e349] [cursor=pointer]:
+          - generic [ref=e352]: Năng lực
+        - button "Mở khu vườn linh vật" [ref=e353] [cursor=pointer]:
+          - img "Bạn đồng hành đầu tiên" [ref=e354]
+          - generic [ref=e355]:
+            - generic [ref=e356]: Đang đồng hành
+            - generic [ref=e357]: Mây
+        - button "0 Xu chăm sóc" [ref=e358] [cursor=pointer]:
+          - generic [ref=e364]: "0"
+          - generic [ref=e365]: Xu chăm sóc
+        - generic [ref=e366]: AN
+    - generic [ref=e367]:
+      - generic [ref=e368]:
+        - generic [ref=e369]: LEVEL 2 · LỚP 4, 5 · A1
+        - heading "Rừng Thì Thầm" [level=1] [ref=e372]
+        - paragraph [ref=e373]: Lộ trình 27 Units · 2 Unit đầu được học miễn phí.
+        - generic [ref=e374]:
+          - button "Đổi bản đồ" [ref=e375] [cursor=pointer]
+          - button "Xem gói mở khóa" [ref=e376] [cursor=pointer]
+      - generic [ref=e381]:
+        - generic [ref=e382]: 0/5 Unit đã hoàn thành
+        - generic [ref=e383]:
+          - emphasis
+        - text: Đang khám phá Unit 1
+    - region "Bản đồ tương tác Rừng Thì Thầm" [ref=e385]:
+      - generic:
+        - generic: LEVEL 2 · A1 · BẢN ĐỒ HỌC TẬP
+        - generic: Rừng Thì Thầm
+        - generic: Kéo để di chuyển · cuộn để thu phóng
+      - generic:
+        - generic: "TIẾP THEO: UNIT 1"
+        - generic: Đi theo dải sáng · Unit 1 → 5
+      - generic "Điều khiển bản đồ" [ref=e386]:
+        - generic: Kéo bản đồ
+        - button "Phóng to bản đồ" [ref=e387] [cursor=pointer]
+        - generic [ref=e391]: 82%
+        - button "Thu nhỏ bản đồ" [ref=e392] [cursor=pointer]
+        - button "Về Unit hiện tại" [ref=e396] [cursor=pointer]
+      - generic [ref=e400]:
+        - img "Bản đồ chủ đề Rừng Thì Thầm"
+        - button "TIẾP THEO 1 UNIT 1 Làng Gương Mặt Mọi người quanh em 0/4 mảnh chìa khóa":
+          - generic [ref=e401] [cursor=pointer]: TIẾP THEO
+          - generic [ref=e402] [cursor=pointer]: "1"
+          - generic [ref=e403] [cursor=pointer]:
+            - generic [ref=e404]: UNIT 1
+            - text: Làng Gương Mặt
+          - generic [ref=e405] [cursor=pointer]: Mọi người quanh em
+          - emphasis [ref=e406] [cursor=pointer]: 0/4 mảnh chìa khóa
+        - button "Unit 2 đang khóa. Bấm để xem điều kiện mở." [ref=e410] [cursor=pointer]:
+          - generic [ref=e411]: "2"
+          - generic [ref=e417]:
+            - generic [ref=e418]: UNIT 2
+            - text: Hang Kho Báu
+          - generic [ref=e419]: Đồ vật quanh em
+        - button "Unit 3 đang khóa. Bấm để xem điều kiện mở." [ref=e420] [cursor=pointer]:
+          - generic [ref=e421]: "3"
+          - generic [ref=e427]:
+            - generic [ref=e428]: UNIT 3
+            - text: Chợ Nấm Ngọt
+          - generic [ref=e429]: Đồ ăn & thức uống
+        - button "Unit 4 đang khóa. Bấm để xem điều kiện mở." [ref=e430] [cursor=pointer]:
+          - generic [ref=e431]: "4"
+          - generic [ref=e437]:
+            - generic [ref=e438]: UNIT 4
+            - text: Hồ La Bàn
+          - generic [ref=e439]: Địa điểm & vị trí
+        - button "Unit 5 đang khóa. Bấm để xem điều kiện mở." [ref=e440] [cursor=pointer]:
+          - generic [ref=e441]: "5"
+          - generic [ref=e447]:
+            - generic [ref=e448]: UNIT 5
+            - text: Sân Rừng Vận Động
+          - generic [ref=e449]: Hành động & khả năng
+        - button "6 MỐC CUỐI Cây Trí Nhớ Đánh giá năng lực cuối Level Cần hoàn thành 5 Unit nữa" [disabled]:
+          - generic:
+            - strong: "6"
+          - generic:
+            - generic: MỐC CUỐI
+            - text: Cây Trí Nhớ
+          - generic: Đánh giá năng lực cuối Level
+          - emphasis: Cần hoàn thành 5 Unit nữa
+        - generic:
+          - img "Bạn đồng hành đầu tiên"
+          - generic:
+            - generic: Mây
+            - generic: Mình đang chờ học cùng bạn!

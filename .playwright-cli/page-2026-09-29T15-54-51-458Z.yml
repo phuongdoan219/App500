@@ -1,0 +1,42 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: E
+        - generic [ref=e6]:
+          - generic [ref=e7]: ENGLISH IN
+          - generic [ref=e8]: WONDERLAND
+      - generic [ref=e94]:
+        - generic [ref=e95]: BƯỚC 6/6 · KHỞI TẠO HÀNH TRÌNH
+        - emphasis [ref=e97]
+    - generic [ref=e288]:
+      - button "Quay lại" [ref=e289] [cursor=pointer]
+      - generic [ref=e292]:
+        - generic [ref=e293]: CHƯƠNG 4 · CÙNG NHAU TRƯỞNG THÀNH
+        - heading "Học, ôn và chăm sóc bạn đồng hành" [level=1] [ref=e299]
+        - paragraph [ref=e300]: Sau khi học xong Unit, em có thể quay lại trạm ôn tập để luyện từ vựng, ngữ pháp, nghe và nhận Xu chăm sóc.
+        - generic [ref=e301]:
+          - generic [ref=e302]:
+            - generic [ref=e303]: 📚
+            - generic [ref=e304]: Học Unit
+            - generic [ref=e305]: Thu thập chìa khóa
+          - generic [ref=e308]:
+            - generic [ref=e309]: 🧠
+            - generic [ref=e310]: Ôn tập
+            - generic [ref=e311]: Nhận Xu
+          - generic [ref=e314]:
+            - generic [ref=e315]: 🐺
+            - generic [ref=e316]: Vào Khu Vườn
+            - generic [ref=e317]: Cho ăn, chơi và trang trí
+        - generic [ref=e323]:
+          - generic [ref=e324]: Càng học, đội của em càng lớn mạnh
+          - generic [ref=e325]: Mỗi linh vật mới sẽ có hoạt động và bộ sưu tập riêng.
+        - button "Thẳng tiến tới Rừng Thì Thầm" [ref=e326] [cursor=pointer]
+      - generic [ref=e329]:
+        - img "Mây" [ref=e330]
+        - generic [ref=e331]: Xu chăm sóc
+        - generic [ref=e338]:
+          - generic [ref=e339]: Mây đã sẵn sàng!
+          - generic [ref=e340]: Cùng bắt đầu Unit đầu tiên thôi!
+  - button "Open Next.js Dev Tools" [ref=e68] [cursor=pointer]
+  - alert [ref=e72]
